@@ -1,0 +1,11 @@
+{
+  "easy": "#90EE90",
+  "medium": "#FFE452",
+  "hard": "#FF5733",
+
+  "pass": "#90EE90",
+  "fail": "#FF7F50",
+  "skip": "#C0C0C0",
+
+  "done": "#4CBB17"
+}

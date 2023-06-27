@@ -1,0 +1,13 @@
+/* 
+    ============  HIDE SCROLL-BAR ID ================= 
+*/
+
+#hideScrollBar {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+
+#hideScrollBar::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
