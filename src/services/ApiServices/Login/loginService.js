@@ -1,8 +1,9 @@
 import http from "../../httpServices/httpServices";
-import config from "../../config.json";
+import config from "../../config.js";
 import { toast } from "react-toastify";
 
-const endpoint = config.apiEndpoint;
+const endpoint = config.baseUrl;
+
 
 export async function postLogin(req) {
   try {

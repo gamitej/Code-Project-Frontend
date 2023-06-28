@@ -1,7 +1,7 @@
 import http from "../../httpServices/httpServices";
-import config from "../../config.json";
+import config from "../../config.js";
 
-const endpoint = config.apiEndpoint;
+const endpoint = config.baseUrl;
 
 export async function getSelectedTopicData(id, topic) {
   const { data } = await http.get(
