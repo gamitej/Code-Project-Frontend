@@ -104,6 +104,7 @@ const Profile = () => {
           <AdminModal
             open={open}
             form={form}
+            loading={loading}
             onClose={handleClose}
             handleOpen={handleOpen}
             handleChange={handleChange}
@@ -127,6 +128,7 @@ const Profile = () => {
 function AdminModal({
   form,
   open,
+  loading,
   onClose,
   handleOpen,
   handleChange,
@@ -176,7 +178,11 @@ function AdminModal({
               />
             ))}
           </div>
-          <LoadingButton width="50%" isLoading={true} label={"Add Question"} />
+          <LoadingButton
+            width="50%"
+            isLoading={loading}
+            label={"Add Question"}
+          />
         </form>
       </div>
     </BasicModal>
