@@ -2,6 +2,7 @@
 import ProfileMenu from "./Card/ProfileMenu";
 // button
 import BackButton from "./Button/BackButton";
+import LoadingButton from "./Button/LoadingButton";
 // dropdown
 import Dropdown from "./Dropdown/Dropdown";
 // imput
@@ -21,6 +22,7 @@ export {
   BasicModal,
   BackButton,
   ProfileMenu,
+  LoadingButton,
   InputTextField,
   FullScreenLoader,
 };

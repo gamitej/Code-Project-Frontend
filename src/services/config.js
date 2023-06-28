@@ -14,6 +14,4 @@ const config = {
   baseUrl: baseUrls[MODE],
 };
 
-console.log(MODE, config.baseUrl);
-
 export default config;

@@ -4,13 +4,19 @@ import PropTypes from "prop-types";
 // img
 import logo from "../../assests/logo-2.png";
 // comp
-import { BasicModal, InputTextField, Password } from "../../components";
+import {
+  BasicModal,
+  InputTextField,
+  LoadingButton,
+  Password,
+} from "../../components";
 // store
 import { useLogin } from "../../store/login/useLogin";
+import { Button, CircularProgress } from "@mui/material";
 
 const LoginModal = ({ open, setOpen, handleOpen, buttonLabel = "login" }) => {
   // =========== STATES ===============
-  const { callLoginApi, callSignupApi } = useLogin();
+  const { callLoginApi, callSignupApi, loading } = useLogin();
   const [form, setForm] = useState({ username: "", password: "" });
 
   // =========== EVENT HANDLERS ===============
@@ -29,7 +35,6 @@ const LoginModal = ({ open, setOpen, handleOpen, buttonLabel = "login" }) => {
     if (buttonLabel === "login") {
       const isLogin = await callLoginApi(form);
       if (isLogin) {
-        toast.success("login Successfull", { autoClose: 800 });
         reset();
       } else {
         toast.info("Wrong username / password", { autoClose: 1200 });
@@ -37,9 +42,8 @@ const LoginModal = ({ open, setOpen, handleOpen, buttonLabel = "login" }) => {
     } else {
       const isSignUp = await callSignupApi(form);
       if (isSignUp) {
-        setForm({ username: "", password: "" });
         toast.success("Sign-Up Successfull", { autoClose: 800 });
-        setOpen(false);
+        reset();
       } else {
         toast.info("Some error occurred", { autoClose: 1200 });
       }
@@ -77,12 +81,19 @@ const LoginModal = ({ open, setOpen, handleOpen, buttonLabel = "login" }) => {
             maxLength={8}
           />
           <Password value={form.password} onChange={handleChange} />
-          <button
+          {/* <button
             className="bg-red-500 hover:bg-red-600 rounded-full py-1 px-3 text-white font-semibold text-lg w-[80%]"
             type="submit"
           >
             {buttonLabel}
-          </button>
+          </button> */}
+
+          <LoadingButton
+            width="80%"
+            disabled={loading}
+            isLoading={loading}
+            label={buttonLabel}
+          />
           <br />
         </form>
       </BasicModal>

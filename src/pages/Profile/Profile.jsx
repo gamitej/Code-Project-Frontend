@@ -7,6 +7,7 @@ import {
   BasicTable,
   Dropdown,
   InputTextField,
+  LoadingButton,
 } from "../../components";
 // mui
 import { Button } from "@mui/material";
@@ -56,12 +57,19 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await postQuestion(form);
-    if (res.error) {
-      toast.success(res.message, { autoClose: 800 });
-      reset();
-    } else {
-      toast.info(res.message, { autoClose: 800 });
+    setLoading(true);
+    try {
+      const res = await postQuestion(form);
+      if (res.error) {
+        toast.success(res.message, { autoClose: 800 });
+        reset();
+      } else {
+        toast.info(res.message, { autoClose: 800 });
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -168,9 +176,7 @@ function AdminModal({
               />
             ))}
           </div>
-          <Button type="submit" variant="contained">
-            Add question
-          </Button>
+          <LoadingButton width="50%" isLoading={true} label={"Add Question"} />
         </form>
       </div>
     </BasicModal>
