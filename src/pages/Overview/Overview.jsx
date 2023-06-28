@@ -25,7 +25,7 @@ const Overview = () => {
 
   // ============= EVENT-HANDLERS ====================
 
-  // ========= CALL ALL PINS API =============
+  // ============= CALL ALL PINS API =================
 
   useEffect(() => {
     const callApi = async () => {
