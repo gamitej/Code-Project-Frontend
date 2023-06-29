@@ -19,7 +19,7 @@ export const useLogin = create((set) => ({
   callLoginApi: async (req) => {
     set((state) => ({ ...state, loading: true }));
     const data = await postLogin(req);
-    if (data.message === "success") {
+    if (!data.error) {
       setUser(req.username);
       setUserId(data.id);
       set((state) => ({

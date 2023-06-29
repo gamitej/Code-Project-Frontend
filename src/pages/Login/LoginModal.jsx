@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { toast } from "react-toastify";
 import PropTypes from "prop-types";
+import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 // img
 import logo from "../../assests/logo-2.png";
 // comp
@@ -12,7 +12,6 @@ import {
 } from "../../components";
 // store
 import { useLogin } from "../../store/login/useLogin";
-import { Button, CircularProgress } from "@mui/material";
 
 const LoginModal = ({ open, setOpen, handleOpen, buttonLabel = "login" }) => {
   // =========== STATES ===============
@@ -38,18 +37,19 @@ const LoginModal = ({ open, setOpen, handleOpen, buttonLabel = "login" }) => {
       // LOGIN API CALL
       const isLogin = await callLoginApi(form);
       if (!isLogin.error) {
+        toast.success(isLogin.message, { duration: 1200 });
         reset();
       } else {
-        toast.info(isLogin.message, { autoClose: 1200 });
+        toast.error(isLogin.message, { duration: 1200 });
       }
     } else {
       // SIGNUP API CALL
       const isSignUp = await callSignupApi(form);
       if (!isSignUp.error) {
-        toast.success(isSignUp.message, { autoClose: 800 });
+        toast.error(isSignUp.message, { duration: 1200 });
         reset();
       } else {
-        toast.info(error.message, { autoClose: 1200 });
+        toast.error(error.message, { duration: 1200 });
       }
     }
   };

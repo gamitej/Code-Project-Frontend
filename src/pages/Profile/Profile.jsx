@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 // comp
 import {
   BackButton,
@@ -15,6 +14,7 @@ import { Button } from "@mui/material";
 import { inputData } from "./data";
 // services
 import { getProfileDropdowns, postQuestion } from "../../services";
+import { toast } from "react-hot-toast";
 
 const Profile = () => {
   // =================== USE-STATE =====================
@@ -61,10 +61,10 @@ const Profile = () => {
     try {
       const res = await postQuestion(form);
       if (res.error) {
-        toast.success(res.message, { autoClose: 800 });
+        toast.success(res.message, { duration: 1200 });
         reset();
       } else {
-        toast.info(res.message, { autoClose: 800 });
+        toast.error(res.message, { duration: 1200 });
       }
     } catch (error) {
       console.log(error);
@@ -154,7 +154,7 @@ function AdminModal({
           {inputData?.map(({ name, label, placeholder }, index) => (
             <InputTextField
               size="small"
-              key={index} 
+              key={index}
               name={name}
               label={label}
               value={form[name]}
