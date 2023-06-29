@@ -154,13 +154,14 @@ function AdminModal({
           {inputData?.map(({ name, label, placeholder }, index) => (
             <InputTextField
               size="small"
-              key={index}
+              key={index} 
               name={name}
               label={label}
               value={form[name]}
               placeholder={placeholder}
               onChange={(e) => handleChange(e.target)}
               width="85%"
+              maxLength={150}
             />
           ))}
           <div className="w-[90%] flex justify-between items-center">

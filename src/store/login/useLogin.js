@@ -19,6 +19,7 @@ export const useLogin = create((set) => ({
   callLoginApi: async (req) => {
     set((state) => ({ ...state, loading: true }));
     const data = await postLogin(req);
+    console.log(data);
     if (data.msg === "success") {
       setUser(req.username);
       setUserId(data.id);
@@ -29,10 +30,10 @@ export const useLogin = create((set) => ({
         user: req.username,
         userId: data.id,
       }));
-      return true;
+      return data;
     } else {
       set((state) => ({ ...state, loading: false }));
-      return false;
+      return data;
     }
   },
   // signup api call

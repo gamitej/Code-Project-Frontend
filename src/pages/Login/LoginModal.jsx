@@ -30,22 +30,26 @@ const LoginModal = ({ open, setOpen, handleOpen, buttonLabel = "login" }) => {
     setOpen(false);
   };
 
+  // API CALL
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (buttonLabel === "login") {
+      // LOGIN API CALL
       const isLogin = await callLoginApi(form);
-      if (isLogin) {
+      if (!isLogin.error) {
         reset();
       } else {
-        toast.info("Wrong username / password", { autoClose: 1200 });
+        toast.info(isLogin.message, { autoClose: 1200 });
       }
     } else {
+      // SIGNUP API CALL
       const isSignUp = await callSignupApi(form);
-      if (isSignUp) {
-        toast.success("Sign-Up Successfull", { autoClose: 800 });
+      if (!isSignUp.error) {
+        toast.success(isSignUp.message, { autoClose: 800 });
         reset();
       } else {
-        toast.info("Some error occurred", { autoClose: 1200 });
+        toast.info(error.message, { autoClose: 1200 });
       }
     }
   };

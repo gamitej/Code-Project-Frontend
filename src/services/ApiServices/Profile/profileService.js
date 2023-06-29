@@ -17,6 +17,7 @@ export async function getProfileDropdowns() {
     const { data } = await http.get(`${endpoint}/profile/dropdown-data`);
     return data;
   } catch (error) {
-    console.log(error, error.message);
+    const data = error.response.data.message;
+    return { data: data, error: true };
   }
 }
