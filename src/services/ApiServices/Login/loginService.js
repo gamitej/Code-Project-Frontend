@@ -6,7 +6,6 @@ const endpoint = config.baseUrl;
 export async function postLogin(req) {
   try {
     const { data } = await http.post(`${endpoint}/login`, req);
-    console.log(data, "sd");
     return data;
   } catch (error) {
     const data = error.response.data.message;

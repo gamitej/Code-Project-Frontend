@@ -12,7 +12,6 @@ import {
 } from "../../components";
 // store
 import { useLogin } from "../../store/login/useLogin";
-import { Button, CircularProgress } from "@mui/material";
 
 const LoginModal = ({ open, setOpen, handleOpen, buttonLabel = "login" }) => {
   // =========== STATES ===============
