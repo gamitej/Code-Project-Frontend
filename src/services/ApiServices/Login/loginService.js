@@ -1,6 +1,5 @@
 import http from "../../httpServices/httpServices";
 import config from "../../config.js";
-import { toast } from "react-toastify";
 
 const endpoint = config.baseUrl;
 

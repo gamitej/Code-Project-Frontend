@@ -1,17 +1,16 @@
 import { Suspense } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 // comp
 import Navbar from "./pages/Navbar/Navbar";
 
 import BasicRouter from "./routes/BasicRouter";
 import { Backdrop, CircularProgress } from "@mui/material";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <div>
-      <ToastContainer />
+      <Toaster position="top-center" reverseOrder={false} />
       {/* Navbar */}
       <Navbar />
       {/* Routes */}
