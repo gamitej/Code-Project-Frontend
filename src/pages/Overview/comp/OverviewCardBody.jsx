@@ -5,6 +5,7 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 // utils
 import colorCode from "../../../utils/colorCode.json";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const OverviewCardBody = ({
   cardType,
@@ -13,27 +14,32 @@ const OverviewCardBody = ({
 }) => {
   // ============== EVENT-HANDLER ==================
   const handleMark = (id, value) => {
-    setCardData((prevCards) => {
-      const updatedCards = prevCards.map((card) => {
-        if (card.cardType === cardType) {
-          const updatedBody = card.body.map((item) => {
-            if (item.id === id) {
-              return {
-                ...item,
-                solved: !value,
-              };
-            }
-            return item;
-          });
-          return {
-            ...card,
-            body: updatedBody,
-          };
-        }
-        return card;
+    if (value === false) {
+      setCardData((prevCards) => {
+        const updatedCards = prevCards.map((card) => {
+          if (card.cardType === cardType) {
+            const updatedBody = card.body.map((item) => {
+              if (item.id === id) {
+                return {
+                  ...item,
+                  completed: !value,
+                };
+              }
+              return item;
+            });
+            return {
+              ...card,
+              body: updatedBody,
+            };
+          }
+          return card;
+        });
+        return updatedCards;
       });
-      return updatedCards;
-    });
+      toast.success("Marked as done", { duration: 1200 });
+    } else {
+      toast.error("Already marked as done", { duration: 1200 });
+    }
   };
 
   const getColor = (solved) => {

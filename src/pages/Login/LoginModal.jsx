@@ -46,7 +46,7 @@ const LoginModal = ({ open, setOpen, handleOpen, buttonLabel = "login" }) => {
       // SIGNUP API CALL
       const isSignUp = await callSignupApi(form);
       if (!isSignUp.error) {
-        toast.error(isSignUp.message, { duration: 1200 });
+        toast.success(isSignUp.message, { duration: 1200 });
         reset();
       } else {
         toast.error(error.message, { duration: 1200 });
