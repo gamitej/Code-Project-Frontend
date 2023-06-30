@@ -49,9 +49,9 @@ const Home = () => {
       </p>
       <div className="flex justify-center items-center">
         <div className="grid  grid-cols-1  md:grid-cols-4 lg:grid-cols-6  gap-10 w-[80%] ">
-          {topics?.map(({ title, total, solved, per }, index) => (
+          {topics?.map(({ title, total, solved, urlTitle }, index) => (
             <NavLink
-              to={`/explore/${title.toLowerCase()}`}
+              to={`/explore/${urlTitle}`}
               className="h-[20rem] col-span-2 rounded-lg shadow-xl  bg-white p-2 hover:shadow-red-200 transform transition-all hover:scale-105 cursor-pointer"
               key={index}
             >
