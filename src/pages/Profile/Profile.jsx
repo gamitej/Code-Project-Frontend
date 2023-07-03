@@ -15,8 +15,10 @@ import { inputData } from "./data";
 // services
 import { getProfileDropdowns, postQuestion } from "../../services";
 import { toast } from "react-hot-toast";
+import { useLogin } from "../../store/login/useLogin";
 
 const Profile = () => {
+  const { user } = useLogin();
   // =================== USE-STATE =====================
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -93,8 +95,8 @@ const Profile = () => {
   return (
     <div className="w-full h-full m-auto">
       <div className="relative h-[5rem] flex justify-center items-center">
-        <h1 className="text-3xl font-semibold text-purple-400 underline">
-          Amitej Pratap Singh
+        <h1 className="text-3xl font-semibold text-purple-400 underline capitalize">
+          {user}
         </h1>
         <BackButton className="absolute top-4 left-4" color="black" />
         <div className="absolute top-4 right-4">
