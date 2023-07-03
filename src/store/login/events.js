@@ -20,6 +20,10 @@ export const removeUser = () => {
   window.sessionStorage.removeItem(userlabel);
 };
 
+export const getUserName = () => {
+  const user = window.sessionStorage.getItem(userlabel);
+  return user;
+};
 // ============== USER-ID ==================
 
 export const getUserId = () => {

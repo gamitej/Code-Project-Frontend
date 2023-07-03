@@ -2,10 +2,10 @@ import { create } from "zustand";
 // api call
 import { postLogin, postSignup } from "../../services";
 // session storage
-import { getUser, getUserId, removeUser, setUser, setUserId } from "./events";
+import { getUser, getUserId, getUserName, removeUser, setUser, setUserId } from "./events";
 
 export const useLogin = create((set) => ({
-  user: "",
+  user: getUserName() || "",
   userId: getUserId() || "",
   loading: false,
   isLoggined: getUser() || false,

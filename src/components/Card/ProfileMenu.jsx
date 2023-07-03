@@ -1,8 +1,9 @@
 import React from "react";
-import { useLogin } from "../../store/login/useLogin";
-import { IconButton, Menu, MenuItem } from "@mui/material";
-import { AccountCircle } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
+// store
+import { useLogin } from "../../store/login/useLogin";
+// mui
+import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
 
 const ProfileMenu = () => {
   const { isLoggined, setLogout } = useLogin();
@@ -34,7 +35,7 @@ const ProfileMenu = () => {
             onClick={handleMenu}
             color="primary"
           >
-            <AccountCircle sx={{ fontSize: "2rem" }} />
+            <Avatar src="" />
           </IconButton>
           <Menu
             id="menu-appbar"
