@@ -9,17 +9,15 @@ import { getAllTopics } from "../../services/ApiServices/Home/homeService";
 import logo from "../../assests/bg.jpg";
 import FullScreenLoader from "../../components/Loading/FullScreenLoader";
 import { useLogin } from "../../store/login/useLogin";
+// comp
+import { Error } from "../../components";
 
 const Home = () => {
   const { userId } = useLogin();
   // ========= USE-STATES =============
   const [topics, setTopics] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  // const handleDate = (date) => {
-  //   const newDate = moment(date).format("DD-MM-YYYY");
-  //   return newDate;
-  // };
+  const [isError, setIsError] = useState(false);
 
   // ========= CALL ALL PINS API =============
 
@@ -31,6 +29,7 @@ const Home = () => {
         setTopics(data);
       } catch (error) {
         console.log(error);
+        setIsError(true);
       } finally {
         setLoading(false);
       }
@@ -40,6 +39,17 @@ const Home = () => {
 
   if (loading) {
     return <FullScreenLoader open={loading} title="loading content" />;
+  }
+
+  if (isError) {
+    return (
+      <div className="h-[calc(100vh-5rem)] bg-[#F7F8FA] p-2">
+        <p className="text-[2rem] font-semibold text-slate-500 text-center p-2 mb-4 font-sans">
+          Explore
+        </p>
+        <Error />
+      </div>
+    );
   }
 
   return (

@@ -5,7 +5,7 @@ import { getSelectedTopicData, markQuestion } from "../../services";
 // data
 import { stateObj } from "./comp/data";
 // comp
-import { BackButton, FullScreenLoader } from "../../components";
+import { BackButton, Error, FullScreenLoader } from "../../components";
 import OverviewCardBody from "./comp/OverviewCardBody";
 // mui
 import { Divider } from "@mui/material";
@@ -21,6 +21,7 @@ const Overview = () => {
   // ============= USE-STATE =========================
   const [filters, setFilters] = useState(stateObj || {});
   const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [cardData, setCardData] = useState([]);
 
   // ============= EVENT-HANDLERS ====================
@@ -35,6 +36,7 @@ const Overview = () => {
         setCardData(data);
       } catch (error) {
         console.log(error);
+        setIsError(true);
       } finally {
         setLoading(false);
       }
@@ -48,6 +50,24 @@ const Overview = () => {
 
   if (loading) {
     return <FullScreenLoader open={loading} title="loading questions" />;
+  }
+
+  if (isError) {
+    return (
+      <div className="bg-slate-100 h-[calc(100vh-5rem)]">
+        <div className="relative bg-blue-300 flex justify-center items-center h-[10rem]">
+          <h2 className="text-4xl font-semibold text-white capitalize">
+            {name}
+          </h2>
+          <BackButton
+            to="/"
+            title="Back to explore"
+            className="absolute top-2 left-4 "
+          />
+        </div>
+        <Error />
+      </div>
+    );
   }
 
   return (

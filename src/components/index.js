@@ -3,6 +3,8 @@ import ProfileMenu from "./Card/ProfileMenu";
 // button
 import BackButton from "./Button/BackButton";
 import LoadingButton from "./Button/LoadingButton";
+// error
+import Error from "./Error/Error";
 // dropdown
 import Dropdown from "./Dropdown/Dropdown";
 // imput
@@ -17,6 +19,7 @@ import BasicTable from "./Table/BasicTable";
 
 export {
   Dropdown,
+  Error,
   Password,
   BasicTable,
   BasicModal,

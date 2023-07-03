@@ -78,7 +78,7 @@ const OverviewCardBody = ({
               </Link>
             </p>
             <p
-              className="col-span-2 text-slate-400 m-auto"
+              className="col-span-2 text-slate-400 m-auto capitalize"
               style={{
                 color: getColor(completed),
               }}
