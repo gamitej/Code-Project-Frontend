@@ -1,8 +1,6 @@
 import React from "react";
 import { MaterialReactTable } from "material-react-table";
-import { Box, Button, Toolbar, Typography } from "@mui/material";
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import { ExportToCsv } from "export-to-csv"; //or use your library of choice here
+import { Box, Typography } from "@mui/material";
 
 const borderRadius = "0.5rem";
 const border = "0.1rem solid lightgray";
@@ -14,7 +12,6 @@ const BasicTable = ({
   columns = [],
   isLoading = false,
   enableFullScreen = false,
-  enableDowloadCsv = false,
 }) => {
   return (
     <MaterialReactTable
@@ -37,33 +34,13 @@ const BasicTable = ({
       muiTableBodyCellProps={{
         sx: { fontSize: "0.9rem", whiteSpace: "pre" },
       }}
-      renderTopToolbarCustomActions={() => (
-        <TableToolBar
-          title={title}
-          rows={rows}
-          enableDowloadCsv={enableDowloadCsv}
-          columns={columns}
-        />
-      )}
+      renderTopToolbarCustomActions={() => <TableToolBar title={title} />}
+      
     />
   );
 };
 
-function TableToolBar({ title, rows, enableDowloadCsv, columns }) {
-  const csvOptions = {
-    fieldSeparator: ",",
-    quoteStrings: '"',
-    decimalSeparator: ".",
-    showLabels: true,
-    useBom: true,
-    useKeysAsHeaders: false,
-    headers: columns.map((c) => c.header),
-  };
-
-  const csvExporter = new ExportToCsv(csvOptions);
-  const handleExportData = () => {
-    csvExporter.generateCsv(rows);
-  };
+function TableToolBar({ title }) {
   return (
     <Box
       display="flex"
@@ -76,17 +53,6 @@ function TableToolBar({ title, rows, enableDowloadCsv, columns }) {
       <Typography fontSize="1rem" fontWeight="bold" textTransform="uppercase">
         {title}
       </Typography>
-      {enableDowloadCsv && (
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={handleExportData}
-          sx={{ fontSize: ".8rem" }}
-          startIcon={<FileDownloadIcon />}
-        >
-          Export Data
-        </Button>
-      )}
     </Box>
   );
 }

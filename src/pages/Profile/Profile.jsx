@@ -1,17 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 // comp
-import {
-  BackButton,
-  BasicModal,
-  BasicTable,
-  Dropdown,
-  InputTextField,
-  LoadingButton,
-} from "../../components";
+import { BackButton, BasicTable } from "../../components";
 // mui
-import { Button } from "@mui/material";
-// data
-import { inputData } from "./data";
+import { Button, Chip } from "@mui/material";
 // services
 import {
   getProfileDropdowns,
@@ -20,6 +11,10 @@ import {
 } from "../../services";
 import { toast } from "react-hot-toast";
 import { useLogin } from "../../store/login/useLogin";
+import AdminModal from "./AdminModal";
+import { Link } from "react-router-dom";
+import colorCode from "../../utils/colorCode.json";
+import { MaterialReactTable } from "material-react-table";
 
 const Profile = () => {
   const { user, userId } = useLogin();
@@ -108,6 +103,84 @@ const Profile = () => {
     callGetTableData();
   }, []);
 
+  const columns = useMemo(
+    () => [
+      {
+        id: "topic",
+        header: "Topic",
+        accessorFn: (row) => row.topic,
+        size: 40,
+      },
+      {
+        id: "question",
+        header: "Question",
+        accessorFn: (row) => row.question,
+        size: 150,
+      },
+      {
+        id: "url",
+        header: "Url",
+        Cell: (row) => (
+          <Link
+            target="_blank"
+            to={row.renderedCellValue}
+            className="text-blue-500 underline cursor-pointer hover:text-blue-700"
+          >
+            Click here!
+          </Link>
+        ),
+        size: 120,
+        accessorFn: (row) => row.url,
+      },
+      {
+        id: "level",
+        header: "Level",
+        accessorFn: (row) => row.level,
+        size: 40,
+        Cell: ({ row }) => {
+          const level = row.original.level;
+          return (
+            <Chip
+              label={level}
+              sx={{
+                width: "5rem",
+                backgroundColor: colorCode[level],
+                textTransform: "capitalize",
+                fontWeight: "bold",
+              }}
+            />
+          );
+        },
+      },
+      {
+        id: "platform",
+        header: "Platform",
+        accessorFn: (row) => row.platform,
+        size: 40,
+      },
+      {
+        id: "done",
+        header: "Done",
+        Cell: ({ row }) => (
+          <p
+            className="font-semibold"
+            style={{
+              color:
+                row.original.done === "Yes"
+                  ? colorCode["pass"]
+                  : colorCode["fail"],
+            }}
+          >
+            {row.original.done}
+          </p>
+        ),
+        accessorFn: (row) => row.done,
+        size: 40,
+      },
+    ],
+    []
+  );
+
   return (
     <div className="w-full h-full m-auto">
       <div className="relative h-[5rem] flex justify-center items-center">
@@ -131,83 +204,47 @@ const Profile = () => {
           />
         </div>
       </div>
-      <div className="w-[90%] m-auto">
+      <div className="w-[70%] m-auto">
         <BasicTable
           height={600}
           title="questions"
-          enableDowloadCsv
           isLoading={loading}
-          rows={tableData?.rows || []}
-          columns={tableData?.columns || []}
+          rows={tableData.rows || []}
+          columns={columns || []}
         />
       </div>
     </div>
   );
 };
 
-function AdminModal({
-  form,
-  open,
-  loading,
-  onClose,
-  handleOpen,
-  handleChange,
-  handleSubmit,
-  dropDownData = [],
-}) {
-  return (
-    <BasicModal
-      height="25rem"
-      width="40rem"
-      open={open}
-      onClose={onClose}
-      handleOpen={handleOpen}
-    >
-      <div className="p-4 flex flex-col justify-center items-center w-full h-full">
-        <p className="text-purple-500 font-semibold text-2xl underline select-none mb-8">
-          Add Questions
-        </p>
-        <form
-          className="flex flex-col justify-around items-center h-[90%] w-full"
-          onSubmit={handleSubmit}
+function convertRowData(row) {
+  const newRow = row?.map((item) => {
+    const { url, done } = item;
+    console.log(url, item);
+    return {
+      ...item,
+      url: (
+        <Link
+          target="_blank"
+          to={url}
+          className="text-blue-400 underline cursor-pointer hover:text-blue-700"
         >
-          {inputData?.map(({ name, label, placeholder }, index) => (
-            <InputTextField
-              size="small"
-              key={index}
-              name={name}
-              label={label}
-              value={form[name]}
-              placeholder={placeholder}
-              onChange={(e) => handleChange(e.target)}
-              width="85%"
-              maxLength={150}
-            />
-          ))}
-          <div className="w-[90%] flex justify-between items-center">
-            {dropDownData?.map(({ options, id, name, label }, index) => (
-              <Dropdown
-                size="small"
-                id={id}
-                name={name}
-                key={index}
-                label={label}
-                width="10rem"
-                options={options}
-                value={form[name]}
-                onChange={handleChange}
-              />
-            ))}
-          </div>
-          <LoadingButton
-            width="50%"
-            isLoading={loading}
-            label={"Add Question"}
-          />
-        </form>
-      </div>
-    </BasicModal>
-  );
+          Click here!
+        </Link>
+      ),
+      done: (
+        <p
+          className="font-semibold"
+          style={{
+            color: done === "Yes" ? colorCode["pass"] : colorCode["fail"],
+          }}
+        >
+          {done}
+        </p>
+      ),
+    };
+  });
+  return newRow;
 }
 
 export default Profile;
