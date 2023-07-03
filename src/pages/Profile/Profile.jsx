@@ -61,6 +61,7 @@ const Profile = () => {
   const reset = () => {
     setOpen(false);
   };
+  // ==================== CALL API'S ===================
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,7 +81,6 @@ const Profile = () => {
     }
   };
 
-  // ========= CALL ALL PINS API =============
   const callGetProfileDropdownApi = async () => {
     try {
       const { data } = await getProfileDropdowns();
@@ -100,6 +100,8 @@ const Profile = () => {
       setLoading(false);
     }
   };
+
+  // ==================== USE-EFFECT-HOOKS ===================
 
   useEffect(() => {
     callGetProfileDropdownApi();
@@ -131,7 +133,7 @@ const Profile = () => {
       </div>
       <div className="w-[90%] m-auto">
         <BasicTable
-          height={"30rem"}
+          height={600}
           title="questions"
           enableDowloadCsv
           isLoading={loading}
