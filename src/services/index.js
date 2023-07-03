@@ -3,7 +3,10 @@ import { postLogin, postSignup } from "./ApiServices/Login/loginService";
 // home
 import { getAllTopics } from "./ApiServices/Home/homeService";
 // overview
-import { getSelectedTopicData } from "./ApiServices/Overview/overviewService";
+import {
+  getSelectedTopicData,
+  markQuestion,
+} from "./ApiServices/Overview/overviewService";
 // profile
 import {
   postQuestion,
@@ -16,5 +19,6 @@ export {
   postQuestion,
   getAllTopics,
   getSelectedTopicData,
+  markQuestion,
   getProfileDropdowns,
 };
