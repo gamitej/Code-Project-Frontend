@@ -52,7 +52,7 @@ const Overview = () => {
     return <FullScreenLoader open={loading} title="loading questions" />;
   }
 
-  if (isError) {
+  if (true) {
     return (
       <div className="bg-slate-100 h-[calc(100vh-5rem)]">
         <div className="relative bg-blue-300 flex justify-center items-center h-[10rem]">

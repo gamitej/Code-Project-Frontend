@@ -1,13 +1,15 @@
-// card
-import ProfileMenu from "./Card/ProfileMenu";
 // button
 import BackButton from "./Button/BackButton";
 import LoadingButton from "./Button/LoadingButton";
-// error
-import Error from "./Error/Error";
+// card
+import ProfileMenu from "./Card/ProfileMenu";
+// divider
+import BasicDivider from "./Divider/BasicDivider";
 // dropdown
 import Dropdown from "./Dropdown/Dropdown";
-// imput
+// error
+import Error from "./Error/Error";
+// input
 import InputTextField from "./Input/InputTextField";
 import Password from "./Input/Password";
 // loading
@@ -19,6 +21,7 @@ import BasicTable from "./Table/BasicTable";
 
 export {
   Dropdown,
+  BasicDivider,
   Error,
   Password,
   BasicTable,

@@ -1,3 +1,4 @@
+import { BasicDivider } from "../../components";
 import React from "react";
 
 const Error = ({ title = "Error", text = "Unable to fetch data" }) => {
@@ -7,6 +8,7 @@ const Error = ({ title = "Error", text = "Unable to fetch data" }) => {
         <p className="text-4xl font-semibold text-red-400 flex justify-center items-center gap-x-4">
           {title}
         </p>
+        <BasicDivider />
         <p className="text-3xl font-semibold text-red-400">{text}</p>
       </div>
     </div>
