@@ -11,6 +11,7 @@ import {
 import {
   postQuestion,
   getProfileDropdowns,
+  getTableData,
 } from "./ApiServices/Profile/profileService";
 
 export {
@@ -21,4 +22,5 @@ export {
   getSelectedTopicData,
   markQuestion,
   getProfileDropdowns,
+  getTableData,
 };

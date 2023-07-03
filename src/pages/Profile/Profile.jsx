@@ -13,12 +13,16 @@ import { Button } from "@mui/material";
 // data
 import { inputData } from "./data";
 // services
-import { getProfileDropdowns, postQuestion } from "../../services";
+import {
+  getProfileDropdowns,
+  getTableData,
+  postQuestion,
+} from "../../services";
 import { toast } from "react-hot-toast";
 import { useLogin } from "../../store/login/useLogin";
 
 const Profile = () => {
-  const { user } = useLogin();
+  const { user, userId } = useLogin();
   // =================== USE-STATE =====================
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -30,6 +34,7 @@ const Profile = () => {
     question: "",
     topic: "",
   });
+  const [tableData, setTableData] = useState({});
 
   // =================== EVENT-HANDLERS ================
 
@@ -56,6 +61,7 @@ const Profile = () => {
   const reset = () => {
     setOpen(false);
   };
+  // ==================== CALL API'S ===================
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -75,12 +81,19 @@ const Profile = () => {
     }
   };
 
-  // ========= CALL ALL PINS API =============
   const callGetProfileDropdownApi = async () => {
     try {
-      setLoading(true);
       const { data } = await getProfileDropdowns();
       setDropDownData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const callGetTableData = async () => {
+    try {
+      setLoading(true);
+      const { data } = await getTableData(userId);
+      setTableData(data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -88,8 +101,11 @@ const Profile = () => {
     }
   };
 
+  // ==================== USE-EFFECT-HOOKS ===================
+
   useEffect(() => {
     callGetProfileDropdownApi();
+    callGetTableData();
   }, []);
 
   return (
@@ -117,10 +133,12 @@ const Profile = () => {
       </div>
       <div className="w-[90%] m-auto">
         <BasicTable
-          height={"30rem"}
+          height={600}
           title="questions"
           enableDowloadCsv
-          isLoading={false}
+          isLoading={loading}
+          rows={tableData?.rows || []}
+          columns={tableData?.columns || []}
         />
       </div>
     </div>
