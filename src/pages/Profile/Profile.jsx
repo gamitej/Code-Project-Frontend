@@ -13,12 +13,16 @@ import { Button } from "@mui/material";
 // data
 import { inputData } from "./data";
 // services
-import { getProfileDropdowns, postQuestion } from "../../services";
+import {
+  getProfileDropdowns,
+  getTableData,
+  postQuestion,
+} from "../../services";
 import { toast } from "react-hot-toast";
 import { useLogin } from "../../store/login/useLogin";
 
 const Profile = () => {
-  const { user } = useLogin();
+  const { user, userId } = useLogin();
   // =================== USE-STATE =====================
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -30,6 +34,7 @@ const Profile = () => {
     question: "",
     topic: "",
   });
+  const [tableData, setTableData] = useState({});
 
   // =================== EVENT-HANDLERS ================
 
@@ -78,9 +83,17 @@ const Profile = () => {
   // ========= CALL ALL PINS API =============
   const callGetProfileDropdownApi = async () => {
     try {
-      setLoading(true);
       const { data } = await getProfileDropdowns();
       setDropDownData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const callGetTableData = async () => {
+    try {
+      setLoading(true);
+      const { data } = await getTableData(userId);
+      setTableData(data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -90,6 +103,7 @@ const Profile = () => {
 
   useEffect(() => {
     callGetProfileDropdownApi();
+    callGetTableData();
   }, []);
 
   return (
@@ -120,7 +134,9 @@ const Profile = () => {
           height={"30rem"}
           title="questions"
           enableDowloadCsv
-          isLoading={false}
+          isLoading={loading}
+          rows={tableData?.rows || []}
+          columns={tableData?.columns || []}
         />
       </div>
     </div>

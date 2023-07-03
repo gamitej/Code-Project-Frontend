@@ -57,7 +57,7 @@ const Home = () => {
         <div className="grid  grid-cols-1  md:grid-cols-4 lg:grid-cols-6  gap-10 w-[80%] ">
           {/* Card loading skeleton */}
           {loading &&
-            [1, 2].map((index) => (
+            [1, 2, 3].map((index) => (
               <LoadingSkeleton key={index} className="col-span-2 mt-5" />
             ))}
           {/* Card Comp */}

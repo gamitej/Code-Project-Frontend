@@ -3,41 +3,6 @@ import { MaterialReactTable } from "material-react-table";
 import { Box, Button, Toolbar, Typography } from "@mui/material";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { ExportToCsv } from "export-to-csv"; //or use your library of choice here
-// import { data } from "./makeData";
-
-//defining columns outside of the component is fine, is stable
-const columns = [
-  {
-    accessorKey: "sno",
-    header: "S.no",
-    size: 40,
-  },
-  {
-    accessorKey: "level",
-    header: "Level",
-    size: 40,
-  },
-  {
-    accessorKey: "question",
-    header: "Question",
-    size: 220,
-  },
-  {
-    accessorKey: "url",
-    header: "Question Link",
-    size: 220,
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    size: 40,
-  },
-  {
-    accessorKey: "platform",
-    header: "Platform",
-    size: 40,
-  },
-];
 
 const borderRadius = "0.5rem";
 const border = "0.1rem solid lightgray";
@@ -46,6 +11,7 @@ const BasicTable = ({
   title = "",
   height,
   rows = [],
+  columns = [],
   isLoading = false,
   enableFullScreen = false,
   enableDowloadCsv = false,
@@ -76,13 +42,14 @@ const BasicTable = ({
           title={title}
           rows={rows}
           enableDowloadCsv={enableDowloadCsv}
+          columns={columns}
         />
       )}
     />
   );
 };
 
-function TableToolBar({ title, rows, enableDowloadCsv }) {
+function TableToolBar({ title, rows, enableDowloadCsv, columns }) {
   const csvOptions = {
     fieldSeparator: ",",
     quoteStrings: '"',
