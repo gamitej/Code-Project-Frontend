@@ -14,6 +14,7 @@ import InputTextField from "./Input/InputTextField";
 import Password from "./Input/Password";
 // loading
 import FullScreenLoader from "./Loading/FullScreenLoader";
+import LoadingSkeleton from "./Loading/LoadingSkeleton";
 // modal
 import BasicModal from "./Modal/BasicModal";
 // table
@@ -29,6 +30,7 @@ export {
   BackButton,
   ProfileMenu,
   LoadingButton,
+  LoadingSkeleton,
   InputTextField,
   FullScreenLoader,
 };

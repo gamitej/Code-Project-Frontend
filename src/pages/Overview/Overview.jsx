@@ -5,7 +5,12 @@ import { getSelectedTopicData, markQuestion } from "../../services";
 // data
 import { stateObj } from "./comp/data";
 // comp
-import { BackButton, Error, FullScreenLoader } from "../../components";
+import {
+  BackButton,
+  Error,
+  FullScreenLoader,
+  LoadingSkeleton,
+} from "../../components";
 import OverviewCardBody from "./comp/OverviewCardBody";
 // mui
 import { Divider } from "@mui/material";
@@ -48,10 +53,6 @@ const Overview = () => {
     const data = await markQuestion(userId, question_id);
   };
 
-  if (loading) {
-    return <FullScreenLoader open={loading} title="loading questions" />;
-  }
-
   if (isError) {
     return (
       <div className="bg-slate-100 h-[calc(100vh-5rem)]">
@@ -82,30 +83,41 @@ const Overview = () => {
       </div>
       <div className="w-[95%] mt-10 m-auto grid grid-cols-3 lg:grid-cols-9 md:grid-cols-6 gap-4">
         {/* Card */}
-        {cardData?.map(({ cardTitle, cardType, body }, index) => (
-          <div
-            key={index}
-            className="col-span-3 shadow-md rounded-xl min-w-[20rem] h-[22rem] bg-white"
-          >
-            {/* Card Header */}
-            <OverviewCardHeader
-              filters={filters}
-              cardType={cardType}
-              cardTitle={cardTitle}
-              setFilters={setFilters}
-              setCardData={setCardData}
-              color={colorCode[cardType]}
+        {/* Card loading skeleton */}
+        {loading &&
+          [1, 2, 3].map((index) => (
+            <LoadingSkeleton
+              page="overview"
+              className="col-span-3"
+              key={index}
             />
-            <Divider />
-            {/* Card Body */}
-            <OverviewCardBody
-              cardType={cardType}
-              cardBodyData={body}
-              setCardData={setCardData}
-              callMarkQuestionApi={callMarkQuestionApi}
-            />
-          </div>
-        ))}
+          ))}
+        {/* Card Comp */}
+        {!loading &&
+          cardData?.map(({ cardTitle, cardType, body }, index) => (
+            <div
+              key={index}
+              className="col-span-3 shadow-md rounded-xl min-w-[20rem] h-[22rem] bg-white"
+            >
+              {/* Card Header */}
+              <OverviewCardHeader
+                filters={filters}
+                cardType={cardType}
+                cardTitle={cardTitle}
+                setFilters={setFilters}
+                setCardData={setCardData}
+                color={colorCode[cardType]}
+              />
+              <Divider />
+              {/* Card Body */}
+              <OverviewCardBody
+                cardType={cardType}
+                cardBodyData={body}
+                setCardData={setCardData}
+                callMarkQuestionApi={callMarkQuestionApi}
+              />
+            </div>
+          ))}
       </div>
     </div>
   );
