@@ -11,15 +11,20 @@ const OverviewCardBody = ({
   cardType,
   cardBodyData = [],
   setCardData = () => {},
+  callMarkQuestionApi = () => {},
 }) => {
   // ============== EVENT-HANDLER ==================
-  const handleMark = (id, value) => {
+
+  const handleMark = (que_id, value) => {
     if (value === false) {
+      // api call
+      callMarkQuestionApi(que_id);
+      // updating json
       setCardData((prevCards) => {
         const updatedCards = prevCards.map((card) => {
           if (card.cardType === cardType) {
             const updatedBody = card.body.map((item) => {
-              if (item.id === id) {
+              if (item.id === que_id) {
                 return {
                   ...item,
                   completed: !value,

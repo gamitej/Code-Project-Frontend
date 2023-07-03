@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 // api
-import { getSelectedTopicData } from "../../services";
+import { getSelectedTopicData, markQuestion } from "../../services";
 // data
 import { stateObj } from "./comp/data";
 // comp
@@ -42,6 +42,10 @@ const Overview = () => {
     callApi();
   }, []);
 
+  const callMarkQuestionApi = async (question_id) => {
+    const data = await markQuestion(userId, question_id);
+  };
+
   if (loading) {
     return <FullScreenLoader open={loading} title="loading questions" />;
   }
@@ -78,6 +82,7 @@ const Overview = () => {
               cardType={cardType}
               cardBodyData={body}
               setCardData={setCardData}
+              callMarkQuestionApi={callMarkQuestionApi}
             />
           </div>
         ))}
