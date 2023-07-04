@@ -33,7 +33,6 @@ const Overview = () => {
       try {
         setLoading(true);
         const { data } = await getSelectedTopicData({ ...userInfo, topic });
-        console.log(data);
         if (!data.error) {
           setCardData(data);
         } else {
