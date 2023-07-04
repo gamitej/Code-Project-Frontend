@@ -18,6 +18,7 @@ const BasicTable = ({
       data={rows}
       columns={columns}
       enableStickyHeader
+      enableGlobalFilter={false}
       enableDensityToggle={false}
       enableColumnActions={false}
       muiTablePaperProps={{
@@ -35,7 +36,6 @@ const BasicTable = ({
         sx: { fontSize: "0.9rem", whiteSpace: "pre" },
       }}
       renderTopToolbarCustomActions={() => <TableToolBar title={title} />}
-      
     />
   );
 };
