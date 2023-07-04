@@ -7,5 +7,9 @@
   "fail": "#FF7F50",
   "skip": "#C0C0C0",
 
-  "done": "#4CBB17"
+  "done": "#4CBB17",
+
+  "EASY": "green",
+  "MEDIUM": "orange",
+  "HARD": "red"
 }

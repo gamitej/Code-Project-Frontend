@@ -1,20 +1,23 @@
 import React, { useEffect, useMemo, useState } from "react";
+// libs
+import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 // comp
+import AdminModal from "./AdminModal";
 import { BackButton, BasicTable } from "../../components";
 // mui
 import { Button, Chip } from "@mui/material";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
 // services
 import {
   getProfileDropdowns,
   getTableData,
   postQuestion,
 } from "../../services";
-import { toast } from "react-hot-toast";
+// store
 import { useLogin } from "../../store/login/useLogin";
-import AdminModal from "./AdminModal";
-import { Link } from "react-router-dom";
+// utils
 import colorCode from "../../utils/colorCode.json";
-import { MaterialReactTable } from "material-react-table";
 
 const Profile = () => {
   const { user, userId } = useLogin();
@@ -106,6 +109,24 @@ const Profile = () => {
   const columns = useMemo(
     () => [
       {
+        id: "done",
+        header: "Done",
+        Cell: ({ row }) => {
+          const done = row.original.done;
+          return (
+            <TaskAltIcon
+              onClick={() => handleMark(id, completed)}
+              className="col-span-1 hover:text-slate-400"
+              style={{
+                color: done === "Yes" ? "green" : colorCode["skip"],
+              }}
+            />
+          );
+        },
+        accessorFn: (row) => row.done,
+        size: 40,
+      },
+      {
         id: "topic",
         header: "Topic",
         accessorFn: (row) => row.topic,
@@ -140,15 +161,16 @@ const Profile = () => {
         Cell: ({ row }) => {
           const level = row.original.level;
           return (
-            <Chip
-              label={level}
-              sx={{
+            <p
+              style={{
                 width: "5rem",
-                backgroundColor: colorCode[level],
+                color: colorCode[level.toUpperCase()],
                 textTransform: "capitalize",
                 fontWeight: "bold",
               }}
-            />
+            >
+              {level}
+            </p>
           );
         },
       },
@@ -156,25 +178,6 @@ const Profile = () => {
         id: "platform",
         header: "Platform",
         accessorFn: (row) => row.platform,
-        size: 40,
-      },
-      {
-        id: "done",
-        header: "Done",
-        Cell: ({ row }) => (
-          <p
-            className="font-semibold"
-            style={{
-              color:
-                row.original.done === "Yes"
-                  ? colorCode["pass"]
-                  : colorCode["fail"],
-            }}
-          >
-            {row.original.done}
-          </p>
-        ),
-        accessorFn: (row) => row.done,
         size: 40,
       },
     ],
