@@ -6,6 +6,7 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import colorCode from "../../../utils/colorCode.json";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { useLogin } from "../../../store/login/useLogin";
 
 const OverviewCardBody = ({
   cardType,
@@ -13,12 +14,13 @@ const OverviewCardBody = ({
   setCardData = () => {},
   callMarkQuestionApi = () => {},
 }) => {
+  const { userInfo } = useLogin();
   // ============== EVENT-HANDLER ==================
 
   const handleMark = (que_id, value) => {
     if (value === false) {
       // api call
-      callMarkQuestionApi(que_id);
+      callMarkQuestionApi({ userInfo, que_id });
       // updating json
       setCardData((prevCards) => {
         const updatedCards = prevCards.map((card) => {
