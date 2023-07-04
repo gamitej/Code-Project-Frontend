@@ -19,10 +19,6 @@ const ProfileMenu = () => {
     setAnchorEl(null);
   };
 
-  const getUsername = () => {
-    return window.sessionStorage.getItem("user");
-  };
-
   return (
     <div>
       {isLoggined && (
@@ -45,7 +41,7 @@ const ProfileMenu = () => {
             onClose={handleClose}
           >
             <NavLink to="/profile" onClick={() => setAnchorEl(null)}>
-              <MenuItem>{getUsername()}</MenuItem>
+              <MenuItem>Profile</MenuItem>
             </NavLink>
             <MenuItem onClick={setLogout}>Logout</MenuItem>
           </Menu>

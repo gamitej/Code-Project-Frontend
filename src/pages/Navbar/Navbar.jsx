@@ -10,7 +10,7 @@ import { NavLink } from "react-router-dom";
 
 export default function ButtonAppBar() {
   // =========== STATES===============
-  const { isLoggined } = useLogin();
+  const { isLoggined, userInfo } = useLogin();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("login");
 
@@ -65,7 +65,13 @@ export default function ButtonAppBar() {
               </button>
             </>
           )}
-          {isLoggined && <ProfileMenu />}
+
+          <div className="flex items-center justify-center gap-x-2">
+            <p className="text-xl text-slate-500 font-semibold">
+              {userInfo.name}
+            </p>
+            {isLoggined && <ProfileMenu />}
+          </div>
         </div>
       </div>
       {/* Modal */}
