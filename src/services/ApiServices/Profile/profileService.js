@@ -1,5 +1,6 @@
-import http from "../../httpServices/httpServices";
 import config from "../../config.js";
+import http from "../../httpServices/httpServices";
+import { ErrorHandlerApi } from "../../httpServices/errorHandler";
 
 const endpoint = config.baseUrl;
 
@@ -9,7 +10,8 @@ export async function postQuestion(req) {
     const { data } = await http.post(`${endpoint}/add-questions`, req);
     return data;
   } catch (error) {
-    console.log(error, error.message);
+    const data = ErrorHandlerApi(error);
+    return data;
   }
 }
 
@@ -19,8 +21,8 @@ export async function getProfileDropdowns() {
     const { data } = await http.get(`${endpoint}/profile/dropdown-data`);
     return data;
   } catch (error) {
-    const data = error.response.data.message;
-    return { data: data, error: true };
+    const data = ErrorHandlerApi(error);
+    return data;
   }
 }
 
@@ -30,7 +32,7 @@ export async function getTableData(id) {
     const { data } = await http.get(`${endpoint}/profile/table_data?id=${id}`);
     return data;
   } catch (error) {
-    const data = error.response.data.message;
-    return { data: data, error: true };
+    const data = ErrorHandlerApi(error);
+    return data;
   }
 }
