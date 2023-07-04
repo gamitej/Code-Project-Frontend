@@ -110,7 +110,7 @@ const Profile = () => {
     () => [
       {
         id: "done",
-        header: "Done",
+        header: "Status",
         Cell: ({ row }) => {
           const done = row.original.done;
           return (
@@ -131,6 +131,10 @@ const Profile = () => {
         header: "Topic",
         accessorFn: (row) => row.topic,
         size: 40,
+        Cell: ({ row }) => {
+          const topic = row.original.topic;
+          return <p className="text-md font-semibold">{topic}</p>;
+        },
       },
       {
         id: "question",
@@ -155,7 +159,7 @@ const Profile = () => {
       },
       {
         id: "level",
-        header: "Level",
+        header: "Difficulty",
         accessorFn: (row) => row.level,
         size: 40,
         Cell: ({ row }) => {
@@ -179,6 +183,10 @@ const Profile = () => {
         header: "Platform",
         accessorFn: (row) => row.platform,
         size: 40,
+        Cell: ({ row }) => {
+          const platform = row.original.platform;
+          return <Chip label={platform} sx={{ textTransform: "capitalize" }} />;
+        },
       },
     ],
     []
