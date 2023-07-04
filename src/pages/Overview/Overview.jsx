@@ -5,12 +5,7 @@ import { getSelectedTopicData, markQuestion } from "../../services";
 // data
 import { stateObj } from "./comp/data";
 // comp
-import {
-  BackButton,
-  Error,
-  FullScreenLoader,
-  LoadingSkeleton,
-} from "../../components";
+import { BackButton, Error, LoadingSkeleton } from "../../components";
 import OverviewCardBody from "./comp/OverviewCardBody";
 // mui
 import { Divider } from "@mui/material";
@@ -20,8 +15,8 @@ import colorCode from "../../utils/colorCode.json";
 import { useLogin } from "../../store/login/useLogin";
 
 const Overview = () => {
-  const { name } = useParams();
-  const { userId } = useLogin();
+  const { name: topic } = useParams();
+  const { userInfo } = useLogin();
 
   // ============= USE-STATE =========================
   const [filters, setFilters] = useState(stateObj || {});
@@ -37,7 +32,7 @@ const Overview = () => {
     const callApi = async () => {
       try {
         setLoading(true);
-        const { data } = await getSelectedTopicData(userId, name);
+        const { data } = await getSelectedTopicData({ ...userInfo, topic });
         setCardData(data);
       } catch (error) {
         console.log(error);
@@ -50,7 +45,7 @@ const Overview = () => {
   }, []);
 
   const callMarkQuestionApi = async (question_id) => {
-    const data = await markQuestion(userId, question_id);
+    const data = await markQuestion({ ...userInfo, question_id });
   };
 
   if (isError) {

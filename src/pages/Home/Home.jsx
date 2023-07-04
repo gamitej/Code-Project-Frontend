@@ -13,23 +13,28 @@ import { useLogin } from "../../store/login/useLogin";
 import { Error, LoadingSkeleton } from "../../components";
 
 const Home = () => {
-  const { userId } = useLogin();
+  const { userInfo } = useLogin();
   // ========= USE-STATES =============
   const [topics, setTopics] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState({ status: false, msg: "" });
 
   // ========= CALL ALL PINS API =============
+
+  const API_DATA = { id: userInfo.id, token: userInfo.token };
 
   useEffect(() => {
     const callHomeApi = async () => {
       try {
         setLoading(true);
-        const { data } = await getAllTopics(userId);
-        setTopics(data);
+        const { data } = await getAllTopics({ ...API_DATA });
+        if (!data.error) {
+          setTopics(data);
+        } else {
+          setIsError({ status: true, msg: data.message });
+        }
       } catch (error) {
-        console.log(error);
-        setIsError(true);
+        setIsError({ status: true, msg: "" });
       } finally {
         setLoading(false);
       }
@@ -37,13 +42,13 @@ const Home = () => {
     callHomeApi();
   }, []);
 
-  if (isError) {
+  if (isError.status) {
     return (
       <div className="h-[calc(100vh-5rem)] bg-[#F7F8FA] p-2">
         <p className="text-[2rem] font-semibold text-slate-500 text-center p-2 mb-4 font-sans">
           Explore
         </p>
-        <Error />
+        <Error text={isError.msg} />
       </div>
     );
   }

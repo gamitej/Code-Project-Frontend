@@ -2,32 +2,35 @@ import { create } from "zustand";
 // api call
 import { postLogin, postSignup } from "../../services";
 // session storage
-import { getUser, getUserId, getUserName, removeUser, setUser, setUserId } from "./events";
+import {
+  setUserInfo,
+  removeUserInfo,
+  getUserInfo,
+  setUserInfoBool,
+} from "./events";
 
 export const useLogin = create((set) => ({
-  user: getUserName() || "",
-  userId: getUserId() || "",
   loading: false,
-  isLoggined: getUser() || false,
+  userInfo: getUserInfo() || {},
+  isLoggined: setUserInfoBool() || false,
 
   // logout
   setLogout: () => {
-    removeUser();
+    removeUserInfo();
     set((state) => ({ ...state, isLoggined: false }));
   },
   // login api call
   callLoginApi: async (req) => {
     set((state) => ({ ...state, loading: true }));
     const data = await postLogin(req);
+    console.log(data);
     if (!data.error) {
-      setUser(req.username);
-      setUserId(data.id);
+      setUserInfo(data.data);
       set((state) => ({
         ...state,
         isLoggined: true,
         loading: false,
-        user: req.username,
-        userId: data.id,
+        userInfo: data.data,
       }));
       return data;
     } else {

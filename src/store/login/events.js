@@ -1,43 +1,24 @@
 // ============== CONSTANTS =================
 
-const userlabel = "user";
-const userId = "userId";
-// ============== USER-NAME =================
+const userlabel = "userInfo";
 
-export const getUser = () => {
-  const user = window.sessionStorage.getItem(userlabel);
-  if (user) {
-    return true;
-  }
-  return false;
+// =============== USER INFO ===================
+
+export const getUserInfo = () => {
+  const val = JSON.parse(window.sessionStorage.getItem(userlabel));
+  return val;
 };
 
-export const setUser = (name) => {
-  window.sessionStorage.setItem(userlabel, name);
+export const setUserInfo = (val) => {
+  window.sessionStorage.setItem(userlabel, JSON.stringify(val));
 };
 
-export const removeUser = () => {
+export const removeUserInfo = () => {
   window.sessionStorage.removeItem(userlabel);
 };
 
-export const getUserName = () => {
-  const user = window.sessionStorage.getItem(userlabel);
-  return user;
-};
-// ============== USER-ID ==================
-
-export const getUserId = () => {
-  const id = window.sessionStorage.getItem(userId);
-  if (id) {
-    return id;
-  }
-  return "";
-};
-
-export const setUserId = (id) => {
-  window.sessionStorage.setItem(userId, id);
-};
-
-export const removeUserId = () => {
-  window.sessionStorage.removeItem(userId);
+export const setUserInfoBool = () => {
+  const val = JSON.parse(window.sessionStorage.getItem(userlabel));
+  if (val) return true;
+  return false;
 };

@@ -4,12 +4,15 @@ import { ErrorHandlerApi } from "../../httpServices/errorHandler";
 
 const endpoint = config.baseUrl;
 
-export async function getAllTopics(id) {
+export async function getAllTopics({ id, token }) {
   try {
-    const { data } = await http.get(`${endpoint}/topics?id=${id}`);
+    const { data } = await http.get(`${endpoint}/topics?id=${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return data;
   } catch (error) {
     const data = ErrorHandlerApi(error);
-    return data;
+    console.log(data);
+    return { data: data };
   }
 }
