@@ -13,7 +13,7 @@ import { useLogin } from "../../store/login/useLogin";
 import { Error, LoadingSkeleton } from "../../components";
 
 const Home = () => {
-  const { userId } = useLogin();
+  const { userInfo } = useLogin();
   // ========= USE-STATES =============
   const [topics, setTopics] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,11 +21,13 @@ const Home = () => {
 
   // ========= CALL ALL PINS API =============
 
+  const API_DATA = { id: userInfo.id, token: userInfo.token };
+
   useEffect(() => {
     const callHomeApi = async () => {
       try {
         setLoading(true);
-        const { data } = await getAllTopics(userId);
+        const { data } = await getAllTopics({ API_DATA });
         if (!data.error) {
           setTopics(data);
         } else {
