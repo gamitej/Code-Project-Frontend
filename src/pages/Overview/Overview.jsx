@@ -21,7 +21,7 @@ const Overview = () => {
   // ============= USE-STATE =========================
   const [filters, setFilters] = useState(stateObj || {});
   const [loading, setLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState({ status: false, msg: "" });
   const [cardData, setCardData] = useState([]);
 
   // ============= EVENT-HANDLERS ====================
@@ -33,10 +33,15 @@ const Overview = () => {
       try {
         setLoading(true);
         const { data } = await getSelectedTopicData({ ...userInfo, topic });
-        setCardData(data);
+        console.log(data);
+        if (!data.error) {
+          setCardData(data);
+        } else {
+          setIsError({ status: true, msg: data.message });
+        }
       } catch (error) {
         console.log(error);
-        setIsError(true);
+        setIsError({ status: true, msg: "Something went wrong" });
       } finally {
         setLoading(false);
       }
@@ -48,12 +53,12 @@ const Overview = () => {
     const data = await markQuestion({ ...userInfo, question_id });
   };
 
-  if (isError) {
+  if (isError.status) {
     return (
       <div className="bg-slate-100 h-[calc(100vh-5rem)]">
         <div className="relative bg-blue-300 flex justify-center items-center h-[10rem]">
           <h2 className="text-4xl font-semibold text-white capitalize">
-            {name}
+            {topic}
           </h2>
           <BackButton
             to="/"
@@ -61,7 +66,7 @@ const Overview = () => {
             className="absolute top-2 left-4 "
           />
         </div>
-        <Error />
+        <Error text={isError.msg} />
       </div>
     );
   }
@@ -69,7 +74,9 @@ const Overview = () => {
   return (
     <div className="bg-slate-100 h-[calc(100vh-5rem)]">
       <div className="relative bg-blue-300 flex justify-center items-center h-[10rem]">
-        <h2 className="text-4xl font-semibold text-white capitalize">{name}</h2>
+        <h2 className="text-4xl font-semibold text-white capitalize">
+          {topic}
+        </h2>
         <BackButton
           to="/"
           title="Back to explore"

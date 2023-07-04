@@ -15,6 +15,12 @@ export function ErrorHandlerApi(error) {
     toast.error(text, { duration: 2500 });
     return { message: data, error: true };
   }
+  // unprocessed entity
+  if (status === 422) {
+    const text = error.response.statusText;
+    toast.error(text, { duration: 2500 });
+    return { message: text, error: true };
+  }
   const data = error.response.data.message;
   return { message: data, error: true };
 }

@@ -15,7 +15,7 @@ export async function getSelectedTopicData({ id, topic, token }) {
     return data;
   } catch (error) {
     const data = ErrorHandlerApi(error);
-    return data;
+    return { data: data };
   }
 }
 
@@ -32,6 +32,6 @@ export async function markQuestion({ id, question_id, token }) {
     return data;
   } catch (error) {
     const data = ErrorHandlerApi(error);
-    return data;
+    return { data: data };
   }
 }
