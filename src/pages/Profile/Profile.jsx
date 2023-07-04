@@ -84,7 +84,9 @@ const Profile = () => {
   const callGetProfileDropdownApi = async () => {
     try {
       const { data } = await getProfileDropdowns({ ...userInfo });
-      setDropDownData(data);
+      if (!data.error) {
+        setDropDownData(data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -93,9 +95,14 @@ const Profile = () => {
     try {
       setLoading(true);
       const { data } = await getTableData({ ...userInfo });
-      setTableData(data);
+      if (!data.error) {
+        setTableData(data);
+      } else {
+        setIsError({ status: true, msg: data.message });
+      }
     } catch (error) {
       console.log(error);
+      setIsError({ status: true, msg: "Something went wrong" });
     } finally {
       setLoading(false);
     }
@@ -194,14 +201,16 @@ const Profile = () => {
     []
   );
   if (isError.status) {
-    <div className="w-full h-full m-auto">
-      <div className="relative h-[5rem] flex justify-center items-center">
-        <h1 className="text-3xl font-semibold text-purple-400 underline capitalize">
-          {userInfo?.name}
-        </h1>
+    return (
+      <div className="w-full h-full m-auto">
+        <div className="relative h-[5rem] flex justify-center items-center">
+          <h1 className="text-3xl font-semibold text-purple-400 underline capitalize">
+            {userInfo?.name}
+          </h1>
+        </div>
+        <Error />
       </div>
-      <Error />
-    </div>;
+    );
   }
 
   return (
@@ -212,9 +221,11 @@ const Profile = () => {
         </h1>
         <BackButton className="absolute top-4 left-4" color="black" />
         <div className="absolute top-4 right-4">
-          <Button variant="contained" onClick={handleOpen}>
-            Admin
-          </Button>
+          {userInfo?.name === "Amitej" && userInfo?.id === "1" && (
+            <Button variant="contained" onClick={handleOpen}>
+              Admin
+            </Button>
+          )}
           <AdminModal
             open={open}
             form={form}
@@ -223,13 +234,13 @@ const Profile = () => {
             handleOpen={handleOpen}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
-            dropDownData={dropDownData}
+            dropDownData={dropDownData || []}
           />
         </div>
       </div>
-      <div className="w-[70%] m-auto">
+      <div className="w-[90%] m-auto">
         <BasicTable
-          height={600}
+          height={400}
           title="questions"
           isLoading={loading}
           rows={tableData?.rows || []}
@@ -239,35 +250,5 @@ const Profile = () => {
     </div>
   );
 };
-
-function convertRowData(row) {
-  const newRow = row?.map((item) => {
-    const { url, done } = item;
-    console.log(url, item);
-    return {
-      ...item,
-      url: (
-        <Link
-          target="_blank"
-          to={url}
-          className="text-blue-400 underline cursor-pointer hover:text-blue-700"
-        >
-          Click here!
-        </Link>
-      ),
-      done: (
-        <p
-          className="font-semibold"
-          style={{
-            color: done === "Yes" ? colorCode["pass"] : colorCode["fail"],
-          }}
-        >
-          {done}
-        </p>
-      ),
-    };
-  });
-  return newRow;
-}
 
 export default Profile;

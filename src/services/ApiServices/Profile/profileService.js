@@ -17,7 +17,7 @@ export async function postQuestion({ token, req }) {
     return data;
   } catch (error) {
     const data = ErrorHandlerApi(error);
-    return data;
+    return { data };
   }
 }
 
@@ -30,7 +30,7 @@ export async function getProfileDropdowns({ token }) {
     return data;
   } catch (error) {
     const data = ErrorHandlerApi(error);
-    return data;
+    return { data };
   }
 }
 
@@ -43,6 +43,6 @@ export async function getTableData({ id, token }) {
     return data;
   } catch (error) {
     const data = ErrorHandlerApi(error);
-    return data;
+    return { data };
   }
 }
