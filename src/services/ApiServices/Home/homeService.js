@@ -10,6 +10,12 @@ export async function getAllTopics(id) {
     return data;
   } catch (error) {
     const data = ErrorHandlerApi(error);
-    return data;
+    console.log(data);
+    return { data: data };
   }
 }
+
+// {
+//   headers: {
+//     'Authorization': 'Bearer <your_jwt_token>'
+//   }
