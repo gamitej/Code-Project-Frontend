@@ -5,12 +5,7 @@ import { getSelectedTopicData, markQuestion } from "../../services";
 // data
 import { stateObj } from "./comp/data";
 // comp
-import {
-  BackButton,
-  Error,
-  FullScreenLoader,
-  LoadingSkeleton,
-} from "../../components";
+import { BackButton, Error, LoadingSkeleton } from "../../components";
 import OverviewCardBody from "./comp/OverviewCardBody";
 // mui
 import { Divider } from "@mui/material";
