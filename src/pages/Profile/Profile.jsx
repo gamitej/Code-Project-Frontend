@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 // comp
 import AdminModal from "./AdminModal";
-import { BackButton, BasicTable } from "../../components";
+import { BackButton, BasicTable, Error } from "../../components";
 // mui
 import { Button, Chip } from "@mui/material";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
@@ -24,6 +24,7 @@ const Profile = () => {
   // =================== USE-STATE =====================
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState({ status: false, msg: "" });
   const [dropDownData, setDropDownData] = useState([]);
   const [form, setForm] = useState({
     url: "",
@@ -74,6 +75,7 @@ const Profile = () => {
       }
     } catch (error) {
       console.log(error);
+      setIsError({ status: true, msg: "" });
     } finally {
       setLoading(false);
     }
@@ -191,6 +193,16 @@ const Profile = () => {
     ],
     []
   );
+  if (isError.status) {
+    <div className="w-full h-full m-auto">
+      <div className="relative h-[5rem] flex justify-center items-center">
+        <h1 className="text-3xl font-semibold text-purple-400 underline capitalize">
+          {userInfo?.name}
+        </h1>
+      </div>
+      <Error />
+    </div>;
+  }
 
   return (
     <div className="w-full h-full m-auto">
@@ -220,7 +232,7 @@ const Profile = () => {
           height={600}
           title="questions"
           isLoading={loading}
-          rows={tableData.rows || []}
+          rows={tableData?.rows || []}
           columns={columns || []}
         />
       </div>
