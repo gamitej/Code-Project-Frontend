@@ -6,7 +6,7 @@ import { toast } from "react-hot-toast";
 import AdminModal from "./AdminModal";
 import { BackButton, BasicTable, Error } from "../../components";
 // mui
-import { Button, Chip } from "@mui/material";
+import { Button, Chip, Tooltip } from "@mui/material";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 // services
 import {
@@ -123,13 +123,20 @@ const Profile = () => {
         Cell: ({ row }) => {
           const done = row.original.done;
           return (
-            <TaskAltIcon
-              onClick={() => handleMark(id, completed)}
-              className="col-span-1 hover:text-slate-400"
-              style={{
-                color: done === "Yes" ? "green" : colorCode["skip"],
-              }}
-            />
+            <Tooltip
+              className="cursor-pointer"
+              title={`${done === "Yes" ? "Solved" : "Unsolved"}`}
+              placement="top"
+              arrow
+            >
+              <TaskAltIcon
+                onClick={() => handleMark(id, completed)}
+                className="col-span-1 hover:text-slate-400"
+                style={{
+                  color: done === "Yes" ? "green" : colorCode["skip"],
+                }}
+              />
+            </Tooltip>
           );
         },
         accessorFn: (row) => row.done,

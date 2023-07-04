@@ -10,7 +10,7 @@ import { Toaster } from "react-hot-toast";
 function App() {
   return (
     <div>
-      <Toaster position="top-center" reverseOrder={false} />
+      <Toaster position="top-center" reverseOrder={false} limit={1} />
       {/* Navbar */}
       <Navbar />
       {/* Routes */}

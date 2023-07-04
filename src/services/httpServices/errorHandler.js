@@ -12,8 +12,10 @@ export function ErrorHandlerApi(error) {
   if (status === 401) {
     const data = error.response.data.msg;
     const text = error.response.statusText;
-    toast.error(text, { duration: 2500 });
-    return { message: data, error: true };
+    toast.error(`${text} - Token expired`, { duration: 2500 });
+    // window.sessionStorage.removeItem("userInfo");
+    // window.location.reload();
+    return { message: "Token expired please login again", error: true };
   }
   // unprocessed entity
   if (status === 422) {
