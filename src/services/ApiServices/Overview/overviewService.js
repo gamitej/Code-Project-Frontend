@@ -4,10 +4,13 @@ import { ErrorHandlerApi } from "../../httpServices/errorHandler";
 
 const endpoint = config.baseUrl;
 
-export async function getSelectedTopicData(id, topic) {
+export async function getSelectedTopicData({ id, topic, token }) {
   try {
     const { data } = await http.get(
-      `${endpoint}/selected_topic?id=${id}&topic=${topic}`
+      `${endpoint}/selected_topic?id=${id}&topic=${topic}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
     );
     return data;
   } catch (error) {
@@ -16,10 +19,16 @@ export async function getSelectedTopicData(id, topic) {
   }
 }
 
-export async function markQuestion(user_id, question_id) {
+export async function markQuestion({ id, question_id, token }) {
   try {
-    const apiData = { user_id: user_id, question_id: question_id };
-    const { data } = await http.post(`${endpoint}/markQuestion`, apiData);
+    const apiData = { user_id: id, question_id: question_id };
+    const { data } = await http.post(
+      `${endpoint}/markQuestion`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+      apiData
+    );
     return data;
   } catch (error) {
     const data = ErrorHandlerApi(error);

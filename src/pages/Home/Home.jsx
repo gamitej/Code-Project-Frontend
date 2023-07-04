@@ -27,7 +27,7 @@ const Home = () => {
     const callHomeApi = async () => {
       try {
         setLoading(true);
-        const { data } = await getAllTopics({ API_DATA });
+        const { data } = await getAllTopics({ ...API_DATA });
         if (!data.error) {
           setTopics(data);
         } else {
