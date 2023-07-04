@@ -66,12 +66,14 @@ export default function ButtonAppBar() {
             </>
           )}
 
-          <div className="flex items-center justify-center gap-x-2">
-            <p className="text-xl text-slate-500 font-semibold">
-              {userInfo.name}
-            </p>
-            {isLoggined && <ProfileMenu />}
-          </div>
+          {isLoggined && (
+            <div className="flex items-center justify-center gap-x-2">
+              <p className="text-xl text-slate-500 font-semibold">
+                {userInfo.name}
+              </p>
+              <ProfileMenu />
+            </div>
+          )}
         </div>
       </div>
       {/* Modal */}

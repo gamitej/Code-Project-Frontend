@@ -50,7 +50,7 @@ const OverviewCardHeader = ({
       <Tooltip title="Filters" placement="top" onClick={handleClick} arrow>
         <FilterListIcon
           className="text-slate-500 cursor-pointer hover:text-slate-200"
-          sx={{ fontSize: "2rem" }}
+          sx={{ fontSize: "2rem", display: "none" }}
         />
       </Tooltip>
       <MenuComp
