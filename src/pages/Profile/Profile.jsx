@@ -20,7 +20,7 @@ import { useLogin } from "../../store/login/useLogin";
 import colorCode from "../../utils/colorCode.json";
 
 const Profile = () => {
-  const { user, userId } = useLogin();
+  const { userInfo } = useLogin();
   // =================== USE-STATE =====================
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -65,7 +65,7 @@ const Profile = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await postQuestion(form);
+      const res = await postQuestion({ ...userInfo, req: form });
       if (res.error) {
         toast.success(res.message, { duration: 1200 });
         reset();
@@ -81,7 +81,7 @@ const Profile = () => {
 
   const callGetProfileDropdownApi = async () => {
     try {
-      const { data } = await getProfileDropdowns();
+      const { data } = await getProfileDropdowns({ ...userInfo });
       setDropDownData(data);
     } catch (error) {
       console.log(error);
@@ -90,7 +90,7 @@ const Profile = () => {
   const callGetTableData = async () => {
     try {
       setLoading(true);
-      const { data } = await getTableData(userId);
+      const { data } = await getTableData({ ...userInfo });
       setTableData(data);
     } catch (error) {
       console.log(error);
@@ -144,7 +144,7 @@ const Profile = () => {
       },
       {
         id: "url",
-        header: "Url",
+        header: "Link",
         Cell: (row) => (
           <Link
             target="_blank"
@@ -196,7 +196,7 @@ const Profile = () => {
     <div className="w-full h-full m-auto">
       <div className="relative h-[5rem] flex justify-center items-center">
         <h1 className="text-3xl font-semibold text-purple-400 underline capitalize">
-          {user}
+          {userInfo?.name}
         </h1>
         <BackButton className="absolute top-4 left-4" color="black" />
         <div className="absolute top-4 right-4">
