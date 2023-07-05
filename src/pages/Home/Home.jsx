@@ -14,12 +14,12 @@ import { Error, LoadingSkeleton } from "../../components";
 
 const Home = () => {
   const { userInfo } = useLogin();
-  // ========= USE-STATES =============
+  // ====================== USE-STATES ============================
   const [topics, setTopics] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isError, setIsError] = useState({ status: false, msg: "" });
 
-  // ========= CALL ALL PINS API =============
+  // =================== CALL ALL PINS API ========================
 
   const API_DATA = { id: userInfo.id, token: userInfo.token };
 
@@ -42,6 +42,8 @@ const Home = () => {
     callHomeApi();
   }, []);
 
+  // ================================ ERROR PAGE ===========================================
+
   if (isError.status) {
     return (
       <div className="h-[calc(100vh-5rem)] bg-[#F7F8FA] p-2">
@@ -53,6 +55,10 @@ const Home = () => {
     );
   }
 
+  /**
+   *  JSX
+   */
+
   return (
     <div className="h-[calc(100vh-5rem)] bg-[#F7F8FA] p-2">
       <p className="text-[2rem] font-semibold text-slate-500 text-center p-2 mb-4 font-sans">
@@ -63,7 +69,7 @@ const Home = () => {
           {/* Card loading skeleton */}
           {loading &&
             [1, 2, 3].map((index) => (
-              <LoadingSkeleton key={index} className="col-span-2 mt-5" />
+              <LoadingSkeleton key={index} className="col-span-2 mt-5 w-full" />
             ))}
           {/* Card Comp */}
           {!loading &&
