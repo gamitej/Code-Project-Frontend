@@ -48,10 +48,12 @@ const Overview = () => {
     callApi();
   }, []);
 
+  // question mark as done api
   const callMarkQuestionApi = async (question_id) => {
     const data = await markQuestion({ ...userInfo, question_id });
   };
 
+  // ===================== ERROR PAGE =====================
   if (isError.status) {
     return (
       <div className="bg-slate-100 h-[calc(100vh-5rem)]">
@@ -69,6 +71,10 @@ const Overview = () => {
       </div>
     );
   }
+
+  /**
+   * JSX
+   */
 
   return (
     <div className="bg-slate-100 h-[calc(100vh-5rem)]">
@@ -89,7 +95,7 @@ const Overview = () => {
           [1, 2, 3].map((index) => (
             <LoadingSkeleton
               page="overview"
-              className="col-span-3"
+              className="col-span-3 min-w-[20rem]"
               key={index}
             />
           ))}
