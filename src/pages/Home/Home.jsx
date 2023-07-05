@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+// comp
+import { Error, LoadingSkeleton } from "../../components";
+// images
+import logo from "../../assests/bg.jpg";
+import { useLogin } from "../../store/login/useLogin";
 // mui
 import CheckIcon from "@mui/icons-material/Check";
 import { Box, CircularProgress, Fab, Typography } from "@mui/material";
 // services
 import { getAllTopics } from "../../services/ApiServices/Home/homeService";
-// images
-import logo from "../../assests/bg.jpg";
-import FullScreenLoader from "../../components/Loading/FullScreenLoader";
-import { useLogin } from "../../store/login/useLogin";
-// comp
-import { Error, LoadingSkeleton } from "../../components";
 
 const Home = () => {
   const { userInfo } = useLogin();
@@ -42,7 +41,7 @@ const Home = () => {
     callHomeApi();
   }, []);
 
-  // ================================ ERROR PAGE ===========================================
+  // ======================== ERROR PAGE ==========================
 
   if (isError.status) {
     return (
