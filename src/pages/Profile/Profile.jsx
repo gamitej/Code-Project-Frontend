@@ -66,7 +66,7 @@ const Profile = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await postQuestion({ ...userInfo, req: form });
+      const res = await postQuestion({ ...userInfo, form });
       if (res.error) {
         toast.success(res.message, { duration: 1200 });
         reset();
@@ -247,7 +247,7 @@ const Profile = () => {
       </div>
       <div className="w-[90%] m-auto">
         <BasicTable
-          height={400}
+          height={600}
           title="questions"
           isLoading={loading}
           rows={tableData?.rows || []}

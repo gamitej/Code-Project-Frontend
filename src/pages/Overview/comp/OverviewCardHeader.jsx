@@ -16,6 +16,7 @@ const OverviewCardHeader = ({
   cardType,
   cardTitle,
   filters = {},
+  totalCount = {},
   setFilters = () => {},
 }) => {
   // ============= USE-STATE ====================
@@ -41,12 +42,22 @@ const OverviewCardHeader = ({
     });
   };
 
+  const count = totalCount[cardType];
+  const showCount =
+    count?.done === count?.total
+      ? "Completed"
+      : `[${count?.done} / ${count?.total}]`;
+
   return (
     <div
       className="flex justify-between items-center p-3 rounded-tr-xl rounded-tl-xl select-none"
       style={{ backgroundColor: color }}
     >
-      <p className="text-xl text-slate-700">{cardTitle}</p>
+      {/* Title */}
+      <p className="text-xl text-slate-700">
+        {cardTitle} - {showCount}
+      </p>
+      {/* Filter */}
       <Tooltip title="Filters" placement="top" onClick={handleClick} arrow>
         <FilterListIcon
           className="text-slate-500 cursor-pointer hover:text-slate-200"

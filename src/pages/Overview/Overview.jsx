@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 // api
 import { getSelectedTopicData, markQuestion } from "../../services";
@@ -13,18 +13,25 @@ import OverviewCardHeader from "./comp/OverviewCardHeader";
 // utils
 import colorCode from "../../utils/colorCode.json";
 import { useLogin } from "../../store/login/useLogin";
+import { calcDoneQueCount } from "./comp/event";
 
 const Overview = () => {
   const { name: topic } = useParams();
   const { userInfo } = useLogin();
 
   // ============= USE-STATE =========================
+
   const [filters, setFilters] = useState(stateObj || {});
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState({ status: false, msg: "" });
   const [cardData, setCardData] = useState([]);
 
   // ============= EVENT-HANDLERS ====================
+
+  const totalCount = useMemo(() => {
+    const countData = calcDoneQueCount(cardData);
+    return countData;
+  }, [cardData]);
 
   // ============= CALL ALL PINS API =================
 
@@ -48,10 +55,12 @@ const Overview = () => {
     callApi();
   }, []);
 
+  // question mark as done api
   const callMarkQuestionApi = async (question_id) => {
     const data = await markQuestion({ ...userInfo, question_id });
   };
 
+  // ===================== ERROR PAGE =====================
   if (isError.status) {
     return (
       <div className="bg-slate-100 h-[calc(100vh-5rem)]">
@@ -69,6 +78,10 @@ const Overview = () => {
       </div>
     );
   }
+
+  /**
+   * JSX
+   */
 
   return (
     <div className="bg-slate-100 h-[calc(100vh-5rem)]">
@@ -89,7 +102,7 @@ const Overview = () => {
           [1, 2, 3].map((index) => (
             <LoadingSkeleton
               page="overview"
-              className="col-span-3"
+              className="col-span-3 min-w-[20rem]"
               key={index}
             />
           ))}
@@ -105,6 +118,7 @@ const Overview = () => {
                 filters={filters}
                 cardType={cardType}
                 cardTitle={cardTitle}
+                totalCount={totalCount[2] || {}}
                 setFilters={setFilters}
                 setCardData={setCardData}
                 color={colorCode[cardType]}
