@@ -45,7 +45,9 @@ const OverviewCardHeader = ({
   const count = totalCount[cardType];
   const showCount =
     count?.done === count?.total
-      ? "Completed"
+      ? count?.done !== 0
+        ? "Completed"
+        : "Empty"
       : `[${count?.done} / ${count?.total}]`;
 
   return (
