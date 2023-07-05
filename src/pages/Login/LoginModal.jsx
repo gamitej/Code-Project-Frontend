@@ -25,8 +25,8 @@ const LoginModal = ({ open, setOpen, handleOpen, buttonLabel = "login" }) => {
   };
 
   const reset = () => {
-    setForm({ username: "", password: "" });
     setOpen(false);
+    setForm({ username: "", password: "" });
   };
 
   // API CALL

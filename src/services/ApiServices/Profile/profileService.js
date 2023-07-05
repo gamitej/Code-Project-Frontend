@@ -5,15 +5,11 @@ import { ErrorHandlerApi } from "../../httpServices/errorHandler";
 const endpoint = config.baseUrl;
 
 // POST QUESTIONS
-export async function postQuestion({ token, req }) {
+export async function postQuestion({ form, token }) {
   try {
-    const { data } = await http.post(
-      `${endpoint}/add-questions`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      },
-      req
-    );
+    const { data } = await http.post(`${endpoint}/add-questions`, form, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return data;
   } catch (error) {
     const data = ErrorHandlerApi(error);
