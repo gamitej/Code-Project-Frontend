@@ -137,7 +137,7 @@ const Profile = () => {
           );
         },
         accessorFn: (row) => row.done,
-        size: 40,
+        size: 20,
       },
       {
         id: "topic",
@@ -153,22 +153,20 @@ const Profile = () => {
         id: "question",
         header: "Question",
         accessorFn: (row) => row.question,
-        size: 150,
-      },
-      {
-        id: "url",
-        header: "Link",
-        Cell: (row) => (
-          <Link
-            target="_blank"
-            to={row.renderedCellValue}
-            className="text-blue-500 underline cursor-pointer hover:text-blue-700"
-          >
-            Click here!
-          </Link>
-        ),
-        size: 120,
-        accessorFn: (row) => row.url,
+        size: 180,
+        Cell: ({ row }) => {
+          const question = row?.original?.question;
+          const url = row?.original?.url;
+          return (
+            <Link
+              target="_blank"
+              to={url}
+              className="cursor-pointer hover:text-blue-500"
+            >
+              {question}
+            </Link>
+          );
+        },
       },
       {
         id: "level",
@@ -178,29 +176,31 @@ const Profile = () => {
         Cell: ({ row }) => {
           const level = row.original.level;
           return (
-            <p
-              style={{
-                width: "5rem",
-                color: colorCode[level.toUpperCase()],
+            <Chip
+              label={level}
+              sx={{
                 textTransform: "capitalize",
+                color: "whitesmoke",
                 fontWeight: "bold",
               }}
-            >
-              {level}
-            </p>
+              style={{
+                width: "5rem",
+                backgroundColor: colorCode[level.toUpperCase()],
+              }}
+            />
           );
         },
       },
-      {
-        id: "platform",
-        header: "Platform",
-        accessorFn: (row) => row.platform,
-        size: 40,
-        Cell: ({ row }) => {
-          const platform = row.original.platform;
-          return <Chip label={platform} sx={{ textTransform: "capitalize" }} />;
-        },
-      },
+      // {
+      //   id: "platform",
+      //   header: "Platform",
+      //   accessorFn: (row) => row.platform,
+      //   size: 40,
+      //   Cell: ({ row }) => {
+      //     const platform = row.original.platform;
+      //     return <Chip label={platform} sx={{ textTransform: "capitalize" }} />;
+      //   },
+      // },
     ],
     [],
   );
@@ -242,14 +242,17 @@ const Profile = () => {
           />
         </div>
       </div>
-      <div className="w-[90%] m-auto">
-        <BasicTable
-          height={600}
-          title="questions"
-          isLoading={loading}
-          rows={tableData?.rows || []}
-          columns={columns || []}
-        />
+      <div className="w-[90%] grid grid-cols-4 m-auto gap-4">
+        <div className="col-span-2">
+          <BasicTable
+            height={500}
+            title="questions"
+            isLoading={loading}
+            rows={tableData?.rows || []}
+            columns={columns || []}
+            width="100%"
+          />
+        </div>
       </div>
     </div>
   );
