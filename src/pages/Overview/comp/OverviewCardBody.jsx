@@ -91,14 +91,14 @@ const OverviewCardBody = ({
                 {name}
               </Link>
             </p>
-            <p
+            {/* <p
               className="col-span-2 text-slate-400 m-auto capitalize"
               style={{
                 color: colorVal(completed),
               }}
             >
               {platform}
-            </p>
+            </p> */}
           </div>
           <Divider />
         </React.Fragment>
