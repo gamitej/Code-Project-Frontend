@@ -71,11 +71,14 @@ const OverviewCardBody = ({
                 }}
               />
             </Tooltip>
-            <p
+            <Tooltip
               className="col-span-5 text-slate-600"
               style={{
                 color: getColor(completed),
               }}
+              title="click to view que"
+              placement="top"
+              arrow
             >
               <Link
                 to={url}
@@ -84,7 +87,7 @@ const OverviewCardBody = ({
               >
                 {name}
               </Link>
-            </p>
+            </Tooltip>
             <p
               className="col-span-2 text-slate-400 m-auto capitalize"
               style={{
