@@ -111,7 +111,7 @@ const Overview = () => {
           cardData?.map(({ cardTitle, cardType, body }, index) => (
             <div
               key={index}
-              className="col-span-3 shadow-md rounded-xl min-w-[20rem] h-[22rem] bg-white"
+              className="col-span-3 shadow-md rounded-xl min-w-[20rem] h-[23rem] bg-white"
             >
               {/* Card Header */}
               <OverviewCardHeader

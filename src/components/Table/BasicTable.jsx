@@ -22,7 +22,7 @@ const BasicTable = ({
       enableDensityToggle={false}
       enableColumnActions={false}
       muiTablePaperProps={{
-        elevation: 3,
+        elevation: 2,
         sx: {
           borderRadius: borderRadius,
           border: border,
@@ -33,7 +33,7 @@ const BasicTable = ({
       muiTableContainerProps={{ sx: { height: height } }}
       muiTopToolbarProps={{ sx: { borderRadius } }}
       muiTableBodyCellProps={{
-        sx: { fontSize: "0.9rem", whiteSpace: "pre" },
+        sx: { fontSize: "0.9rem", whiteSpace: "pre", scrollbarColor: "red" },
       }}
       renderTopToolbarCustomActions={() => <TableToolBar title={title} />}
     />

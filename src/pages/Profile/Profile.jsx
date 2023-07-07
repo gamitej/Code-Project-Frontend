@@ -22,6 +22,7 @@ import colorCode from "../../utils/colorCode.json";
 const Profile = () => {
   const { userInfo } = useLogin();
   // =================== USE-STATE =====================
+
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState({ status: false, msg: "" });
@@ -60,11 +61,11 @@ const Profile = () => {
   const reset = () => {
     setOpen(false);
   };
-  // ==================== CALL API'S ===================
+  // ======================= API'S ============================
 
+  // post questions api
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     try {
       const res = await postQuestion({ ...userInfo, form });
       if (res.error) {
@@ -76,11 +77,10 @@ const Profile = () => {
     } catch (error) {
       console.log(error);
       setIsError({ status: true, msg: "" });
-    } finally {
-      setLoading(false);
     }
   };
 
+  // get profile dropdown api
   const callGetProfileDropdownApi = async () => {
     try {
       const { data } = await getProfileDropdowns({ ...userInfo });
@@ -91,6 +91,8 @@ const Profile = () => {
       console.log(error);
     }
   };
+
+  // get table data api
   const callGetTableData = async () => {
     try {
       setLoading(true);
@@ -108,16 +110,19 @@ const Profile = () => {
     }
   };
 
-  // ==================== USE-EFFECT-HOOKS ===================
+  // ==================== USE-EFFECT-HOOKS  ===================
 
   useEffect(() => {
     callGetProfileDropdownApi();
     callGetTableData();
   }, []);
 
+  // ==================== TABLE COLUMN DATA ===================
+
   const columns = useMemo(
     () => [
       {
+        size: 5,
         id: "done",
         header: "Status",
         Cell: ({ row }) => {
@@ -140,13 +145,12 @@ const Profile = () => {
           );
         },
         accessorFn: (row) => row.done,
-        size: 40,
       },
       {
+        size: 40,
         id: "topic",
         header: "Topic",
         accessorFn: (row) => row.topic,
-        size: 40,
         Cell: ({ row }) => {
           const topic = row.original.topic;
           return <p className="text-md font-semibold">{topic}</p>;
@@ -156,57 +160,57 @@ const Profile = () => {
         id: "question",
         header: "Question",
         accessorFn: (row) => row.question,
-        size: 150,
-      },
-      {
-        id: "url",
-        header: "Link",
-        Cell: (row) => (
-          <Link
-            target="_blank"
-            to={row.renderedCellValue}
-            className="text-blue-500 underline cursor-pointer hover:text-blue-700"
-          >
-            Click here!
-          </Link>
-        ),
-        size: 120,
-        accessorFn: (row) => row.url,
+        Cell: ({ row }) => {
+          const question = row?.original?.question;
+          const url = row?.original?.url;
+          return (
+            <Link
+              target="_blank"
+              to={url}
+              className="cursor-pointer hover:text-blue-500"
+            >
+              {question}
+            </Link>
+          );
+        },
       },
       {
         id: "level",
         header: "Difficulty",
         accessorFn: (row) => row.level,
-        size: 40,
         Cell: ({ row }) => {
           const level = row.original.level;
           return (
-            <p
-              style={{
-                width: "5rem",
-                color: colorCode[level.toUpperCase()],
+            <Chip
+              label={level}
+              sx={{
                 textTransform: "capitalize",
+                color: "whitesmoke",
                 fontWeight: "bold",
               }}
-            >
-              {level}
-            </p>
+              style={{
+                width: "5rem",
+                backgroundColor: colorCode[level.toUpperCase()],
+              }}
+            />
           );
         },
       },
-      {
-        id: "platform",
-        header: "Platform",
-        accessorFn: (row) => row.platform,
-        size: 40,
-        Cell: ({ row }) => {
-          const platform = row.original.platform;
-          return <Chip label={platform} sx={{ textTransform: "capitalize" }} />;
-        },
-      },
+      // {
+      //   id: "platform",
+      //   header: "Platform",
+      //   accessorFn: (row) => row.platform,
+      //   size: 40,
+      //   Cell: ({ row }) => {
+      //     const platform = row.original.platform;
+      //     return <Chip label={platform} sx={{ textTransform: "capitalize" }} />;
+      //   },
+      // },
     ],
-    []
+    [],
   );
+
+  // ===================== ERROR MSG ==========================
   if (isError.status) {
     return (
       <div className="w-full h-full m-auto">
@@ -219,6 +223,10 @@ const Profile = () => {
       </div>
     );
   }
+
+  /**
+   * JSX
+   */
 
   return (
     <div className="w-full h-full m-auto">
@@ -233,6 +241,8 @@ const Profile = () => {
               Admin
             </Button>
           )}
+
+          {/* MODAL --> ADD QUESTION */}
           <AdminModal
             open={open}
             form={form}
@@ -245,14 +255,19 @@ const Profile = () => {
           />
         </div>
       </div>
-      <div className="w-[90%] m-auto">
-        <BasicTable
-          height={600}
-          title="questions"
-          isLoading={loading}
-          rows={tableData?.rows || []}
-          columns={columns || []}
-        />
+
+      {/* QUESTION TABLE */}
+      <div className="w-[90%] grid grid-cols-4 m-auto gap-4">
+        <div className="col-span-4">
+          <BasicTable
+            height={500}
+            title="questions"
+            isLoading={loading}
+            rows={tableData?.rows || []}
+            columns={columns || []}
+            width="100%"
+          />
+        </div>
       </div>
     </div>
   );
