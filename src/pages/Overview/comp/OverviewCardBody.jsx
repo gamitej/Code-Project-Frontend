@@ -49,12 +49,18 @@ const OverviewCardBody = ({
     }
   };
 
-  const getColor = (solved) => {
-    return solved ? colorCode["done"] : colorCode["skip"];
-  };
+  // ============== Color contants ====================
+
+  const getColor = (solved) => (solved ? colorCode["done"] : colorCode["skip"]);
+
+  const colorVal = (completed) => (completed ? getColor(completed) : "gray");
+
+  /**
+   * JSX
+   */
 
   return (
-    <div id="hideScrollBar" className="overflow-auto h-[calc(22rem-4rem)]">
+    <div id="hideScrollBar" className="overflow-auto h-[calc(23rem-4rem)]">
       {cardBodyData?.map(({ name, url, platform, completed, id }) => (
         <React.Fragment key={id}>
           <div className="grid grid-cols-8 p-4 hover:bg-slate-100 cursor-pointer">
@@ -67,18 +73,15 @@ const OverviewCardBody = ({
                 onClick={() => handleMark(id, completed)}
                 className="col-span-1 hover:text-slate-400"
                 style={{
-                  color: getColor(completed),
+                  color: colorVal(completed),
                 }}
               />
             </Tooltip>
-            <Tooltip
-              className="col-span-5 text-slate-600"
+            <p
+              className="col-span-5"
               style={{
-                color: getColor(completed),
+                color: colorVal(completed),
               }}
-              title="click to view que"
-              placement="top"
-              arrow
             >
               <Link
                 to={url}
@@ -87,11 +90,11 @@ const OverviewCardBody = ({
               >
                 {name}
               </Link>
-            </Tooltip>
+            </p>
             <p
               className="col-span-2 text-slate-400 m-auto capitalize"
               style={{
-                color: getColor(completed),
+                color: colorVal(completed),
               }}
             >
               {platform}

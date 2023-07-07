@@ -64,7 +64,6 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     try {
       const res = await postQuestion({ ...userInfo, form });
       if (res.error) {
@@ -76,8 +75,6 @@ const Profile = () => {
     } catch (error) {
       console.log(error);
       setIsError({ status: true, msg: "" });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -205,7 +202,7 @@ const Profile = () => {
         },
       },
     ],
-    []
+    [],
   );
   if (isError.status) {
     return (
