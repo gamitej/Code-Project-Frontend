@@ -22,6 +22,7 @@ import colorCode from "../../utils/colorCode.json";
 const Profile = () => {
   const { userInfo } = useLogin();
   // =================== USE-STATE =====================
+
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState({ status: false, msg: "" });
@@ -60,8 +61,9 @@ const Profile = () => {
   const reset = () => {
     setOpen(false);
   };
-  // ==================== CALL API'S ===================
+  // ======================= API'S ============================
 
+  // post questions api
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -78,6 +80,7 @@ const Profile = () => {
     }
   };
 
+  // get profile dropdown api
   const callGetProfileDropdownApi = async () => {
     try {
       const { data } = await getProfileDropdowns({ ...userInfo });
@@ -88,6 +91,8 @@ const Profile = () => {
       console.log(error);
     }
   };
+
+  // get table data api
   const callGetTableData = async () => {
     try {
       setLoading(true);
@@ -105,16 +110,19 @@ const Profile = () => {
     }
   };
 
-  // ==================== USE-EFFECT-HOOKS ===================
+  // ==================== USE-EFFECT-HOOKS  ===================
 
   useEffect(() => {
     callGetProfileDropdownApi();
     callGetTableData();
   }, []);
 
+  // ==================== TABLE COLUMN DATA ===================
+
   const columns = useMemo(
     () => [
       {
+        size: 5,
         id: "done",
         header: "Status",
         Cell: ({ row }) => {
@@ -137,13 +145,12 @@ const Profile = () => {
           );
         },
         accessorFn: (row) => row.done,
-        size: 20,
       },
       {
+        size: 40,
         id: "topic",
         header: "Topic",
         accessorFn: (row) => row.topic,
-        size: 40,
         Cell: ({ row }) => {
           const topic = row.original.topic;
           return <p className="text-md font-semibold">{topic}</p>;
@@ -153,7 +160,6 @@ const Profile = () => {
         id: "question",
         header: "Question",
         accessorFn: (row) => row.question,
-        size: 180,
         Cell: ({ row }) => {
           const question = row?.original?.question;
           const url = row?.original?.url;
@@ -172,7 +178,6 @@ const Profile = () => {
         id: "level",
         header: "Difficulty",
         accessorFn: (row) => row.level,
-        size: 40,
         Cell: ({ row }) => {
           const level = row.original.level;
           return (
@@ -204,6 +209,8 @@ const Profile = () => {
     ],
     [],
   );
+
+  // ===================== ERROR MSG ==========================
   if (isError.status) {
     return (
       <div className="w-full h-full m-auto">
@@ -216,6 +223,10 @@ const Profile = () => {
       </div>
     );
   }
+
+  /**
+   * JSX
+   */
 
   return (
     <div className="w-full h-full m-auto">
@@ -230,6 +241,8 @@ const Profile = () => {
               Admin
             </Button>
           )}
+
+          {/* MODAL --> ADD QUESTION */}
           <AdminModal
             open={open}
             form={form}
@@ -242,8 +255,10 @@ const Profile = () => {
           />
         </div>
       </div>
+
+      {/* QUESTION TABLE */}
       <div className="w-[90%] grid grid-cols-4 m-auto gap-4">
-        <div className="col-span-2">
+        <div className="col-span-4">
           <BasicTable
             height={500}
             title="questions"
