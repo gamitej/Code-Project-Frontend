@@ -2,6 +2,7 @@ import { lazy } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useLogin } from "../store/login/useLogin";
 import ProtectedRoute from "../pages/Login/ProtectedRoutes";
+import PageTransition from "../pages/PageTransition/PageTransition";
 
 // lazy
 const Home = lazy(() => import("../pages/Home/Home"));
@@ -17,9 +18,30 @@ const BasicRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<ProtectedRoute isAuth={isLoggined} />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/explore/:name" element={<Overview />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/"
+          element={
+            <PageTransition>
+              <Home />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/explore/:name"
+          element={
+            <PageTransition>
+              <Overview />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <PageTransition>
+              <Profile />
+            </PageTransition>
+          }
+        />
         <Route path="*" element={<PageNotFound />} />
       </Route>
       <Route path="/auth" element={<Login />} />
