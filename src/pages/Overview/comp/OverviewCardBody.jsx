@@ -2,6 +2,8 @@ import React from "react";
 // mui
 import { Divider, Tooltip } from "@mui/material";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import StarIcon from "@mui/icons-material/Star";
 // utils
 import colorCode from "../../../utils/colorCode.json";
 import { Link } from "react-router-dom";
@@ -61,9 +63,10 @@ const OverviewCardBody = ({
 
   return (
     <div id="hideScrollBar" className="overflow-auto h-[calc(23rem-4rem)]">
-      {cardBodyData?.map(({ name, url, platform, completed, id }) => (
+      {cardBodyData?.map(({ name, url, platform, completed, id, favorate }) => (
         <React.Fragment key={id}>
-          <div className="grid grid-cols-8 p-4 hover:bg-slate-100 cursor-pointer">
+          <div className="grid grid-cols-8 p-3 hover:bg-slate-100 cursor-pointer">
+            {/* STATUS */}
             <Tooltip
               title={`${completed ? "Solved" : "Unsolved"}`}
               placement="top"
@@ -71,14 +74,16 @@ const OverviewCardBody = ({
             >
               <TaskAltIcon
                 onClick={() => handleMark(id, completed)}
-                className="col-span-1 hover:text-slate-400"
+                className="col-span-1 hover:text-slate-400 ml-4"
                 style={{
                   color: colorVal(completed),
                 }}
               />
             </Tooltip>
+
+            {/* QUESTION */}
             <p
-              className="col-span-5"
+              className="col-span-6"
               style={{
                 color: colorVal(completed),
               }}
@@ -91,6 +96,17 @@ const OverviewCardBody = ({
                 {name}
               </Link>
             </p>
+            {/* <p className="-mr-4">
+              {favorate ? (
+                <StarBorderIcon
+                  style={{
+                    color: "gray",
+                  }}
+                />
+              ) : (
+                <StarIcon style={{ color: colorCode["medium"] }} />
+              )}
+            </p> */}
             {/* <p
               className="col-span-2 text-slate-400 m-auto capitalize"
               style={{
