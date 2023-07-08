@@ -1,5 +1,7 @@
 {
-  "twoPointers": "Two Pointers",
+  "stack": "Stack",
   "arrays": "Arrays",
-  "strings": "Strings"
+  "strings": "Strings",
+  "twoPointers": "Two Pointers",
+  "binarySearch": "Binary Search"
 }
