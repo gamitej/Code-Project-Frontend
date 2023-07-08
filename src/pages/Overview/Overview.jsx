@@ -11,9 +11,10 @@ import OverviewCardBody from "./comp/OverviewCardBody";
 import { Divider } from "@mui/material";
 import OverviewCardHeader from "./comp/OverviewCardHeader";
 // utils
+import { calcDoneQueCount } from "./comp/event";
 import colorCode from "../../utils/colorCode.json";
 import { useLogin } from "../../store/login/useLogin";
-import { calcDoneQueCount } from "./comp/event";
+import nameMapping from "../../utils/nameMapping.json";
 
 const Overview = () => {
   const { name: topic } = useParams();
@@ -87,7 +88,7 @@ const Overview = () => {
     <div className="bg-slate-100 h-[calc(100vh-5rem)]">
       <div className="relative bg-blue-300 flex justify-center items-center h-[10rem]">
         <h2 className="text-4xl font-semibold text-white capitalize">
-          {topic}
+          {nameMapping[topic]}
         </h2>
         <BackButton
           to="/"

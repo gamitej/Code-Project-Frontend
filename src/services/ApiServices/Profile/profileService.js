@@ -25,7 +25,7 @@ export async function getProfileDropdowns({ token }) {
     });
     return data;
   } catch (error) {
-    const data = ErrorHandlerApi(error);
+    // const data = ErrorHandlerApi(error);
     return { data };
   }
 }
