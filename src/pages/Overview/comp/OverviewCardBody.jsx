@@ -19,10 +19,14 @@ const OverviewCardBody = ({
   const { userInfo } = useLogin();
   // ============== EVENT-HANDLER ==================
 
-  const handleMark = (que_id, value) => {
+  const handleMark = async (que_id, value) => {
     if (value === false) {
       // api call
-      callMarkQuestionApi({ userInfo, que_id });
+      const data = await callMarkQuestionApi({ userInfo, que_id });
+      if (!data) {
+        toast.error("Something went wrong", { duration: 1200 });
+        return;
+      }
       // updating json
       setCardData((prevCards) => {
         const updatedCards = prevCards.map((card) => {
