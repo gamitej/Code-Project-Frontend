@@ -19,6 +19,12 @@ import { useLogin } from "../../store/login/useLogin";
 // utils
 import colorCode from "../../utils/colorCode.json";
 
+const levelMapping = {
+  easy: 0,
+  medium: 1,
+  hard: 2,
+};
+
 const Profile = () => {
   const { userInfo } = useLogin();
   // =================== USE-STATE =====================
@@ -177,7 +183,7 @@ const Profile = () => {
       {
         id: "level",
         header: "Difficulty",
-        accessorFn: (row) => row.level,
+        accessorFn: (row) => levelMapping[row.level],
         Cell: ({ row }) => {
           const level = row.original.level;
           return (
