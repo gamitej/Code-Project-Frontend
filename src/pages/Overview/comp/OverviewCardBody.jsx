@@ -63,13 +63,13 @@ const OverviewCardBody = ({
 
   // ======================== Sorting =======================
 
-  const sortedCardData = useMemo(() => {
-    return orderBy(
-      cardBodyData,
-      (card) => card.completed === filterBySolved[cardType],
-      "ASC",
-    );
-  }, [filterBySolved, cardBodyData]);
+  // const sortedCardData = useMemo(() => {
+  //   return orderBy(
+  //     cardBodyData,
+  //     (card) => card.completed === filterBySolved[cardType],
+  //     "ASC",
+  //   );
+  // }, [filterBySolved, cardBodyData]);
 
   // ================== Color contants ====================
 
@@ -83,8 +83,8 @@ const OverviewCardBody = ({
 
   return (
     <div id="hideScrollBar" className="overflow-auto h-[calc(23rem-4rem)]">
-      {sortedCardData &&
-        sortedCardData?.map(
+      {cardBodyData &&
+        cardBodyData?.map(
           ({ name, url, platform, completed, id, favorate }) => (
             <React.Fragment key={id}>
               <div className="grid grid-cols-8 p-3 hover:bg-slate-100 cursor-pointer">
