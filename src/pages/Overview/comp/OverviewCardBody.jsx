@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 // mui
 import { Divider, Tooltip } from "@mui/material";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
@@ -9,6 +9,8 @@ import colorCode from "../../../utils/colorCode.json";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useLogin } from "../../../store/login/useLogin";
+import { orderBy } from "lodash";
+import { useOverview } from "../../../store/overview/useOverview";
 
 const OverviewCardBody = ({
   cardType,
@@ -16,13 +18,21 @@ const OverviewCardBody = ({
   setCardData = () => {},
   callMarkQuestionApi = () => {},
 }) => {
+  // ==================== STORE ====================
+
   const { userInfo } = useLogin();
+  const { filterBySolved } = useOverview();
+
   // ============== EVENT-HANDLER ==================
 
-  const handleMark = (que_id, value) => {
+  const handleMark = async (que_id, value) => {
     if (value === false) {
       // api call
-      callMarkQuestionApi({ userInfo, que_id });
+      const data = await callMarkQuestionApi({ userInfo, que_id });
+      if (!data) {
+        toast.error("Something went wrong", { duration: 1200 });
+        return;
+      }
       // updating json
       setCardData((prevCards) => {
         const updatedCards = prevCards.map((card) => {
@@ -51,7 +61,17 @@ const OverviewCardBody = ({
     }
   };
 
-  // ============== Color contants ====================
+  // ======================== Sorting =======================
+
+  const sortedCardData = useMemo(() => {
+    return orderBy(
+      cardBodyData,
+      (card) => card.completed === filterBySolved[cardType],
+      "ASC",
+    );
+  }, [filterBySolved, cardBodyData]);
+
+  // ================== Color contants ====================
 
   const getColor = (solved) => (solved ? colorCode["done"] : colorCode["skip"]);
 
@@ -63,40 +83,42 @@ const OverviewCardBody = ({
 
   return (
     <div id="hideScrollBar" className="overflow-auto h-[calc(23rem-4rem)]">
-      {cardBodyData?.map(({ name, url, platform, completed, id, favorate }) => (
-        <React.Fragment key={id}>
-          <div className="grid grid-cols-8 p-3 hover:bg-slate-100 cursor-pointer">
-            {/* STATUS */}
-            <Tooltip
-              title={`${completed ? "Solved" : "Unsolved"}`}
-              placement="top"
-              arrow
-            >
-              <TaskAltIcon
-                onClick={() => handleMark(id, completed)}
-                className="col-span-1 hover:text-slate-400 ml-4"
-                style={{
-                  color: colorVal(completed),
-                }}
-              />
-            </Tooltip>
+      {sortedCardData &&
+        sortedCardData?.map(
+          ({ name, url, platform, completed, id, favorate }) => (
+            <React.Fragment key={id}>
+              <div className="grid grid-cols-8 p-3 hover:bg-slate-100 cursor-pointer">
+                {/* STATUS */}
+                <Tooltip
+                  title={`${completed ? "Solved" : "Unsolved"}`}
+                  placement="top"
+                  arrow
+                >
+                  <TaskAltIcon
+                    onClick={() => handleMark(id, completed)}
+                    className="col-span-1 hover:text-slate-400 ml-4"
+                    style={{
+                      color: colorVal(completed),
+                    }}
+                  />
+                </Tooltip>
 
-            {/* QUESTION */}
-            <p
-              className="col-span-6"
-              style={{
-                color: colorVal(completed),
-              }}
-            >
-              <Link
-                to={url}
-                target="_blank"
-                className="hover:underline hover:text-blue-400"
-              >
-                {name}
-              </Link>
-            </p>
-            {/* <p className="-mr-4">
+                {/* QUESTION */}
+                <p
+                  className="col-span-6"
+                  style={{
+                    color: colorVal(completed),
+                  }}
+                >
+                  <Link
+                    to={url}
+                    target="_blank"
+                    className="hover:underline hover:text-blue-400"
+                  >
+                    {name}
+                  </Link>
+                </p>
+                {/* <p className="-mr-4">
               {favorate ? (
                 <StarBorderIcon
                   style={{
@@ -107,7 +129,7 @@ const OverviewCardBody = ({
                 <StarIcon style={{ color: colorCode["medium"] }} />
               )}
             </p> */}
-            {/* <p
+                {/* <p
               className="col-span-2 text-slate-400 m-auto capitalize"
               style={{
                 color: colorVal(completed),
@@ -115,10 +137,11 @@ const OverviewCardBody = ({
             >
               {platform}
             </p> */}
-          </div>
-          <Divider />
-        </React.Fragment>
-      ))}
+              </div>
+              <Divider />
+            </React.Fragment>
+          ),
+        )}
     </div>
   );
 };

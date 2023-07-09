@@ -10,7 +10,7 @@ export async function getSelectedTopicData({ id, topic, token }) {
       `${endpoint}/selected_topic?id=${id}&topic=${topic}`,
       {
         headers: { Authorization: `Bearer ${token}` },
-      }
+      },
     );
     return data;
   } catch (error) {
@@ -19,11 +19,13 @@ export async function getSelectedTopicData({ id, topic, token }) {
   }
 }
 
-export async function markQuestion({ id, question_id, token }) {
-  // console.log(id, question_id, token);
+export async function markQuestion({ id, question_id, topic, token }) {
   try {
-    const apiData = { user_id: id, question_id: question_id.que_id };
-    console.log(apiData);
+    const apiData = {
+      user_id: id,
+      question_id: question_id.que_id,
+      topic: topic,
+    };
     const { data } = await http.post(`${endpoint}/markQuestion`, apiData, {
       headers: { Authorization: `Bearer ${token}` },
     });

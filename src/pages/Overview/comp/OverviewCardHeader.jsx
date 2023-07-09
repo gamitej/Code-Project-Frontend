@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // data
 import { filterData } from "./data";
+import { filterCardData } from "./event";
 // mui
 import {
   Menu,
@@ -8,29 +9,39 @@ import {
   Tooltip,
   FormGroup,
   FormControlLabel,
+  Badge,
 } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
+import { useOverview } from "../../../store/overview/useOverview";
 
 const OverviewCardHeader = ({
   color,
   cardType,
   cardTitle,
+  cardData = [],
   filters = {},
   totalCount = {},
   setFilters = () => {},
 }) => {
   // ============= USE-STATE ====================
+
+  const { setFilterBySolved, filterBySolved } = useOverview();
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
   // ============= EVENT-HANDLERS ===============
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const handleFilterChange = (e) => {
+    setFilterBySolved(cardType);
     const name = e.target.name;
     const cardTypeName = filters[cardType];
     setFilters({
@@ -42,6 +53,8 @@ const OverviewCardHeader = ({
     });
   };
 
+  // ============= CONSTANTS ===============
+
   const count = totalCount[cardType];
   const showCount =
     count?.done === count?.total
@@ -49,6 +62,10 @@ const OverviewCardHeader = ({
         ? "Completed"
         : "Empty"
       : `[${count?.done} / ${count?.total}]`;
+
+  /**
+   *  JSX
+   */
 
   return (
     <div
@@ -61,10 +78,15 @@ const OverviewCardHeader = ({
       </p>
       {/* Filter */}
       <Tooltip title="Filters" placement="top" onClick={handleClick} arrow>
-        <FilterListIcon
-          className="text-slate-500 cursor-pointer hover:text-slate-200"
-          sx={{ fontSize: "2rem", display: "none" }}
-        />
+        <Badge
+          color="secondary"
+          badgeContent={filterBySolved[cardType] ? 1 : 0}
+        >
+          <FilterListIcon
+            className="text-slate-500 cursor-pointer"
+            sx={{ fontSize: "2rem", display: "" }}
+          />
+        </Badge>
       </Tooltip>
       <MenuComp
         open={open}

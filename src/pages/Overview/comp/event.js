@@ -29,3 +29,9 @@ function cardCalcCount(item) {
 
   return { total, done: count };
 }
+
+// ================== FILTER CARD DATA  =================
+
+export const filterCardData = (data, filters, cardType) => {
+ 
+};
