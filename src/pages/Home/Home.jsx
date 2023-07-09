@@ -39,7 +39,7 @@ const Home = () => {
 
     setTimeout(() => {
       cardElement.classList.remove("highlighted");
-    }, 3000);
+    }, 2000);
   };
 
   // =================== CALL ALL PINS API ========================
