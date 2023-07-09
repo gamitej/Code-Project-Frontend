@@ -78,7 +78,7 @@ const Overview = () => {
     return (
       <div className="bg-slate-100 h-[calc(100vh-5rem)]">
         <div className="relative bg-blue-300 flex justify-center items-center h-[10rem]">
-          <h2 className="text-4xl font-semibold text-white capitalize">
+          <h2 className="text-4xl font-semibold text-white capitalize underline">
             {topic}
           </h2>
           <BackButton
@@ -99,7 +99,7 @@ const Overview = () => {
   return (
     <div className="bg-slate-100 h-[calc(100vh-5rem)]">
       <div className="relative bg-blue-300 flex justify-center items-center h-[10rem]">
-        <h2 className="text-4xl font-semibold text-white capitalize">
+        <h2 className="text-4xl font-semibold text-white capitalize underline">
           {nameMapping[topic]}
         </h2>
         <BackButton
