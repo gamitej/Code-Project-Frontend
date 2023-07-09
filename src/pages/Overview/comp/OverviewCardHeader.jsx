@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // data
 import { filterData } from "./data";
+import { filterCardData } from "./event";
 // mui
 import {
   Menu,
@@ -10,6 +11,7 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
+import { useOverview } from "../../../store/overview/useOverview";
 
 const OverviewCardHeader = ({
   color,
@@ -21,6 +23,8 @@ const OverviewCardHeader = ({
   setFilters = () => {},
 }) => {
   // ============= USE-STATE ====================
+
+  const { setFilterBySolved } = useOverview();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -36,6 +40,7 @@ const OverviewCardHeader = ({
   };
 
   const handleFilterChange = (e) => {
+    setFilterBySolved(cardType);
     const name = e.target.name;
     const cardTypeName = filters[cardType];
     setFilters({
@@ -46,8 +51,6 @@ const OverviewCardHeader = ({
       },
     });
   };
-
-  console.log(cardData);
 
   // ============= CONSTANTS ===============
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
+import { sortBy, get, orderBy } from "lodash";
 // api
 import { getSelectedTopicData, markQuestion } from "../../services";
 // data
