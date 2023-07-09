@@ -59,7 +59,7 @@ const Overview = () => {
   // question mark as done api
   const callMarkQuestionApi = async (question_id) => {
     try {
-      const data = await markQuestion({ ...userInfo, question_id });
+      const data = await markQuestion({ ...userInfo, question_id, topic });
       console.log(data);
       if (!data.error) {
         return true;

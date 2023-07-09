@@ -19,9 +19,13 @@ export async function getSelectedTopicData({ id, topic, token }) {
   }
 }
 
-export async function markQuestion({ id, question_id, token }) {
+export async function markQuestion({ id, question_id, topic, token }) {
   try {
-    const apiData = { user_id: id, question_id: question_id.que_id };
+    const apiData = {
+      user_id: id,
+      question_id: question_id.que_id,
+      topic: topic,
+    };
     const { data } = await http.post(`${endpoint}/markQuestion`, apiData, {
       headers: { Authorization: `Bearer ${token}` },
     });
