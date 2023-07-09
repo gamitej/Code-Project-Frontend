@@ -1,18 +1,12 @@
 export const stateObj = {
   easy: {
-    unsolved: true,
-    solved: true,
-    sorted: true,
+    sorted: false,
   },
   medium: {
-    unsolved: true,
-    solved: true,
-    sorted: true,
+    sorted: false,
   },
   hard: {
-    unsolved: true,
-    solved: true,
-    sorted: true,
+    sorted: false,
   },
 };
 

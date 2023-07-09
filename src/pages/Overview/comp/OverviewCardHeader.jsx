@@ -9,6 +9,7 @@ import {
   Tooltip,
   FormGroup,
   FormControlLabel,
+  Badge,
 } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { useOverview } from "../../../store/overview/useOverview";
@@ -24,7 +25,7 @@ const OverviewCardHeader = ({
 }) => {
   // ============= USE-STATE ====================
 
-  const { setFilterBySolved } = useOverview();
+  const { setFilterBySolved, filterBySolved } = useOverview();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -77,10 +78,15 @@ const OverviewCardHeader = ({
       </p>
       {/* Filter */}
       <Tooltip title="Filters" placement="top" onClick={handleClick} arrow>
-        <FilterListIcon
-          className="text-slate-500 cursor-pointer hover:text-slate-200"
-          sx={{ fontSize: "2rem", display: "" }}
-        />
+        <Badge
+          color="secondary"
+          badgeContent={filterBySolved[cardType] ? 1 : 0}
+        >
+          <FilterListIcon
+            className="text-slate-500 cursor-pointer"
+            sx={{ fontSize: "2rem", display: "" }}
+          />
+        </Badge>
       </Tooltip>
       <MenuComp
         open={open}

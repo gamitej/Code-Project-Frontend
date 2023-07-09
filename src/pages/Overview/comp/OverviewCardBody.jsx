@@ -19,10 +19,12 @@ const OverviewCardBody = ({
   callMarkQuestionApi = () => {},
 }) => {
   // ==================== STORE ====================
+
   const { userInfo } = useLogin();
   const { filterBySolved } = useOverview();
 
   // ============== EVENT-HANDLER ==================
+
   const handleMark = async (que_id, value) => {
     if (value === false) {
       // api call
@@ -59,12 +61,6 @@ const OverviewCardBody = ({
     }
   };
 
-  // ================== Color contants ====================
-
-  const getColor = (solved) => (solved ? colorCode["done"] : colorCode["skip"]);
-
-  const colorVal = (completed) => (completed ? getColor(completed) : "gray");
-
   // ======================== Sorting =======================
 
   const sortedCardData = useMemo(() => {
@@ -74,6 +70,12 @@ const OverviewCardBody = ({
       "ASC",
     );
   }, [filterBySolved, cardBodyData]);
+
+  // ================== Color contants ====================
+
+  const getColor = (solved) => (solved ? colorCode["done"] : colorCode["skip"]);
+
+  const colorVal = (completed) => (completed ? getColor(completed) : "gray");
 
   /**
    * JSX
