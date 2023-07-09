@@ -23,7 +23,6 @@ export const useLogin = create((set) => ({
   callLoginApi: async (req) => {
     set((state) => ({ ...state, loading: true }));
     const data = await postLogin(req);
-    console.log(data);
     if (!data.error) {
       setUserInfo(data.data);
       set((state) => ({
