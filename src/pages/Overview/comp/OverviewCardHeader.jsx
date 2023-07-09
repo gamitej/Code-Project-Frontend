@@ -84,7 +84,7 @@ const OverviewCardHeader = ({
         >
           <FilterListIcon
             className="text-slate-500 cursor-pointer"
-            sx={{ fontSize: "2rem", display: "" }}
+            sx={{ fontSize: "2rem", display: "none" }}
           />
         </Badge>
       </Tooltip>
