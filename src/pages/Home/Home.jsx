@@ -25,8 +25,8 @@ const Home = () => {
   // ====================== USE-STATES ============================
   const [topics, setTopics] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [ongoingTopic, setOngoingTopic] = useState({ name: "", show: false });
   const [isError, setIsError] = useState({ status: false, msg: "" });
+  const [ongoingTopic, setOngoingTopic] = useState({ name: "", show: false });
 
   // ====================== EVENT-HANDLERS ========================
 
@@ -88,7 +88,7 @@ const Home = () => {
 
   return (
     <div className="h-[calc(100vh-5rem)] bg-[#F7F8FA] p-2">
-      <p className="text-[2rem] font-semibold text-slate-500 text-center p-2 mb-2 undeline">
+      <p className="text-[2rem] font-semibold text-slate-500 text-center p-2 mb-2 underline">
         Explore
       </p>
       {/* ONGOInG TOPIC */}
