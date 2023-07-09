@@ -132,6 +132,7 @@ const Overview = () => {
                 cardTitle={cardTitle}
                 totalCount={totalCount[2] || {}}
                 setFilters={setFilters}
+                cardData={cardData}
                 setCardData={setCardData}
                 color={colorCode[cardType]}
               />

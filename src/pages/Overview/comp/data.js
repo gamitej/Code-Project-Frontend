@@ -2,28 +2,34 @@ export const stateObj = {
   easy: {
     unsolved: true,
     solved: true,
-    leetcode: true,
-    codechef: true,
+    sorted: true,
+    // leetcode: true,
+    // codechef: true,
   },
   medium: {
     unsolved: true,
     solved: true,
-    leetcode: true,
-    codechef: true,
+    sorted: true,
+
+    // leetcode: true,
+    // codechef: true,
   },
   hard: {
     unsolved: true,
     solved: true,
-    leetcode: true,
-    codechef: true,
+    sorted: true,
+    // leetcode: true,
+    // codechef: true,
   },
 };
 
 export const filterData = [
+  { label: "Sorted", name: "sorted" },
   { label: "Solved", name: "solved" },
   { label: "Unsolved", name: "unsolved" },
-  { label: "Leetcode", name: "leetcode" },
-  { label: "CodeChef", name: "codechef" },
+
+  // { label: "Leetcode", name: "leetcode" },
+  // { label: "CodeChef", name: "codechef" },
 ];
 
 const cardBodyData = [

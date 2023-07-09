@@ -15,21 +15,26 @@ const OverviewCardHeader = ({
   color,
   cardType,
   cardTitle,
+  cardData = [],
   filters = {},
   totalCount = {},
   setFilters = () => {},
 }) => {
   // ============= USE-STATE ====================
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
   // ============= EVENT-HANDLERS ===============
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const handleFilterChange = (e) => {
     const name = e.target.name;
     const cardTypeName = filters[cardType];
@@ -42,6 +47,10 @@ const OverviewCardHeader = ({
     });
   };
 
+  console.log(cardData);
+
+  // ============= CONSTANTS ===============
+
   const count = totalCount[cardType];
   const showCount =
     count?.done === count?.total
@@ -49,6 +58,10 @@ const OverviewCardHeader = ({
         ? "Completed"
         : "Empty"
       : `[${count?.done} / ${count?.total}]`;
+
+  /**
+   *  JSX
+   */
 
   return (
     <div
@@ -63,7 +76,7 @@ const OverviewCardHeader = ({
       <Tooltip title="Filters" placement="top" onClick={handleClick} arrow>
         <FilterListIcon
           className="text-slate-500 cursor-pointer hover:text-slate-200"
-          sx={{ fontSize: "2rem", display: "none" }}
+          sx={{ fontSize: "2rem", display: "" }}
         />
       </Tooltip>
       <MenuComp

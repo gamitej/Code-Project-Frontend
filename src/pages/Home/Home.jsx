@@ -101,12 +101,15 @@ const Home = () => {
             title="click to view card"
             arrow
           >
-            <span className="text-slate-500 font-semibold">
-              Ongoing Topic -
-            </span>{" "}
-            <span className="capitalize text-blue-400 font-semibold">
-              {nameMapping[ongoingTopic?.name]}
-            </span>
+            <p>
+              {" "}
+              <span className="text-slate-500 font-semibold">
+                Ongoing Topic -
+              </span>{" "}
+              <span className="capitalize text-blue-400 font-semibold">
+                {nameMapping[ongoingTopic?.name]}
+              </span>
+            </p>
           </Tooltip>
         )}
       </div>
@@ -131,15 +134,14 @@ const Home = () => {
                     {title}
                   </p>
                   {urlTitle === ongoingTopic?.name && (
-                    <p className="absolute top-2 right-2">
-                      <Chip
-                        label="On-going"
-                        sx={{
-                          backgroundColor: "lightgoldenrodyellow",
-                          cursor: "pointer",
-                        }}
-                      />
-                    </p>
+                    <Chip
+                      className="absolute top-2 right-2"
+                      label="On-going"
+                      sx={{
+                        backgroundColor: "lightgoldenrodyellow",
+                        cursor: "pointer",
+                      }}
+                    />
                   )}
                   <img
                     src={logo}
