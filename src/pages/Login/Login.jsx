@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import login from "../../assests/bg.jpg";
 import { useLogin } from "../../store/login/useLogin";
+import Footer from "../Footer/Footer";
 
 const Login = () => {
   const { isLoggined } = useLogin();
@@ -23,6 +24,7 @@ const Login = () => {
           backgroundPosition: "center",
         }}
       />
+      <Footer />
     </div>
   );
 };
