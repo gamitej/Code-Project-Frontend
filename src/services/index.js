@@ -12,6 +12,7 @@ import {
   postQuestion,
   getProfileDropdowns,
   getTableData,
+  getUserStatusData,
 } from "./ApiServices/Profile/profileService";
 
 export {
@@ -23,4 +24,5 @@ export {
   markQuestion,
   getProfileDropdowns,
   getTableData,
+  getUserStatusData,
 };
