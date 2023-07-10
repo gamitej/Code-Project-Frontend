@@ -10,7 +10,7 @@ const Login = () => {
   }
 
   return (
-    <div className="w-full h-[calc(100vh-5rem)] bg-slate-300">
+    <div className="w-full h-[calc(100vh-10rem)] bg-slate-300">
       <img
         src={login}
         alt=""

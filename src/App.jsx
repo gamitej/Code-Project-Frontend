@@ -6,6 +6,7 @@ import Navbar from "./pages/Navbar/Navbar";
 import BasicRouter from "./routes/BasicRouter";
 import { Backdrop, CircularProgress } from "@mui/material";
 import { Toaster } from "react-hot-toast";
+import Footer from "./pages/Footer/Footer";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Suspense fallback={<Loading />}>
         <BasicRouter />
       </Suspense>
+      <Footer />
     </div>
   );
 }
