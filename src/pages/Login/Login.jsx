@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import login from "../../assests/bg.jpg";
 import { useLogin } from "../../store/login/useLogin";
+import Footer from "../Footer/Footer";
 
 const Login = () => {
   const { isLoggined } = useLogin();
@@ -10,7 +11,7 @@ const Login = () => {
   }
 
   return (
-    <div className="w-full h-[calc(100vh-5rem)] bg-slate-300">
+    <div className="w-full h-[calc(100vh-10rem)] bg-slate-300">
       <img
         src={login}
         alt=""
@@ -23,6 +24,7 @@ const Login = () => {
           backgroundPosition: "center",
         }}
       />
+      <Footer />
     </div>
   );
 };

@@ -61,16 +61,6 @@ const OverviewCardBody = ({
     }
   };
 
-  // ======================== Sorting =======================
-
-  // const sortedCardData = useMemo(() => {
-  //   return orderBy(
-  //     cardBodyData,
-  //     (card) => card.completed === filterBySolved[cardType],
-  //     "ASC",
-  //   );
-  // }, [filterBySolved, cardBodyData]);
-
   // ================== Color contants ====================
 
   const getColor = (solved) => (solved ? colorCode["done"] : colorCode["skip"]);

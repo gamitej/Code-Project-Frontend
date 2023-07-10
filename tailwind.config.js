@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
+  darkMode: "class",
   mode: "jit",
   theme: {
     extend: {
@@ -12,6 +13,16 @@ export default {
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
+      },
+      borderWidth: {
+        1: "1px",
+      },
+      borderColor: {
+        color: "rgba(0, 0, 0, 0.1)",
+      },
+      backgroundColor: {
+        "main-bg": "#FAFBFB",
+        "main-dark-bg": "#20232A",
       },
     },
     screens: {

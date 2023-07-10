@@ -18,7 +18,6 @@ const OverviewCardHeader = ({
   color,
   cardType,
   cardTitle,
-  cardData = [],
   filters = {},
   totalCount = {},
   setFilters = () => {},

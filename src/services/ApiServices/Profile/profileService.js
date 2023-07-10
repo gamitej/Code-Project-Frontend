@@ -42,3 +42,19 @@ export async function getTableData({ id, token }) {
     return { data };
   }
 }
+
+// GET USER STATUS DATA
+export async function getUserStatusData({ id, token }) {
+  try {
+    const { data } = await http.get(
+      `${endpoint}/profile/user_status?id=${id}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
+    return data;
+  } catch (error) {
+    const data = ErrorHandlerApi(error);
+    return { data };
+  }
+}
