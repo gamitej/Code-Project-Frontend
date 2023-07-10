@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 // comp
 import AdminModal from "./AdminModal";
-import { BackButton, BasicTable, Error } from "../../components";
+import { BackButton, BasicTable, Error,  } from "../../components";
 // mui
 import { Button, Chip, Tooltip } from "@mui/material";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
@@ -18,6 +18,7 @@ import {
 import { useLogin } from "../../store/login/useLogin";
 // utils
 import colorCode from "../../utils/colorCode.json";
+import ProfileStatus from "./ProfileStatus";
 
 const levelMapping = {
   easy: 0,
@@ -262,6 +263,7 @@ const Profile = () => {
         </div>
       </div>
 
+      <ProfileStatus />
       {/* QUESTION TABLE */}
       <div className="w-[90%] grid grid-cols-4 m-auto gap-4">
         <div className="col-span-4">

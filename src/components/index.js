@@ -3,6 +3,8 @@ import BackButton from "./Button/BackButton";
 import LoadingButton from "./Button/LoadingButton";
 // card
 import ProfileMenu from "./Card/ProfileMenu";
+// charts
+import RadialChart from "./Charts/RadialChart";
 // divider
 import BasicDivider from "./Divider/BasicDivider";
 // dropdown
@@ -22,6 +24,7 @@ import BasicTable from "./Table/BasicTable";
 
 export {
   Dropdown,
+  RadialChart,
   BasicDivider,
   Error,
   Password,
