@@ -49,7 +49,7 @@ const LoginModal = ({ open, setOpen, handleOpen, buttonLabel = "login" }) => {
         toast.success(isSignUp.message, { duration: 1200 });
         reset();
       } else {
-        toast.error(error.message, { duration: 1200 });
+        toast.error(isSignUp.message, { duration: 1200 });
       }
     }
   };
