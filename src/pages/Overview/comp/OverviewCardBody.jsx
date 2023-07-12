@@ -41,7 +41,7 @@ const OverviewCardBody = ({
         toast.error("Something went wrong", { duration: 1200 });
         return;
       }
-      toast.error("Question un-marked", { duration: 1200 });
+      toast.error("Question status: Unmarked", { duration: 1200 });
     }
     // updating json
     setCardData((prevCards) => {
