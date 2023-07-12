@@ -243,7 +243,7 @@ const Profile = () => {
         </h1>
         <BackButton className="absolute top-4 left-4" color="black" />
         <div className="absolute top-4 right-4">
-          {userInfo?.name === "Amitej" && (
+          {false && userInfo?.name === "Amitej" && (
             <Button variant="contained" onClick={handleOpen}>
               Admin
             </Button>
