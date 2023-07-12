@@ -8,11 +8,13 @@ const paraCss =
 const ProfileStatus = ({ userInfo }) => {
   // ================= USE-STATE ==================
   const [userStatus, setuserStatus] = useState({});
+  const [loading, setLoading] = useState(false);
 
   // ================= API CALL ==================
 
   // get profile dropdown api
   const callGetUserStatusApi = async () => {
+    setLoading(true);
     try {
       const { data } = await getUserStatusData({ ...userInfo });
       if (!data.error) {
@@ -20,6 +22,8 @@ const ProfileStatus = ({ userInfo }) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -28,6 +32,14 @@ const ProfileStatus = ({ userInfo }) => {
   useEffect(() => {
     callGetUserStatusApi();
   }, []);
+
+  const loadingSkeletion = (num, den, show) => {
+    if (show) {
+      return " 0 / 0";
+    } else {
+      return ` ${num} / ${den}`;
+    }
+  };
 
   /**
    * JSX
@@ -38,7 +50,11 @@ const ProfileStatus = ({ userInfo }) => {
       <div>
         <div className="relative">
           <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl font-semibold text-slate-500">
-            {userStatus?.totalSolved} / {userStatus?.total}
+            {loadingSkeletion(
+              userStatus?.totalSolved,
+              userStatus?.total,
+              loading,
+            )}
           </p>
           <RadialChart
             series={[
@@ -51,13 +67,28 @@ const ProfileStatus = ({ userInfo }) => {
 
       <div className="flex flex-col justify-around items-center h-full">
         <p className={`${paraCss} bg-green-200`}>
-          Easy - {userStatus?.easySolved}/{userStatus?.easyTotal}
+          Easy -
+          {loadingSkeletion(
+            userStatus?.easySolved,
+            userStatus?.easyTotal,
+            loading,
+          )}
         </p>
         <p className={`${paraCss} bg-orange-200`}>
-          Medium - {userStatus?.mediumSolved}/{userStatus?.mediumTotal}
+          Medium -
+          {loadingSkeletion(
+            userStatus?.mediumSolved,
+            userStatus?.mediumTotal,
+            loading,
+          )}
         </p>
         <p className={`${paraCss} bg-red-200`}>
-          Hard - {userStatus?.hardSolved}/{userStatus?.hardTotal}
+          Hard -
+          {loadingSkeletion(
+            userStatus?.hardSolved,
+            userStatus?.hardTotal,
+            loading,
+          )}
         </p>
       </div>
     </div>
