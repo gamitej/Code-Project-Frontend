@@ -33,32 +33,38 @@ const OverviewCardBody = ({
         toast.error("Something went wrong", { duration: 1200 });
         return;
       }
-      // updating json
-      setCardData((prevCards) => {
-        const updatedCards = prevCards.map((card) => {
-          if (card.cardType === cardType) {
-            const updatedBody = card.body.map((item) => {
-              if (item.id === que_id) {
-                return {
-                  ...item,
-                  completed: !value,
-                };
-              }
-              return item;
-            });
-            return {
-              ...card,
-              body: updatedBody,
-            };
-          }
-          return card;
-        });
-        return updatedCards;
-      });
+
       toast.success("Marked as done", { duration: 1200 });
     } else {
-      toast.error("Already marked as done", { duration: 1200 });
+      const data = await callMarkQuestionApi({ userInfo, que_id });
+      if (!data) {
+        toast.error("Something went wrong", { duration: 1200 });
+        return;
+      }
+      toast.error("Question un-marked", { duration: 1200 });
     }
+    // updating json
+    setCardData((prevCards) => {
+      const updatedCards = prevCards.map((card) => {
+        if (card.cardType === cardType) {
+          const updatedBody = card.body.map((item) => {
+            if (item.id === que_id) {
+              return {
+                ...item,
+                completed: !value,
+              };
+            }
+            return item;
+          });
+          return {
+            ...card,
+            body: updatedBody,
+          };
+        }
+        return card;
+      });
+      return updatedCards;
+    });
   };
 
   // ================== Color contants ====================
