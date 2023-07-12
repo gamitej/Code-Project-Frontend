@@ -5,7 +5,7 @@ import { useLogin } from "../../store/login/useLogin";
 // mui
 import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
 
-const ProfileMenu = () => {
+const ProfileMenu = ({ darkMode }) => {
   const { isLoggined, setLogout } = useLogin();
 
   const [anchorEl, setAnchorEl] = React.useState(null);

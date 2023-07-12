@@ -19,8 +19,10 @@ import {
 import { getAllTopics } from "../../services/ApiServices/Home/homeService";
 // utils
 import nameMapping from "../../utils/nameMapping.json";
+import { useGlobal } from "../../store/global/useGlobal";
 
 const Home = () => {
+  const { darkMode } = useGlobal();
   const { userInfo } = useLogin();
   // ====================== USE-STATES ============================
   const [topics, setTopics] = useState([]);
@@ -87,8 +89,8 @@ const Home = () => {
    */
 
   return (
-    <div className="h-[calc(100vh+4rem)] bg-[#F7F8FA] p-2">
-      <p className="text-[2rem] font-semibold text-slate-500 text-center p-2 mb-2 underline">
+    <div className="h-[calc(100vh+4rem)] bg-[#F7F8FA] dark:bg-slate-800 p-2">
+      <p className="text-[2rem] font-semibold text-slate-500 text-center p-2 mb-2 underline dark:text-[#F7F8FA]">
         Explore
       </p>
       {/* ONGOInG TOPIC */}
@@ -103,7 +105,7 @@ const Home = () => {
           >
             <p>
               {" "}
-              <span className="text-slate-500 font-semibold">
+              <span className="text-slate-500 font-semibold dark:text-white">
                 Ongoing Topic -
               </span>{" "}
               <span className="capitalize text-blue-400 font-semibold">
@@ -125,12 +127,12 @@ const Home = () => {
             topics?.map(({ title, total, solved, urlTitle }, index) => (
               <NavLink
                 to={`/explore/${urlTitle}`}
-                className="h-[20rem] col-span-2 rounded-lg shadow-xl  bg-white p-2 hover:shadow-red-200 transform transition-all hover:scale-105 cursor-pointer"
+                className="h-[20rem] col-span-2 rounded-lg shadow-xl  bg-white dark:bg-slate-800 border p-2 hover:shadow-red-200 transform transition-all hover:scale-105 cursor-pointer"
                 key={index}
                 id={urlTitle}
               >
                 <div className="relative w-full h-[75%] ">
-                  <p className="absolute top-2 left-2 text-white font-semibold text-2xl">
+                  <p className="absolute top-2 left-2 text-white font-semibold text-2xl dark:text-slate-800">
                     {title}
                   </p>
                   {urlTitle === ongoingTopic?.name && (
@@ -152,8 +154,8 @@ const Home = () => {
                   />
                 </div>
                 <div className="flex justify-around items-center h-[25%]">
-                  <SubPara label="solved" value={solved} />
-                  <SubPara label="total" value={total} />
+                  <SubPara label="solved" value={solved} darkMode={darkMode} />
+                  <SubPara label="total" value={total} darkMode={darkMode} />
 
                   {solved === total ? (
                     <Fab aria-label="save" color="primary">
@@ -162,6 +164,7 @@ const Home = () => {
                   ) : (
                     <CircularProgressWithLabel
                       value={Math.round((solved / total) * 100)}
+                      darkMode={darkMode}
                     />
                   )}
                 </div>
@@ -173,11 +176,13 @@ const Home = () => {
   );
 };
 
-function SubPara({ label, value }) {
+function SubPara({ label, value, darkMode }) {
   return (
     <div className="flex flex-col items-center justify-center">
-      <p className="text-3xl font-semibold">{value}</p>
-      <p className="text-md font-semibold text-stone-400">{label} </p>
+      <p className="text-3xl font-semibold dark:text-white">{value}</p>
+      <p className="text-md font-semibold text-stone-400 dark:text-white">
+        {label}{" "}
+      </p>
     </div>
   );
 }
@@ -202,6 +207,7 @@ function CircularProgressWithLabel(props) {
           variant="caption"
           component="div"
           color="text.secondary"
+          sx={{ color: props.darkMode ? "whitesmoke" : "black" }}
         >{`${Math.round(props.value)}%`}</Typography>
       </Box>
     </Box>

@@ -71,23 +71,25 @@ export default function ButtonAppBar({ handleToggle }) {
             </>
           )}
 
-          <div className="flex justify-center items-center">
-            {darkMode ? (
-              <LightModeIcon
-                className="cursor-pointer dark:text-white"
-                onClick={handleToggle}
-              />
-            ) : (
-              <DarkModeIcon className="cursor-pointer" onClick={handleToggle} />
-            )}
-          </div>
+          {/* <div className="flex justify-center items-center"></div> */}
 
           {isLoggined && (
-            <div className="flex items-center justify-center gap-x-2">
+            <div className="flex items-center justify-center gap-x-3">
+              {darkMode ? (
+                <LightModeIcon
+                  className="cursor-pointer dark:text-[#F7F8FA] mt-1"
+                  onClick={handleToggle}
+                />
+              ) : (
+                <DarkModeIcon
+                  className="cursor-pointer mt-1"
+                  onClick={handleToggle}
+                />
+              )}
               <p className="text-xl text-slate-500 font-semibold dark:text-white">
                 {userInfo.name}
               </p>
-              <ProfileMenu />
+              <ProfileMenu darkMode={darkMode} />
             </div>
           )}
         </div>
