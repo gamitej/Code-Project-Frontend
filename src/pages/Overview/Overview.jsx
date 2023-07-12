@@ -99,7 +99,7 @@ const Overview = () => {
    */
 
   return (
-    <div className="bg-slate-100 h-[calc(100vh-5rem)] dark:bg-slate-800">
+    <div className="bg-slate-100 h-[150vh] lg:h-[calc(100vh-5rem)] dark:bg-slate-800">
       <div className="relative bg-blue-300 flex justify-center items-center h-[10rem] dark:bg-slate-700 border-b">
         <h2 className="text-4xl font-semibold text-white capitalize underline">
           {nameMapping[topic]}
