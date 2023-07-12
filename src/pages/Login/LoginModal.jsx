@@ -13,7 +13,13 @@ import {
 // store
 import { useLogin } from "../../store/login/useLogin";
 
-const LoginModal = ({ open, setOpen, handleOpen, buttonLabel = "login" }) => {
+const LoginModal = ({
+  open,
+  setOpen,
+  handleOpen,
+  buttonLabel = "login",
+  setName = () => {},
+}) => {
   // =========== STATES ===============
   const { callLoginApi, callSignupApi, loading } = useLogin();
   const [form, setForm] = useState({ username: "", password: "" });
@@ -27,6 +33,16 @@ const LoginModal = ({ open, setOpen, handleOpen, buttonLabel = "login" }) => {
   const reset = () => {
     setOpen(false);
     setForm({ username: "", password: "" });
+  };
+
+  const resetSignUp = () => {
+    setForm({ username: "", password: "" });
+    setName("login");
+  };
+
+  const handleName = (name) => {
+    setForm({ username: "", password: "" });
+    setName(name);
   };
 
   // API CALL
@@ -47,7 +63,10 @@ const LoginModal = ({ open, setOpen, handleOpen, buttonLabel = "login" }) => {
       const isSignUp = await callSignupApi(form);
       if (!isSignUp.error) {
         toast.success(isSignUp.message, { duration: 1200 });
-        reset();
+        setTimeout(() => {
+          toast.success("Please Login", { duration: 1200 });
+        }, [1200]);
+        resetSignUp();
       } else {
         toast.error(isSignUp.message, { duration: 1200 });
       }
@@ -85,12 +104,6 @@ const LoginModal = ({ open, setOpen, handleOpen, buttonLabel = "login" }) => {
             maxLength={8}
           />
           <Password value={form.password} onChange={handleChange} />
-          {/* <button
-            className="bg-red-500 hover:bg-red-600 rounded-full py-1 px-3 text-white font-semibold text-lg w-[80%]"
-            type="submit"
-          >
-            {buttonLabel}
-          </button> */}
 
           <LoadingButton
             width="80%"
@@ -98,6 +111,17 @@ const LoginModal = ({ open, setOpen, handleOpen, buttonLabel = "login" }) => {
             isLoading={loading}
             label={buttonLabel}
           />
+          <p>
+            {buttonLabel === "login" ? "Not Registered ? " : "Registered ? "}
+            <span
+              className="text-red-400 font-semibold cursor-pointer hover:text-blue-400"
+              onClick={() =>
+                handleName(buttonLabel === "login" ? "sign up" : "login")
+              }
+            >
+              {buttonLabel === "login" ? "sign up" : "login"}
+            </span>{" "}
+          </p>
           <br />
         </form>
       </BasicModal>

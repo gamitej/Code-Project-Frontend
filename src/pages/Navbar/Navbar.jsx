@@ -82,6 +82,7 @@ export default function ButtonAppBar() {
         handleOpen={handleLogin}
         setOpen={() => setOpen(!open)}
         buttonLabel={name}
+        setName={setName}
       />
     </React.Fragment>
   );
