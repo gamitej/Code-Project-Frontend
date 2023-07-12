@@ -127,7 +127,7 @@ const Home = () => {
             topics?.map(({ title, total, solved, urlTitle }, index) => (
               <NavLink
                 to={`/explore/${urlTitle}`}
-                className="h-[20rem] col-span-2 rounded-lg shadow-xl  bg-white dark:bg-slate-800 border p-2 hover:shadow-red-200 transform transition-all hover:scale-105 cursor-pointer"
+                className="h-[20rem] col-span-2 rounded-lg shadow-xl dark:shadow-lg bg-white dark:bg-slate-800 border p-2  hover:shadow-red-200 transform transition-all hover:scale-105 cursor-pointer"
                 key={index}
                 id={urlTitle}
               >

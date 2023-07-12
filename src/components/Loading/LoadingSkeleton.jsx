@@ -48,13 +48,21 @@ const LoadingSkeleton = ({ className = "", page = "home" }) => {
       <div className={`${className}`}>
         <Skeleton
           variant="text"
-          sx={{ fontSize: "1rem" }}
+          sx={{
+            fontSize: "1rem",
+            backgroundColor: darkMode ? "lightgray" : "",
+          }}
           width="100%"
           height={60}
         />
         <Stack spacing={1}>
           {/* <Skeleton variant="rectangular" width={250} height={120} /> */}
-          <Skeleton variant="rounded" width="100%" height={300} />
+          <Skeleton
+            variant="rounded"
+            width="100%"
+            height={300}
+            sx={{ backgroundColor: darkMode ? "lightgray" : "" }}
+          />
         </Stack>
       </div>
     );

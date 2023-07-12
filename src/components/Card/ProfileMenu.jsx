@@ -4,8 +4,10 @@ import { NavLink } from "react-router-dom";
 import { useLogin } from "../../store/login/useLogin";
 // mui
 import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
+import { useGlobal } from "../../store/global/useGlobal";
 
-const ProfileMenu = ({ darkMode }) => {
+const ProfileMenu = () => {
+  const { darkMode, setDarkMode } = useGlobal();
   const { isLoggined, setLogout } = useLogin();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -17,6 +19,12 @@ const ProfileMenu = ({ darkMode }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    setLogout();
+    setDarkMode(!darkMode);
+    document.documentElement.classList.toggle("dark");
   };
 
   return (
@@ -43,7 +51,7 @@ const ProfileMenu = ({ darkMode }) => {
             <NavLink to="/profile" onClick={() => setAnchorEl(null)}>
               <MenuItem>Profile</MenuItem>
             </NavLink>
-            <MenuItem onClick={setLogout}>Logout</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </div>
       )}

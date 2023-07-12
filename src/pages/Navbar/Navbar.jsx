@@ -31,6 +31,7 @@ export default function ButtonAppBar({ handleToggle }) {
     setName(() => "sign up");
   };
 
+  
   // =========== USE-EFFECT ===============
 
   useEffect(() => {

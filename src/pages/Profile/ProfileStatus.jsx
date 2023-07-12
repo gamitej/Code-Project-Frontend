@@ -49,7 +49,7 @@ const ProfileStatus = ({ userInfo }) => {
     <div className="w-[90%] m-auto h-[37rem] sm:h-[20rem] flex flex-col sm:flex-row  items-center justify-center gap-x-[10rem] gap-y-2">
       <div>
         <div className="relative">
-          <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl font-semibold text-slate-500">
+          <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl font-semibold text-slate-500 dark:text-white">
             {loadingSkeletion(
               userStatus?.totalSolved,
               userStatus?.total,
