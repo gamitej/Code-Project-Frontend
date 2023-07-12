@@ -21,7 +21,7 @@ const LoginModal = ({
   setName = () => {},
 }) => {
   // =========== STATES ===============
-  const { callLoginApi, callSignupApi, loading } = useLogin();
+  const { callLoginApi, callSignupApi, loading, isLoggined } = useLogin();
   const [form, setForm] = useState({ username: "", password: "" });
 
   // =========== EVENT HANDLERS ===============
@@ -52,6 +52,9 @@ const LoginModal = ({
     if (buttonLabel === "login") {
       // LOGIN API CALL
       const isLogin = await callLoginApi(form);
+      if (isLoggined) {
+        reset();
+      }
       if (!isLogin.error) {
         toast.success(isLogin.message, { duration: 1200 });
         reset();

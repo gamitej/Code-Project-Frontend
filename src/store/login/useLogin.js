@@ -33,7 +33,7 @@ export const useLogin = create((set) => ({
       }));
       return data;
     } else {
-      set((state) => ({ ...state, loading: false }));
+      set((state) => ({ ...state, loading: false, isLoggined: false }));
       return data;
     }
   },
