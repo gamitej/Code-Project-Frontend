@@ -1,11 +1,14 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
+import { useGlobal } from "../../store/global/useGlobal";
 
 const RadialChart = ({
   series = [67],
   height = 380,
   labels = ["Total Completion"],
 }) => {
+  const { darkMode } = useGlobal();
+
   const options = {
     chart: {
       height: 350,
@@ -19,13 +22,13 @@ const RadialChart = ({
         dataLabels: {
           name: {
             fontSize: "16px",
-            color: undefined,
+            color: darkMode ? "white" : "grey",
             offsetY: 120,
           },
           value: {
             offsetY: 76,
             fontSize: "22px",
-            color: undefined,
+            color: darkMode ? "white" : "grey",
             formatter: function (val) {
               return val + "%";
             },
@@ -51,8 +54,9 @@ const RadialChart = ({
   };
 
   return (
-    <div>
+    <div className="dark:text-white">
       <ReactApexChart
+        style={{ color: "white" }}
         options={options}
         series={series}
         type="radialBar"
