@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { RadialChart } from "../../components";
+import { LoadingSkeleton, RadialChart } from "../../components";
 import { getUserStatusData } from "../../services";
 
 const paraCss =
@@ -15,7 +15,6 @@ const ProfileStatus = ({ userInfo }) => {
   const callGetUserStatusApi = async () => {
     try {
       const { data } = await getUserStatusData({ ...userInfo });
-      console.log(data);
       if (!data.error) {
         setuserStatus(data);
       }
@@ -35,7 +34,7 @@ const ProfileStatus = ({ userInfo }) => {
    */
 
   return (
-    <div className="w-[90%] m-auto mb-4 h-[37rem] sm:h-[20rem] flex flex-col sm:flex-row  items-center justify-center gap-x-[10rem] gap-y-2">
+    <div className="w-[90%] m-auto h-[37rem] sm:h-[20rem] flex flex-col sm:flex-row  items-center justify-center gap-x-[10rem] gap-y-2">
       <div>
         <div className="relative">
           <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl font-semibold text-slate-500">
@@ -43,11 +42,13 @@ const ProfileStatus = ({ userInfo }) => {
           </p>
           <RadialChart
             series={[
-              Math.round((userStatus?.totalSolved / userStatus?.total) * 100),
+              Math.round((userStatus?.totalSolved / userStatus?.total) * 100) ||
+                "0",
             ]}
           />
         </div>
       </div>
+
       <div className="flex flex-col justify-around items-center h-full">
         <p className={`${paraCss} bg-green-200`}>
           Easy - {userStatus?.easySolved}/{userStatus?.easyTotal}

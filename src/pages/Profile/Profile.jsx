@@ -1,10 +1,11 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { lazy, useEffect, useMemo, useState } from "react";
 // libs
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 // comp
 import AdminModal from "./AdminModal";
 import { BackButton, BasicTable, Error } from "../../components";
+const ProfileStatus = lazy(() => import("./ProfileStatus"));
 // mui
 import { Button, Chip, Tooltip } from "@mui/material";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
@@ -18,7 +19,6 @@ import {
 import { useLogin } from "../../store/login/useLogin";
 // utils
 import colorCode from "../../utils/colorCode.json";
-import ProfileStatus from "./ProfileStatus";
 
 const levelMapping = {
   easy: 0,
@@ -264,8 +264,9 @@ const Profile = () => {
       </div>
 
       <ProfileStatus userInfo={userInfo} />
+      <br />
       {/* QUESTION TABLE */}
-      <div className="w-[90%] grid grid-cols-4 m-auto gap-4">
+      <div className="w-[90%] grid grid-cols-4 m-auto gap-4 mt-3">
         <div className="col-span-4">
           <BasicTable
             height={500}
