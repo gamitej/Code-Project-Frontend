@@ -75,7 +75,7 @@ const Home = () => {
 
   if (isError.status) {
     return (
-      <div className="h-[calc(100vh-10rem)] bg-[#F7F8FA] p-2">
+      <div className="h-[100vh] bg-[#F7F8FA] p-2 dark:bg-slate-800">
         <p className="text-[2rem] font-semibold text-slate-500 text-center p-2 mb-4 font-sans">
           Explore
         </p>
@@ -89,7 +89,7 @@ const Home = () => {
    */
 
   return (
-    <div className="h-[calc(100vh+4rem)] bg-[#F7F8FA] dark:bg-slate-800 p-2">
+    <div className="h-[220vh] lg:h-[calc(100vh-4rem)]  bg-[#F7F8FA] dark:bg-slate-800 p-2">
       <p className="text-[2rem] font-semibold text-slate-500 text-center p-2 mb-2 underline dark:text-[#F7F8FA]">
         Explore
       </p>
