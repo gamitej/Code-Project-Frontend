@@ -6,10 +6,15 @@ import { ProfileMenu } from "../../components";
 import LoginModal from "../../pages/Login/LoginModal";
 // store
 import { useLogin } from "../../store/login/useLogin";
+import { useGlobal } from "../../store/global/useGlobal";
 import { NavLink } from "react-router-dom";
+// mui icons
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar({ handleToggle }) {
   // =========== STATES===============
+  const { darkMode } = useGlobal();
   const { isLoggined, userInfo } = useLogin();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("login");
@@ -39,7 +44,7 @@ export default function ButtonAppBar() {
 
   return (
     <React.Fragment>
-      <div className="w-full flex justify-between items-center h-[5rem] shadow-md">
+      <div className="w-full flex justify-between items-center h-[5rem] shadow-md border-b dark:border-b-dimWhite">
         {/* Title */}
         <div>
           <NavLink to="/" className="cursor-pointer">
@@ -66,9 +71,20 @@ export default function ButtonAppBar() {
             </>
           )}
 
+          <div className="flex justify-center items-center">
+            {darkMode ? (
+              <LightModeIcon
+                className="cursor-pointer dark:text-white"
+                onClick={handleToggle}
+              />
+            ) : (
+              <DarkModeIcon className="cursor-pointer" onClick={handleToggle} />
+            )}
+          </div>
+
           {isLoggined && (
             <div className="flex items-center justify-center gap-x-2">
-              <p className="text-xl text-slate-500 font-semibold">
+              <p className="text-xl text-slate-500 font-semibold dark:text-white">
                 {userInfo.name}
               </p>
               <ProfileMenu />

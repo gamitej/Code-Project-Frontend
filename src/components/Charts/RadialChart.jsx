@@ -19,13 +19,13 @@ const RadialChart = ({
         dataLabels: {
           name: {
             fontSize: "16px",
-            color: undefined,
+            color: "white",
             offsetY: 120,
           },
           value: {
             offsetY: 76,
             fontSize: "22px",
-            color: undefined,
+            color: "white",
             formatter: function (val) {
               return val + "%";
             },
@@ -51,8 +51,9 @@ const RadialChart = ({
   };
 
   return (
-    <div>
+    <div className="dark:text-white">
       <ReactApexChart
+        style={{ color: "white" }}
         options={options}
         series={series}
         type="radialBar"
