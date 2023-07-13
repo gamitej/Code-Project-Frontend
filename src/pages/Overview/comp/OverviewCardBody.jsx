@@ -11,6 +11,7 @@ import { toast } from "react-hot-toast";
 import { useLogin } from "../../../store/login/useLogin";
 import { orderBy } from "lodash";
 import { useOverview } from "../../../store/overview/useOverview";
+import { useGlobal } from "../../../store/global/useGlobal";
 
 const OverviewCardBody = ({
   cardType,
@@ -20,6 +21,7 @@ const OverviewCardBody = ({
 }) => {
   // ==================== STORE ====================
 
+  const { darkMode } = useGlobal();
   const { userInfo } = useLogin();
   const { filterBySolved } = useOverview();
 
@@ -71,7 +73,8 @@ const OverviewCardBody = ({
 
   const getColor = (solved) => (solved ? colorCode["done"] : colorCode["skip"]);
 
-  const colorVal = (completed) => (completed ? getColor(completed) : "gray");
+  const colorVal = (completed) =>
+    completed ? getColor(completed) : `${darkMode ? "silver" : "gray"}`;
 
   /**
    * JSX
@@ -83,7 +86,7 @@ const OverviewCardBody = ({
         cardBodyData?.map(
           ({ name, url, platform, completed, id, favorate }) => (
             <React.Fragment key={id}>
-              <div className="grid grid-cols-8 p-3 hover:bg-slate-100 cursor-pointer">
+              <div className="grid grid-cols-8 p-3 hover:bg-slate-100 dark:hover:bg-slate-50 cursor-pointer">
                 {/* STATUS */}
                 <Tooltip
                   title={`${completed ? "Solved" : "Unsolved"}`}
@@ -134,7 +137,7 @@ const OverviewCardBody = ({
               {platform}
             </p> */}
               </div>
-              <Divider />
+              <Divider sx={{ backgroundColor: darkMode ? "silver" : "" }} />
             </React.Fragment>
           ),
         )}
