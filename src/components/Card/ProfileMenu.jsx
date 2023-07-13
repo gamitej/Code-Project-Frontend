@@ -23,8 +23,10 @@ const ProfileMenu = () => {
 
   const handleLogout = () => {
     setLogout();
-    setDarkMode(!darkMode);
-    document.documentElement.classList.toggle("dark");
+    if (darkMode) {
+      setDarkMode(!darkMode);
+      document.documentElement.classList.toggle("dark");
+    }
   };
 
   return (
