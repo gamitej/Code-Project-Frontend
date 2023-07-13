@@ -117,7 +117,7 @@ const LoginModal = ({
           <p>
             {buttonLabel === "login" ? "Not Registered ? " : "Registered ? "}
             <span
-              className="text-red-400 font-semibold cursor-pointer hover:text-blue-400"
+              className="text-red-400 font-semibold cursor-pointer hover:text-blue-400 capitalize"
               onClick={() =>
                 handleName(buttonLabel === "login" ? "sign up" : "login")
               }

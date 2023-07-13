@@ -11,17 +11,18 @@ import { Toaster } from "react-hot-toast";
 import { useGlobal } from "./store/global/useGlobal";
 
 function App() {
-  const { darkMode } = useGlobal();
+  const { darkMode, setDarkMode } = useGlobal();
 
-  useEffect(() => {
+  const handleDarkMode = () => {
+    setDarkMode(!darkMode);
     document.documentElement.classList.toggle("dark");
-  }, [darkMode]);
+  };
 
   return (
     <div className="dark:bg-slate-800">
       <Toaster position="top-center" reverseOrder={false} limit={1} />
       {/* Navbar */}
-      <Navbar />
+      <Navbar handleDarkMode={handleDarkMode} />
 
       {/* Routes */}
       <Suspense fallback={<Loading />}>
