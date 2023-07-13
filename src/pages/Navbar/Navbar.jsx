@@ -86,7 +86,7 @@ export default function ButtonAppBar({ handleToggle }) {
                   onClick={() => setDarkMode(true)}
                 />
               )}
-              <p className="text-xl text-slate-500 font-semibold dark:text-white">
+              <p className="text-xl text-slate-500 font-semibold dark:text-white capitalize">
                 {userInfo.name}
               </p>
               <ProfileMenu darkMode={darkMode} />
