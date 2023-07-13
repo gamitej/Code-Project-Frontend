@@ -12,7 +12,7 @@ import { NavLink } from "react-router-dom";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 
-export default function ButtonAppBar({ handleToggle }) {
+export default function ButtonAppBar({ handleDarkMode }) {
   // =========== STATES===============
   const { darkMode, setDarkMode } = useGlobal();
   const { isLoggined, userInfo } = useLogin();
@@ -78,12 +78,12 @@ export default function ButtonAppBar({ handleToggle }) {
               {darkMode ? (
                 <LightModeIcon
                   className="cursor-pointer dark:text-[#F7F8FA] mt-1"
-                  onClick={() => setDarkMode(false)}
+                  onClick={handleDarkMode}
                 />
               ) : (
                 <DarkModeIcon
                   className="cursor-pointer mt-1"
-                  onClick={() => setDarkMode(true)}
+                  onClick={handleDarkMode}
                 />
               )}
               <p className="text-xl text-slate-500 font-semibold dark:text-white">
