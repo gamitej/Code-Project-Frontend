@@ -14,7 +14,7 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 
 export default function ButtonAppBar({ handleToggle }) {
   // =========== STATES===============
-  const { darkMode } = useGlobal();
+  const { darkMode, setDarkMode } = useGlobal();
   const { isLoggined, userInfo } = useLogin();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("login");
@@ -31,7 +31,6 @@ export default function ButtonAppBar({ handleToggle }) {
     setName(() => "sign up");
   };
 
-  
   // =========== USE-EFFECT ===============
 
   useEffect(() => {
@@ -79,12 +78,12 @@ export default function ButtonAppBar({ handleToggle }) {
               {darkMode ? (
                 <LightModeIcon
                   className="cursor-pointer dark:text-[#F7F8FA] mt-1"
-                  onClick={handleToggle}
+                  onClick={() => setDarkMode(false)}
                 />
               ) : (
                 <DarkModeIcon
                   className="cursor-pointer mt-1"
-                  onClick={handleToggle}
+                  onClick={() => setDarkMode(true)}
                 />
               )}
               <p className="text-xl text-slate-500 font-semibold dark:text-white">
