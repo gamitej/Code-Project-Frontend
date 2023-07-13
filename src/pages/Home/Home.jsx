@@ -164,7 +164,6 @@ const Home = () => {
                   ) : (
                     <CircularProgressWithLabel
                       value={Math.round((solved / total) * 100)}
-                      darkMode={darkMode}
                     />
                   )}
                 </div>
@@ -188,6 +187,7 @@ function SubPara({ label, value, darkMode }) {
 }
 
 function CircularProgressWithLabel(props) {
+  const { darkMode } = useGlobal();
   return (
     <Box sx={{ position: "relative", display: "inline-flex" }}>
       <CircularProgress size={50} variant="determinate" {...props} />
@@ -207,7 +207,7 @@ function CircularProgressWithLabel(props) {
           variant="caption"
           component="div"
           color="text.secondary"
-          sx={{ color: props.darkMode ? "whitesmoke" : "black" }}
+          sx={{ color: darkMode ? "whitesmoke" : "" }}
         >{`${Math.round(props.value)}%`}</Typography>
       </Box>
     </Box>

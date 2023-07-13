@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import "./App.css";
 // comp
 import Navbar from "./pages/Navbar/Navbar";
@@ -11,18 +11,23 @@ import { Toaster } from "react-hot-toast";
 import { useGlobal } from "./store/global/useGlobal";
 
 function App() {
-  const { darkMode, setDarkMode } = useGlobal();
+  const { darkMode } = useGlobal();
 
-  const handleToggle = () => {
-    setDarkMode(!darkMode);
+  useEffect(() => {
     document.documentElement.classList.toggle("dark");
-  };
+  }, [darkMode]);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.toggle("dark");
+    }
+  }, []);
 
   return (
     <div className="dark:bg-slate-800">
       <Toaster position="top-center" reverseOrder={false} limit={1} />
       {/* Navbar */}
-      <Navbar handleToggle={handleToggle} darkMode={darkMode} />
+      <Navbar />
 
       {/* Routes */}
       <Suspense fallback={<Loading />}>
