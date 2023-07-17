@@ -17,7 +17,8 @@ const Login = () => {
         toast(
           (t) => (
             <span className="w-full">
-              Login is taking longer than 4 seconds 😞.
+              Apologize for the delay, please be patient as starting the server
+              may take some time.
               <button
                 onClick={() => toast.dismiss(t.id)}
                 className="text-blue-400 items-center"
