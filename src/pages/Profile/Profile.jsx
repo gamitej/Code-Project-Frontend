@@ -5,6 +5,8 @@ import { toast } from "react-hot-toast";
 // comp
 import AdminModal from "./AdminModal";
 import { BackButton, BasicTable, Error } from "../../components";
+import ProfileHistoryModal from "./ProfileHistoryModal";
+// lazy import
 const ProfileStatus = lazy(() => import("./ProfileStatus"));
 // mui
 import { Button, Chip, Tooltip } from "@mui/material";
@@ -42,6 +44,8 @@ const Profile = () => {
     topic: "",
   });
   const [tableData, setTableData] = useState({});
+
+  const [openHistory, setOpenHistory] = useState(false);
 
   // =================== EVENT-HANDLERS ================
 
@@ -236,7 +240,16 @@ const Profile = () => {
    */
 
   return (
-    <div className="w-full h-full m-auto">
+    <div className="w-full h-full m-auto relative">
+      <div className="fixed top-24 right-4 z-[10000]">
+        {false && (
+          <Button variant="contained" onClick={() => setOpenHistory(true)}>
+            {" "}
+            History{" "}
+          </Button>
+        )}
+        <ProfileHistoryModal open={openHistory} setOpen={setOpenHistory} />
+      </div>
       <div className="relative h-[5rem] flex justify-center items-center">
         <h1 className="text-3xl font-semibold text-purple-400 underline capitalize">
           {userInfo?.name}
@@ -281,6 +294,8 @@ const Profile = () => {
           />
         </div>
       </div>
+      <br />
+      <br />
     </div>
   );
 };

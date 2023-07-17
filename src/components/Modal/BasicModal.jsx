@@ -5,8 +5,8 @@ import CloseIcon from "@mui/icons-material/Close";
 export default function BasicModal({
   children,
   open = false,
-  width = "200px",
-  height = "200px",
+  width = "80%",
+  height = "80%",
   onClose = () => {},
 }) {
   return (

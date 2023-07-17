@@ -1,7 +1,13 @@
 {
+  "tree-1": "Tree - 1",
+  "tree-2": "Tree - 2",
   "stack": "Stack",
   "arrays": "Arrays",
   "strings": "Strings",
+  "linkedlist": "Linked List",
   "twoPointers": "Two Pointers",
-  "binarySearch": "Binary Search"
+  "heap": "Heap - Priority Queue",
+  "binarySearch": "Binary Search",
+  "dp-1": "Dynamic Programming - 1",
+  "dp-2": "Dynamic Programming - 2"
 }
