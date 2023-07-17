@@ -75,7 +75,7 @@ const Home = () => {
 
   if (isError.status) {
     return (
-      <div className="h-[100vh] bg-[#F7F8FA] p-2 dark:bg-slate-800">
+      <div className="h-[calc(100vh-5rem)] bg-[#F7F8FA] p-2 dark:bg-slate-800">
         <p className="text-[2rem] font-semibold text-slate-500 text-center p-2 mb-4 font-sans">
           Explore
         </p>
@@ -89,11 +89,11 @@ const Home = () => {
    */
 
   return (
-    <div className="h-[220vh] lg:h-[calc(100vh-4rem)]  bg-[#F7F8FA] dark:bg-slate-800 p-2">
+    <div className="h-[500vh] lg:h-[180vh]  bg-[#F7F8FA] dark:bg-slate-800 p-2">
       <p className="text-[2rem] font-semibold text-slate-500 text-center p-2 mb-2 underline dark:text-[#F7F8FA]">
         Explore
       </p>
-      {/* ONGOInG TOPIC */}
+      {/* ONGOING TOPIC */}
       <div className="h-[3rem] flex justify-center items-center  mb-4">
         {ongoingTopic?.show && (
           <Tooltip
@@ -119,7 +119,7 @@ const Home = () => {
         <div className="grid  grid-cols-1  md:grid-cols-4 lg:grid-cols-6  gap-10 w-[80%] ">
           {/* Card loading skeleton */}
           {loading &&
-            [1, 2, 3, 4, 5].map((index) => (
+            [1, 2, 3, 4, 5, 6].map((index) => (
               <LoadingSkeleton key={index} className="col-span-2 mt-5 w-full" />
             ))}
           {/* Card Comp */}
@@ -171,6 +171,9 @@ const Home = () => {
             ))}
         </div>
       </div>
+      <br />
+      <br />
+      <br />
     </div>
   );
 };
