@@ -4,6 +4,11 @@ import { NavLink } from "react-router-dom";
 import { Error, LoadingSkeleton } from "../../components";
 // images
 import logo from "../../assests/bg.jpg";
+import linkedlist from "../../assests/ll.png";
+import tree from "../../assests/tree.png";
+import heap from "../../assests/heap.png";
+
+// store
 import { useLogin } from "../../store/login/useLogin";
 // mui
 import CheckIcon from "@mui/icons-material/Check";
@@ -20,6 +25,13 @@ import { getAllTopics } from "../../services/ApiServices/Home/homeService";
 // utils
 import nameMapping from "../../utils/nameMapping.json";
 import { useGlobal } from "../../store/global/useGlobal";
+
+const urlMapping = {
+  "tree-1": tree,
+  "tree-2": tree,
+  linkedlist,
+  heap,
+};
 
 const Home = () => {
   const { darkMode } = useGlobal();
@@ -146,8 +158,16 @@ const Home = () => {
                     />
                   )}
                   <img
-                    src={logo}
-                    srcSet={logo}
+                    src={
+                      urlMapping.hasOwnProperty(urlTitle)
+                        ? urlMapping[urlTitle]
+                        : logo
+                    }
+                    srcSet={
+                      urlMapping.hasOwnProperty(urlTitle)
+                        ? urlMapping[urlTitle]
+                        : logo
+                    }
                     alt="image"
                     className="h-full w-full rounded-md"
                     loading="lazy"
