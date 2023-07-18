@@ -9,6 +9,7 @@ import { Divider } from "@mui/material";
 import { useGlobal } from "../../store/global/useGlobal";
 // utils
 import colorCode from "../../utils/colorCode.json";
+import { Link } from "react-router-dom";
 
 const ProfileHistoryModal = ({ open, setOpen, data = [] }) => {
   const { darkMode } = useGlobal();
@@ -45,8 +46,7 @@ const ProfileHistoryModal = ({ open, setOpen, data = [] }) => {
 
         {historyData?.length === 0 && (
           <div className="dark:text-white text-slate-400 text-4xl h-full flex justify-center items-center font-semibold">
-            {" "}
-            No Questions Solved{" "}
+            No Questions Solved
           </div>
         )}
         {/* HEADER */}
@@ -70,16 +70,20 @@ const ProfileHistoryModal = ({ open, setOpen, data = [] }) => {
             {/* DATA */}
             {historyData?.map((item, idx) => (
               <React.Fragment key={idx} className="h-full">
-                <div className="grid grid-cols-9 items-center h-[10%] p-3 hover:bg-blue-100 dark:text-white dark:hover:text-slate-600  cursor-pointer">
-                  <div className="col-span-2 ">
+                <div className="grid grid-cols-9 items-center h-[10%] p-3 hover:bg-blue-100 dark:text-white dark:hover:text-slate-600  cursor-pointer font-semibold text-slate-600">
+                  <div className="col-span-2">
                     <p>{item?.topic}</p>
                   </div>
                   <div className="col-span-1 ">
                     <p>{formateDate(item?.date)}</p>
                   </div>
-                  <div className="col-span-5 ">
+                  <Link
+                    to={item?.url}
+                    target="_blank"
+                    className="col-span-5 hover:text-blue-500 hover:underline"
+                  >
                     <p>{item?.question}</p>
-                  </div>
+                  </Link>
                   <div className="col-span-1 capitalize font-semibold">
                     <p
                       style={{
