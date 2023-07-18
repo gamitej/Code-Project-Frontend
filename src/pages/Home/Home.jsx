@@ -101,7 +101,7 @@ const Home = () => {
    */
 
   return (
-    <div className="h-[500vh] lg:h-[180vh]  bg-[#F7F8FA] dark:bg-slate-800 p-2">
+    <div className="lg:h-[180vh]  bg-[#F7F8FA] dark:bg-slate-800 p-2">
       <p className="text-[2rem] font-semibold text-slate-500 text-center p-2 mb-2 underline dark:text-[#F7F8FA]">
         Explore
       </p>
