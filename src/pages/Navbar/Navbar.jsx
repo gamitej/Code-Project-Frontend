@@ -11,10 +11,12 @@ import { NavLink } from "react-router-dom";
 // mui icons
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import DehazeIcon from "@mui/icons-material/Dehaze";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function ButtonAppBar({ handleDarkMode }) {
   // =========== STATES===============
-  const { darkMode, setDarkMode } = useGlobal();
+  const { darkMode, setIsSideBarOpen, isSideBarOpen } = useGlobal();
   const { isLoggined, userInfo } = useLogin();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("login");
@@ -46,10 +48,23 @@ export default function ButtonAppBar({ handleDarkMode }) {
     <React.Fragment>
       <div className="w-full flex justify-between items-center h-[5rem] shadow-md border-b dark:border-b-dimWhite">
         {/* Title */}
-        <div>
-          <NavLink to="/" className="cursor-pointer">
+        <div className="flex justify-center items-center ml-3">
+          {!isSideBarOpen ? (
+            <DehazeIcon
+              className="cursor-pointer dark:text-white"
+              sx={{ fontSize: "2.5rem" }}
+              onClick={() => setIsSideBarOpen(true)}
+            />
+          ) : (
+            <CloseIcon
+              className="cursor-pointer dark:text-white"
+              sx={{ fontSize: "2.5rem" }}
+              onClick={() => setIsSideBarOpen(false)}
+            />
+          )}
+          {/* <NavLink to="/" className="cursor-pointer bg-red-300">
             <img src={logo} alt="logo" className="w-[9rem] h-[5rem]" />
-          </NavLink>
+          </NavLink> */}
         </div>
 
         {/* Buttons */}

@@ -9,6 +9,7 @@ import { Backdrop, CircularProgress } from "@mui/material";
 import { Toaster } from "react-hot-toast";
 // store
 import { useGlobal } from "./store/global/useGlobal";
+import Sidebar from "./pages/Sidebar/Sidebar";
 
 function App() {
   const { darkMode, setDarkMode } = useGlobal();
@@ -42,7 +43,7 @@ function App() {
       <Toaster position="top-center" reverseOrder={false} limit={1} />
       {/* Navbar */}
       <Navbar handleDarkMode={handleDarkMode} />
-
+      <Sidebar />
       {/* Routes */}
       <Suspense fallback={<Loading />}>
         <BasicRouter />
