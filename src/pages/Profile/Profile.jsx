@@ -241,7 +241,7 @@ const Profile = () => {
 
   return (
     <div className="w-full h-full m-auto relative">
-      <div className="fixed top-24 right-4 z-[10000]">
+      <div className="fixed top-24 left-4 z-[10000]">
         {
           <Button
             variant="contained"
