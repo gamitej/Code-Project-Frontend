@@ -7,14 +7,15 @@ import LoginModal from "../../pages/Login/LoginModal";
 // store
 import { useLogin } from "../../store/login/useLogin";
 import { useGlobal } from "../../store/global/useGlobal";
-import { NavLink } from "react-router-dom";
 // mui icons
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import DehazeIcon from "@mui/icons-material/Dehaze";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function ButtonAppBar({ handleDarkMode }) {
   // =========== STATES===============
-  const { darkMode, setDarkMode } = useGlobal();
+  const { darkMode, setIsSideBarOpen, isSideBarOpen } = useGlobal();
   const { isLoggined, userInfo } = useLogin();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("login");
@@ -43,13 +44,29 @@ export default function ButtonAppBar({ handleDarkMode }) {
   }, [isLoggined]);
 
   return (
-    <React.Fragment>
+    <div>
       <div className="w-full flex justify-between items-center h-[5rem] shadow-md border-b dark:border-b-dimWhite">
         {/* Title */}
-        <div>
-          <NavLink to="/" className="cursor-pointer">
-            <img src={logo} alt="logo" className="w-[9rem] h-[5rem]" />
-          </NavLink>
+        <div className="flex justify-center items-center">
+          <div className="ml-5">
+            {isLoggined && !isSideBarOpen && (
+              <DehazeIcon
+                className="cursor-pointer dark:text-white "
+                sx={{ fontSize: "2.5rem" }}
+                onClick={() => setIsSideBarOpen(true)}
+              />
+            )}
+            {isLoggined && isSideBarOpen && (
+              <CloseIcon
+                className="cursor-pointer dark:text-white"
+                sx={{ fontSize: "2.5rem" }}
+                onClick={() => setIsSideBarOpen(false)}
+              />
+            )}
+          </div>
+          <div className="">
+            <img src={logo} alt="logo" className="w-[7rem] h-[4rem]" />
+          </div>
         </div>
 
         {/* Buttons */}
@@ -102,6 +119,6 @@ export default function ButtonAppBar({ handleDarkMode }) {
         buttonLabel={name}
         setName={setName}
       />
-    </React.Fragment>
+    </div>
   );
 }

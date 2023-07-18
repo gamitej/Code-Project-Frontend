@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import "./App.css";
 // comp
 import Navbar from "./pages/Navbar/Navbar";
@@ -9,9 +9,12 @@ import { Backdrop, CircularProgress } from "@mui/material";
 import { Toaster } from "react-hot-toast";
 // store
 import { useGlobal } from "./store/global/useGlobal";
+import Sidebar from "./pages/Sidebar/Sidebar";
 
 function App() {
-  const { darkMode, setDarkMode } = useGlobal();
+  const ref = useRef();
+  const { darkMode, setDarkMode, isSideBarOpen, setIsSideBarOpen } =
+    useGlobal();
 
   // ================= EVENT-HANDLERS =================
 
@@ -22,7 +25,7 @@ function App() {
     localStorage.setItem("darkMode", newDarkMode.toString());
   };
 
-  // ================= USE-EFFECT =================
+  // ======================= USE-EFFECT ==============================
 
   useEffect(() => {
     const savedDarkMode = localStorage.getItem("darkMode");
@@ -33,6 +36,21 @@ function App() {
     }
   }, []);
 
+  // If the menu is open and the clicked target is not within the menu, then close the menu
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      if (isSideBarOpen && ref.current && !ref.current.contains(e.target)) {
+        setIsSideBarOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    // Cleanup the event listener
+    return () => {
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [isSideBarOpen]);
+
   /**
    * JSX
    */
@@ -42,7 +60,7 @@ function App() {
       <Toaster position="top-center" reverseOrder={false} limit={1} />
       {/* Navbar */}
       <Navbar handleDarkMode={handleDarkMode} />
-
+      <Sidebar reff={ref} />
       {/* Routes */}
       <Suspense fallback={<Loading />}>
         <BasicRouter />
