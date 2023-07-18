@@ -45,7 +45,7 @@ export default function ButtonAppBar({ handleDarkMode }) {
   }, [isLoggined]);
 
   return (
-    <React.Fragment>
+    <div>
       <div className="w-full flex justify-between items-center h-[5rem] shadow-md border-b dark:border-b-dimWhite">
         {/* Title */}
         <div className="flex justify-center items-center ml-3">
@@ -117,6 +117,6 @@ export default function ButtonAppBar({ handleDarkMode }) {
         buttonLabel={name}
         setName={setName}
       />
-    </React.Fragment>
+    </div>
   );
 }
