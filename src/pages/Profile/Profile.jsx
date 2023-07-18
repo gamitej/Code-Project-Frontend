@@ -139,20 +139,15 @@ const Profile = () => {
         Cell: ({ row }) => {
           const done = row.original.done;
           return (
-            <Tooltip
-              className="cursor-pointer"
-              title={`${done === "Yes" ? "Solved" : "Unsolved"}`}
-              placement="top"
-              arrow
+            <p
+              onClick={() => handleMark(id, completed)}
+              className="col-span-1 hover:text-slate-400 font-semibold"
+              style={{
+                color: done === "Yes" ? "green" : colorCode["skip"],
+              }}
             >
-              <TaskAltIcon
-                onClick={() => handleMark(id, completed)}
-                className="col-span-1 hover:text-slate-400"
-                style={{
-                  color: done === "Yes" ? "green" : colorCode["skip"],
-                }}
-              />
-            </Tooltip>
+              {done === "Yes" ? "Solved" : "Unsolved"}
+            </p>
           );
         },
         accessorFn: (row) => row.done,
