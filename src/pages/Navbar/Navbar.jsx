@@ -64,9 +64,11 @@ export default function ButtonAppBar({ handleDarkMode }) {
               />
             )}
           </div>
-          <div className="">
-            <img src={logo} alt="logo" className="w-[7rem] h-[4rem]" />
-          </div>
+          {!isSideBarOpen && (
+            <div className="">
+              <img src={logo} alt="logo" className="w-[7rem] h-[4rem]" />
+            </div>
+          )}
         </div>
 
         {/* Buttons */}
