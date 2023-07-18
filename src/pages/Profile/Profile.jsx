@@ -243,8 +243,11 @@ const Profile = () => {
     <div className="w-full h-full m-auto relative">
       <div className="fixed top-24 right-4 z-[10000]">
         {
-          <Button variant="contained" onClick={() => setOpenHistory(true)}>
-            {" "}
+          <Button
+            variant="contained"
+            onClick={() => setOpenHistory(true)}
+            size="medium"
+          >
             History{" "}
           </Button>
         }
