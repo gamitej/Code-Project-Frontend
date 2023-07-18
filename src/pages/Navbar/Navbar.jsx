@@ -47,22 +47,24 @@ export default function ButtonAppBar({ handleDarkMode }) {
     <div>
       <div className="w-full flex justify-between items-center h-[5rem] shadow-md border-b dark:border-b-dimWhite">
         {/* Title */}
-        <div className="flex justify-center items-center ml-3">
-          {isLoggined && !isSideBarOpen && (
-            <DehazeIcon
-              className="cursor-pointer dark:text-white"
-              sx={{ fontSize: "2.5rem" }}
-              onClick={() => setIsSideBarOpen(true)}
-            />
-          )}
-          {isLoggined && isSideBarOpen && (
-            <CloseIcon
-              className="cursor-pointer dark:text-white"
-              sx={{ fontSize: "2.5rem" }}
-              onClick={() => setIsSideBarOpen(false)}
-            />
-          )}
-          <div className="cursor-pointer -ml-5">
+        <div className="flex justify-center items-center">
+          <div className="ml-5">
+            {isLoggined && !isSideBarOpen && (
+              <DehazeIcon
+                className="cursor-pointer dark:text-white "
+                sx={{ fontSize: "2.5rem" }}
+                onClick={() => setIsSideBarOpen(true)}
+              />
+            )}
+            {isLoggined && isSideBarOpen && (
+              <CloseIcon
+                className="cursor-pointer dark:text-white"
+                sx={{ fontSize: "2.5rem" }}
+                onClick={() => setIsSideBarOpen(false)}
+              />
+            )}
+          </div>
+          <div className="">
             <img src={logo} alt="logo" className="w-[7rem] h-[4rem]" />
           </div>
         </div>
