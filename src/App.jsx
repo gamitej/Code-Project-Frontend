@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect } from "react";
 import "./App.css";
 // comp
 import Navbar from "./pages/Navbar/Navbar";
@@ -13,10 +13,29 @@ import { useGlobal } from "./store/global/useGlobal";
 function App() {
   const { darkMode, setDarkMode } = useGlobal();
 
+  // ================= EVENT-HANDLERS =================
+
   const handleDarkMode = () => {
-    setDarkMode(!darkMode);
+    const newDarkMode = !darkMode;
+    setDarkMode(newDarkMode);
     document.documentElement.classList.toggle("dark");
+    localStorage.setItem("darkMode", newDarkMode.toString());
   };
+
+  // ================= USE-EFFECT =================
+
+  useEffect(() => {
+    const savedDarkMode = localStorage.getItem("darkMode");
+    if (savedDarkMode) {
+      const parsedDarkMode = savedDarkMode === "true";
+      setDarkMode(parsedDarkMode);
+      document.documentElement.classList.toggle("dark", parsedDarkMode);
+    }
+  }, []);
+
+  /**
+   * JSX
+   */
 
   return (
     <div className="dark:bg-slate-800">

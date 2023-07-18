@@ -23,7 +23,9 @@ const ProfileMenu = () => {
 
   const handleLogout = () => {
     setLogout();
+    const newDarkMode = false;
     if (darkMode) {
+      localStorage.setItem("darkMode", newDarkMode.toString());
       document.documentElement.classList.toggle("dark");
     }
     setDarkMode(false);
