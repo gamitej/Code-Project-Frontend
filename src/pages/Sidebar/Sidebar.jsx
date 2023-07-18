@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useGlobal } from "../../store/global/useGlobal";
 import CloseIcon from "@mui/icons-material/Close";
 import { NavLink, useLocation } from "react-router-dom";
+import logo from "../../assests/logo-2.png";
 
 function Sidebar({ reff }) {
   const { isSideBarOpen, setIsSideBarOpen } = useGlobal();
@@ -23,11 +24,17 @@ function Sidebar({ reff }) {
         }`}
       >
         <div className="flex flex-col justify-center items-center gap-y-[10vh] mt-5">
-          <CloseIcon
+          {/* <CloseIcon
             className="cursor-pointer"
             sx={{ fontSize: "2.5rem" }}
             onClick={() => setIsSideBarOpen(false)}
-          />
+          /> */}
+          <div
+            className="cursor-pointer -ml-5"
+            onClick={() => setIsSideBarOpen(false)}
+          >
+            <img src={logo} alt="logo" className="w-[7rem] h-[4rem]" />
+          </div>
           {/* Sidebar content */}
           <ul className="flex flex-col justify-around items-center h-[20vh]">
             {linkList.map(({ to, title }, idx) => (
