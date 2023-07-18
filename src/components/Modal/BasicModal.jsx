@@ -24,11 +24,11 @@ export default function BasicModal({
         }}
       >
         <div
-          className="relative bg-white shadow-md rounded-2xl p-2 border-transparent"
+          className="relative bg-white shadow-md rounded-2xl p-2 border-transparent dark:bg-slate-900 border dark:border-slate-400"
           style={{ height, width }}
         >
           <button
-            className="absolute top-3 right-3 hover:bg-slate-100 p-1 rounded-full"
+            className="absolute top-3 right-3 hover:bg-slate-100 p-1 rounded-full dark:text-white dark:hover:bg-slate-500"
             onClick={onClose}
           >
             <CloseIcon style={{ fontSize: "2rem" }} />
