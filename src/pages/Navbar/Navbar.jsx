@@ -146,7 +146,8 @@ function Notification({ userInfo }) {
     const req = updatedNotiData;
     const data = await notificationMarked({ ...userInfo, req });
     if (!data.error) {
-      toast.success(data.message, { duration: 1200 });
+      // toast.success(data.message, { duration: 1200 });
+      console.log(data.message);
     } else {
       toast.error("Something went wrong", { duration: 1200 });
     }
