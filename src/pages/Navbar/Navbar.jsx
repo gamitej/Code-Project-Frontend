@@ -142,10 +142,9 @@ function Notification({ userInfo }) {
   // ================= API-CALL ================
 
   // mark notifications
-  const callMarkNotifApi = async () => {
-    const req = notiData;
+  const callMarkNotifApi = async (updatedNotiData) => {
+    const req = updatedNotiData;
     const data = await notificationMarked({ ...userInfo, req });
-    // console.log(data);
     if (!data.error) {
       toast.success(data.message, { duration: 1200 });
     } else {
@@ -154,21 +153,19 @@ function Notification({ userInfo }) {
   };
 
   const handleMarkNotification = () => {
-    callMarkNotifApi();
     const updatedNotiData = notiData.map((notification) => {
       return {
         ...notification,
         seen: true,
       };
     });
-
     setNotiData(updatedNotiData);
+    callMarkNotifApi(updatedNotiData);
   };
 
   // get notifications
   const callGetNotifApi = async () => {
     const data = await getNotification(userInfo);
-    // console.log(data);
     if (!data.error) {
       setNotiData(data.data);
     }
@@ -207,11 +204,11 @@ function Notification({ userInfo }) {
         </Badge>
       }
     >
-      <div className="flex flex-col w-[20rem] h-[11rem]">
-        <div className="flex flex-col items-start gap-2 mb-1 p-2 h-[9rem] overflow-auto break-words">
+      <div className="flex flex-col w-[20rem] h-[13rem]">
+        <div className="flex flex-col items-start gap-2 mb-2 p-2 h-[11rem] overflow-auto break-words">
           {/* NO DATA */}
           {notiData.length === 0 && (
-            <p className="text-slate-500 font-semibold flex justify-center items-center  h-full w-full">
+            <p className="text-slate-500 font-semibold flex justify-center items-center h-full w-full">
               No notifications
             </p>
           )}
@@ -221,7 +218,7 @@ function Notification({ userInfo }) {
               <p
                 className={`${
                   item.seen ? "border-white" : "border-red-300"
-                } border-l-4 w-full p-2 text-slate-500`}
+                } border-l-4 w-full p-2 text-slate-500 text-md`}
               >
                 {item?.text}
               </p>

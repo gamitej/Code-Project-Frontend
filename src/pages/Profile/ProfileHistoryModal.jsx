@@ -69,7 +69,7 @@ const ProfileHistoryModal = ({ open, setOpen, data = [] }) => {
             <Divider sx={{ backgroundColor: darkMode ? "silver" : "" }} />
             {/* DATA */}
             {historyData?.map((item, idx) => (
-              <React.Fragment key={idx} className="h-full">
+              <React.Fragment key={idx}>
                 <div className="grid grid-cols-9 items-center h-[10%] p-3 hover:bg-blue-100 dark:text-white dark:hover:text-slate-600  cursor-pointer font-semibold text-slate-600">
                   <div className="col-span-2">
                     <p>{item?.topic}</p>
@@ -77,12 +77,10 @@ const ProfileHistoryModal = ({ open, setOpen, data = [] }) => {
                   <div className="col-span-1 ">
                     <p>{formateDate(item?.date)}</p>
                   </div>
-                  <Link
-                    to={item?.url}
-                    target="_blank"
-                    className="col-span-5 hover:text-blue-500 hover:underline"
-                  >
-                    <p>{item?.question}</p>
+                  <Link to={item?.url} target="_blank" className="col-span-5 ">
+                    <span className="hover:text-blue-500 hover:underline">
+                      {item?.question}
+                    </span>
                   </Link>
                   <div className="col-span-1 capitalize font-semibold">
                     <p
