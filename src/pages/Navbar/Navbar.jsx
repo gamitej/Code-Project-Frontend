@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // img
 import logo from "../../assests/logo-2.png";
 // comp
-import { ProfileMenu } from "../../components";
+import { BasicMenu, ProfileMenu } from "../../components";
 import LoginModal from "../../pages/Login/LoginModal";
 // store
 import { useLogin } from "../../store/login/useLogin";
@@ -13,6 +13,7 @@ import DehazeIcon from "@mui/icons-material/Dehaze";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
+import { Button, Divider } from "@mui/material";
 
 export default function ButtonAppBar({ handleDarkMode }) {
   // =========== STATES===============
@@ -90,11 +91,9 @@ export default function ButtonAppBar({ handleDarkMode }) {
               </button>
             </>
           )}
-
-          {/* <div className="flex justify-center items-center"></div> */}
-
+          {/* DARK-LIGHT-MODE START */}
           {isLoggined && (
-            <div className="flex items-center justify-center gap-x-4">
+            <div className="flex items-center justify-center gap-x-2">
               {darkMode ? (
                 <LightModeIcon
                   className="cursor-pointer dark:text-[#F7F8FA] mt-1 "
@@ -108,10 +107,9 @@ export default function ButtonAppBar({ handleDarkMode }) {
                   sx={{ fontSize: "1.7rem" }}
                 />
               )}
-              <CircleNotificationsIcon
-                sx={{ fontSize: "2rem" }}
-                className="text-blue-500 dark:text-white cursor-pointer mt-1"
-              />
+              {/* NOTIFICATION */}
+              <Notification />
+              {/*  USER */}
               <p className="text-xl text-blue-500 font-semibold dark:text-white capitalize -mr-2">
                 {userInfo.name}
               </p>
@@ -129,5 +127,42 @@ export default function ButtonAppBar({ handleDarkMode }) {
         setName={setName}
       />
     </div>
+  );
+}
+
+// notifications sub-component
+
+function Notification() {
+  const [isNotification, setIsNotification] = useState(null);
+
+  return (
+    <BasicMenu
+      open={isNotification}
+      handleClose={() => setIsNotification(null)}
+      icon={
+        <CircleNotificationsIcon
+          sx={{ fontSize: "2rem" }}
+          className="text-blue-500 dark:text-white cursor-pointer mt-1"
+          onClick={(e) => setIsNotification(e.currentTarget)}
+        />
+      }
+    >
+      <div className="flex flex-col w-[20rem] h-[10rem]">
+        <div className="flex flex-col items-start gap-2 mb-2 p-2 h-[8rem] overflow-auto">
+          <p>New topic added</p>
+          <p className="border-b border-slate-300 w-full"></p>
+          <p>New topic added</p>
+          <Divider />
+          <p>New topic added</p>
+          <Divider />
+          <p>New topic added</p>
+        </div>
+        <div className="flex justify-center  items-center w-full">
+          <Button variant="contained" size="small">
+            Mark as read
+          </Button>
+        </div>
+      </div>
+    </BasicMenu>
   );
 }

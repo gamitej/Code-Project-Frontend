@@ -2,6 +2,7 @@
 import BackButton from "./Button/BackButton";
 import LoadingButton from "./Button/LoadingButton";
 // card
+import BasicMenu from "./Card/BasicMenu";
 import ProfileMenu from "./Card/ProfileMenu";
 // charts
 import RadialChart from "./Charts/RadialChart";
@@ -31,6 +32,7 @@ export {
   BasicTable,
   BasicModal,
   BackButton,
+  BasicMenu,
   ProfileMenu,
   LoadingButton,
   LoadingSkeleton,
