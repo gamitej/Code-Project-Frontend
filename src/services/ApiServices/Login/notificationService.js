@@ -20,7 +20,7 @@ export async function getNotification({ id, token }) {
 export async function notificationMarked({ id, token, req }) {
   try {
     const { data } = await http.post(
-      `${endpoint}/user-notifications?id=${id}`,
+      `${endpoint}/mark-notifications?id=${id}`,
       req,
       {
         headers: { Authorization: `Bearer ${token}` },

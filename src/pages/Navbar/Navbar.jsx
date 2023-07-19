@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 // img
 import logo from "../../assests/logo-2.png";
 // comp
@@ -13,9 +13,10 @@ import DehazeIcon from "@mui/icons-material/Dehaze";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
-import { Button } from "@mui/material";
+import { Badge, Button } from "@mui/material";
 // services
-import { getNotification } from "../../services";
+import { getNotification, notificationMarked } from "../../services";
+import { toast } from "react-hot-toast";
 
 export default function ButtonAppBar({ handleDarkMode }) {
   // =========== STATES===============
@@ -138,16 +139,55 @@ function Notification({ userInfo }) {
   const [isNotification, setIsNotification] = useState(null);
   const [notiData, setNotiData] = useState([]);
 
+  // ================= API-CALL ================
+
+  // mark notifications
+  const callMarkNotifApi = async () => {
+    const req = notiData;
+    const data = await notificationMarked({ ...userInfo, req });
+    // console.log(data);
+    if (!data.error) {
+      toast.success(data.message, { duration: 1200 });
+    } else {
+      toast.error("Something went wrong", { duration: 1200 });
+    }
+  };
+
+  const handleMarkNotification = () => {
+    callMarkNotifApi();
+    const updatedNotiData = notiData.map((notification) => {
+      return {
+        ...notification,
+        seen: true,
+      };
+    });
+
+    setNotiData(updatedNotiData);
+  };
+
+  // get notifications
+  const callGetNotifApi = async () => {
+    const data = await getNotification(userInfo);
+    // console.log(data);
+    if (!data.error) {
+      setNotiData(data.data);
+    }
+  };
+
   useEffect(() => {
-    const callApi = async () => {
-      const data = await getNotification(userInfo);
-      console.log(data);
-      if (!data.error) {
-        setNotiData(data.data);
-      }
-    };
-    callApi();
+    callGetNotifApi();
   }, []);
+
+  // =================== USE-MEMO ==================
+
+  const badgeContentNum = useMemo(
+    () => notiData?.filter((item) => item.seen === false),
+    [notiData],
+  );
+
+  /**
+   * JSX
+   */
 
   return (
     <BasicMenu
@@ -155,19 +195,27 @@ function Notification({ userInfo }) {
       handleClose={() => setIsNotification(null)}
       handleOpen={(e) => setIsNotification(e.currentTarget)}
       icon={
-        <CircleNotificationsIcon
-          sx={{ fontSize: "2rem" }}
-          className="text-blue-500 dark:text-white cursor-pointer mt-1"
-        />
+        <Badge
+          color="secondary"
+          badgeContent={badgeContentNum?.length}
+          className="mt-1"
+        >
+          <CircleNotificationsIcon
+            sx={{ fontSize: "2rem" }}
+            className="text-blue-500 dark:text-white cursor-pointer"
+          />
+        </Badge>
       }
     >
       <div className="flex flex-col w-[20rem] h-[11rem]">
         <div className="flex flex-col items-start gap-2 mb-1 p-2 h-[9rem] overflow-auto break-words">
+          {/* NO DATA */}
           {notiData.length === 0 && (
             <p className="text-slate-500 font-semibold flex justify-center items-center  h-full w-full">
               No notifications
             </p>
           )}
+          {/* NOTIFIATION DATA */}
           {notiData?.map((item, idx) => (
             <React.Fragment key={idx}>
               <p
@@ -181,8 +229,13 @@ function Notification({ userInfo }) {
             </React.Fragment>
           ))}
         </div>
+        {/* BUTTON */}
         <div className="flex justify-center  items-center w-full">
-          <Button variant="contained" size="small">
+          <Button
+            variant="contained"
+            size="small"
+            onClick={handleMarkNotification}
+          >
             Mark as read
           </Button>
         </div>
