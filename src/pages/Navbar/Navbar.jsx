@@ -147,14 +147,14 @@ function Notification() {
         />
       }
     >
-      <div className="flex flex-col w-[20rem] h-[10rem]">
-        <div className="flex flex-col items-start gap-2 mb-2 p-2 h-[8rem] overflow-auto">
+      <div className="flex flex-col w-[20rem] h-[11rem]">
+        <div className="flex flex-col items-start gap-2 mb-2 p-2 h-[8rem] overflow-auto break-words">
+          <p>New topic added </p>
+          <p className="border-b border-slate-300 w-full"></p>
           <p>New topic added</p>
           <p className="border-b border-slate-300 w-full"></p>
           <p>New topic added</p>
-          <Divider />
-          <p>New topic added</p>
-          <Divider />
+          <p className="border-b border-slate-300 w-full"></p>
           <p>New topic added</p>
         </div>
         <div className="flex justify-center  items-center w-full">
