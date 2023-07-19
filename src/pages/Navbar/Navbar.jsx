@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 // img
 import logo from "../../assests/logo-2.png";
 // comp
-import { ProfileMenu } from "../../components";
+import { BasicMenu, ProfileMenu } from "../../components";
 import LoginModal from "../../pages/Login/LoginModal";
 // store
 import { useLogin } from "../../store/login/useLogin";
 import { useGlobal } from "../../store/global/useGlobal";
 // mui icons
+import CloseIcon from "@mui/icons-material/Close";
+import DehazeIcon from "@mui/icons-material/Dehaze";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import DehazeIcon from "@mui/icons-material/Dehaze";
-import CloseIcon from "@mui/icons-material/Close";
+import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
+import { Badge, Button } from "@mui/material";
+// services
+import { getNotification, notificationMarked } from "../../services";
+import { toast } from "react-hot-toast";
 
 export default function ButtonAppBar({ handleDarkMode }) {
   // =========== STATES===============
@@ -89,23 +94,26 @@ export default function ButtonAppBar({ handleDarkMode }) {
               </button>
             </>
           )}
-
-          {/* <div className="flex justify-center items-center"></div> */}
-
+          {/* DARK-LIGHT-MODE START */}
           {isLoggined && (
-            <div className="flex items-center justify-center gap-x-3">
+            <div className="flex items-center justify-center gap-x-2">
               {darkMode ? (
                 <LightModeIcon
-                  className="cursor-pointer dark:text-[#F7F8FA] mt-1"
+                  className="cursor-pointer dark:text-[#F7F8FA] mt-1 "
                   onClick={handleDarkMode}
+                  sx={{ fontSize: "1.7rem" }}
                 />
               ) : (
                 <DarkModeIcon
-                  className="cursor-pointer mt-1"
+                  className="text-blue-500 cursor-pointer mt-1"
                   onClick={handleDarkMode}
+                  sx={{ fontSize: "1.7rem" }}
                 />
               )}
-              <p className="text-xl text-slate-500 font-semibold dark:text-white capitalize">
+              {/* NOTIFICATION */}
+              <Notification userInfo={userInfo} />
+              {/*  USER */}
+              <p className="text-xl text-blue-500 font-semibold dark:text-white capitalize -mr-2">
                 {userInfo.name}
               </p>
               <ProfileMenu darkMode={darkMode} />
@@ -122,5 +130,113 @@ export default function ButtonAppBar({ handleDarkMode }) {
         setName={setName}
       />
     </div>
+  );
+}
+
+// notifications sub-component
+
+function Notification({ userInfo }) {
+  const [isNotification, setIsNotification] = useState(null);
+  const [notiData, setNotiData] = useState([]);
+
+  // ================= API-CALL ================
+
+  // mark notifications
+  const callMarkNotifApi = async (updatedNotiData) => {
+    const req = updatedNotiData;
+    const data = await notificationMarked({ ...userInfo, req });
+    if (!data.error) {
+      toast.success(data.message, { duration: 1200 });
+    } else {
+      toast.error("Something went wrong", { duration: 1200 });
+    }
+  };
+
+  const handleMarkNotification = () => {
+    const updatedNotiData = notiData.map((notification) => {
+      return {
+        ...notification,
+        seen: true,
+      };
+    });
+    setNotiData(updatedNotiData);
+    callMarkNotifApi(updatedNotiData);
+  };
+
+  // get notifications
+  const callGetNotifApi = async () => {
+    const data = await getNotification(userInfo);
+    if (!data.error) {
+      setNotiData(data.data);
+    }
+  };
+
+  useEffect(() => {
+    callGetNotifApi();
+  }, []);
+
+  // =================== USE-MEMO ==================
+
+  const badgeContentNum = useMemo(
+    () => notiData?.filter((item) => item.seen === false),
+    [notiData],
+  );
+
+  /**
+   * JSX
+   */
+
+  return (
+    <BasicMenu
+      open={isNotification}
+      handleClose={() => setIsNotification(null)}
+      handleOpen={(e) => setIsNotification(e.currentTarget)}
+      icon={
+        <Badge
+          color="secondary"
+          badgeContent={badgeContentNum?.length}
+          className="mt-1"
+        >
+          <CircleNotificationsIcon
+            sx={{ fontSize: "2rem" }}
+            className="text-blue-500 dark:text-white cursor-pointer"
+          />
+        </Badge>
+      }
+    >
+      <div className="flex flex-col w-[20rem] h-[13rem]">
+        <div className="flex flex-col items-start gap-2 mb-2 p-2 h-[11rem] overflow-auto break-words">
+          {/* NO DATA */}
+          {notiData.length === 0 && (
+            <p className="text-slate-500 font-semibold flex justify-center items-center h-full w-full">
+              No notifications
+            </p>
+          )}
+          {/* NOTIFIATION DATA */}
+          {notiData?.map((item, idx) => (
+            <React.Fragment key={idx}>
+              <p
+                className={`${
+                  item.seen ? "border-white" : "border-red-300"
+                } border-l-4 w-full p-2 text-slate-500 text-md`}
+              >
+                {item?.text}
+              </p>
+              <p className="border-b border-slate-300 w-full"></p>
+            </React.Fragment>
+          ))}
+        </div>
+        {/* BUTTON */}
+        <div className="flex justify-center  items-center w-full">
+          <Button
+            variant="contained"
+            size="small"
+            onClick={handleMarkNotification}
+          >
+            Mark as read
+          </Button>
+        </div>
+      </div>
+    </BasicMenu>
   );
 }
