@@ -1,5 +1,9 @@
 // login
 import { postLogin, postSignup } from "./ApiServices/Login/loginService";
+import {
+  getNotification,
+  notificationMarked,
+} from "./ApiServices/Login/notificationService";
 // home
 import { getAllTopics } from "./ApiServices/Home/homeService";
 // overview
@@ -25,4 +29,6 @@ export {
   getProfileDropdowns,
   getTableData,
   getUserStatusData,
+  getNotification,
+  notificationMarked,
 };

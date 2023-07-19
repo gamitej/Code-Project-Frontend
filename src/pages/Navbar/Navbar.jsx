@@ -13,7 +13,9 @@ import DehazeIcon from "@mui/icons-material/Dehaze";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
-import { Button, Divider } from "@mui/material";
+import { Button } from "@mui/material";
+// services
+import { getNotification } from "../../services";
 
 export default function ButtonAppBar({ handleDarkMode }) {
   // =========== STATES===============
@@ -108,7 +110,7 @@ export default function ButtonAppBar({ handleDarkMode }) {
                 />
               )}
               {/* NOTIFICATION */}
-              <Notification />
+              <Notification userInfo={userInfo} />
               {/*  USER */}
               <p className="text-xl text-blue-500 font-semibold dark:text-white capitalize -mr-2">
                 {userInfo.name}
@@ -132,30 +134,52 @@ export default function ButtonAppBar({ handleDarkMode }) {
 
 // notifications sub-component
 
-function Notification() {
+function Notification({ userInfo }) {
   const [isNotification, setIsNotification] = useState(null);
+  const [notiData, setNotiData] = useState([]);
+
+  useEffect(() => {
+    const callApi = async () => {
+      const data = await getNotification(userInfo);
+      console.log(data);
+      if (!data.error) {
+        setNotiData(data.data);
+      }
+    };
+    callApi();
+  }, []);
 
   return (
     <BasicMenu
       open={isNotification}
       handleClose={() => setIsNotification(null)}
+      handleOpen={(e) => setIsNotification(e.currentTarget)}
       icon={
         <CircleNotificationsIcon
           sx={{ fontSize: "2rem" }}
           className="text-blue-500 dark:text-white cursor-pointer mt-1"
-          onClick={(e) => setIsNotification(e.currentTarget)}
         />
       }
     >
       <div className="flex flex-col w-[20rem] h-[11rem]">
-        <div className="flex flex-col items-start gap-2 mb-2 p-2 h-[8rem] overflow-auto break-words">
-          <p>New topic added </p>
-          <p className="border-b border-slate-300 w-full"></p>
-          <p>New topic added</p>
-          <p className="border-b border-slate-300 w-full"></p>
-          <p>New topic added</p>
-          <p className="border-b border-slate-300 w-full"></p>
-          <p>New topic added</p>
+        <div className="flex flex-col items-start gap-2 mb-1 p-2 h-[9rem] overflow-auto break-words">
+          {notiData.length === 0 && (
+            <p className="text-slate-500 font-semibold flex justify-center items-center  h-full w-full">
+              No notifications
+            </p>
+          )}
+          {notiData?.map((item, idx) => (
+            <React.Fragment key={idx}>
+              <p
+                className={`${
+                  item.seen ? "border-white" : "border-red-300"
+                } border-l-4 w-full p-2 text-slate-500`}
+              >
+                {item?.text}
+              </p>
+              <p className="border-b border-slate-300 w-full"></p>
+            </React.Fragment>
+          ))}
         </div>
         <div className="flex justify-center  items-center w-full">
           <Button variant="contained" size="small">
