@@ -8,10 +8,11 @@ import LoginModal from "../../pages/Login/LoginModal";
 import { useLogin } from "../../store/login/useLogin";
 import { useGlobal } from "../../store/global/useGlobal";
 // mui icons
+import CloseIcon from "@mui/icons-material/Close";
+import DehazeIcon from "@mui/icons-material/Dehaze";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import DehazeIcon from "@mui/icons-material/Dehaze";
-import CloseIcon from "@mui/icons-material/Close";
+import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 
 export default function ButtonAppBar({ handleDarkMode }) {
   // =========== STATES===============
@@ -93,19 +94,25 @@ export default function ButtonAppBar({ handleDarkMode }) {
           {/* <div className="flex justify-center items-center"></div> */}
 
           {isLoggined && (
-            <div className="flex items-center justify-center gap-x-3">
+            <div className="flex items-center justify-center gap-x-4">
               {darkMode ? (
                 <LightModeIcon
-                  className="cursor-pointer dark:text-[#F7F8FA] mt-1"
+                  className="cursor-pointer dark:text-[#F7F8FA] mt-1 "
                   onClick={handleDarkMode}
+                  sx={{ fontSize: "1.7rem" }}
                 />
               ) : (
                 <DarkModeIcon
-                  className="cursor-pointer mt-1"
+                  className="text-blue-500 cursor-pointer mt-1"
                   onClick={handleDarkMode}
+                  sx={{ fontSize: "1.7rem" }}
                 />
               )}
-              <p className="text-xl text-slate-500 font-semibold dark:text-white capitalize">
+              <CircleNotificationsIcon
+                sx={{ fontSize: "2rem" }}
+                className="text-blue-500 dark:text-white cursor-pointer mt-1"
+              />
+              <p className="text-xl text-blue-500 font-semibold dark:text-white capitalize -mr-2">
                 {userInfo.name}
               </p>
               <ProfileMenu darkMode={darkMode} />

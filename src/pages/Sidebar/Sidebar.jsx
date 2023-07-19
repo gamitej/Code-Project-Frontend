@@ -9,6 +9,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import { Tooltip } from "@mui/material";
 
 // CONSTANTS
 const linkList = [
@@ -41,7 +42,7 @@ function Sidebar({ reff }) {
       <div
         className={`top-0 left-0 fixed ${
           sideBarCollapsed ? "w-[5rem]" : "w-[10rem]"
-        }  z-[1000]  h-full bg-blue-100 ease-in-out duration-300 ${
+        }  z-[1000] h-full bg-blue-100 ease-in-out duration-300 ${
           isSideBarOpen ? "translate-x-0 " : "-translate-x-full"
         }`}
       >
@@ -52,21 +53,23 @@ function Sidebar({ reff }) {
           >
             <img src={logo} alt="logo" className="w-[7rem] h-[4rem]" />
           </div>
+          <br />
           {/* SIDEBAR CONTENT */}
           <ul className="flex flex-col justify-around items-center h-[20%]">
             {linkList.map(({ to, title, icon }, idx) => (
-              <NavLink
-                key={idx}
-                to={to}
-                className={`${btnClass} ${active === to && "bg-red-300"} ${
-                  sideBarCollapsed ? "w-[4rem]" : "w-[8rem]"
-                }`}
-              >
-                <span className={`-mt-1 ${sideBarCollapsed ? "" : "mr-3"}`}>
-                  {icon}
-                </span>
-                {!sideBarCollapsed && <span>{title}</span>}
-              </NavLink>
+              <Tooltip title={title} placement="right" key={idx} arrow>
+                <NavLink
+                  to={to}
+                  className={`${btnClass} ${active === to && "bg-red-300"} ${
+                    sideBarCollapsed ? "w-[4rem]" : "w-[8rem]"
+                  }`}
+                >
+                  <span className={`-mt-1 ${sideBarCollapsed ? "" : "mr-3"}`}>
+                    {icon}
+                  </span>
+                  {!sideBarCollapsed && <span>{title}</span>}
+                </NavLink>
+              </Tooltip>
             ))}
           </ul>
         </div>

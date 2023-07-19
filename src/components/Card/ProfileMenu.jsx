@@ -5,6 +5,7 @@ import { useLogin } from "../../store/login/useLogin";
 // mui
 import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
 import { useGlobal } from "../../store/global/useGlobal";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const ProfileMenu = () => {
   const { darkMode, setDarkMode } = useGlobal();
@@ -43,7 +44,11 @@ const ProfileMenu = () => {
             onClick={handleMenu}
             color="primary"
           >
-            <Avatar src="" />
+            {/* <Avatar src="" className="bg-blue-500" />  */}
+            <AccountCircleIcon
+              className="text-blue-500 dark:text-white mt-1"
+              sx={{ fontSize: "2.3rem" }}
+            />
           </IconButton>
           <Menu
             id="menu-appbar"
