@@ -8,7 +8,6 @@ import logo from "../../assests/logo-2.png";
 import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { Tooltip } from "@mui/material";
 
 // CONSTANTS
@@ -25,8 +24,7 @@ function Sidebar({ reff }) {
   const { isSideBarOpen, setIsSideBarOpen } = useGlobal();
   const [sideBarCollapsed, setSideBarCollapsed] = useState(true);
 
-  // ================ USE-EFFECT =================
-
+  // * side bar use-effects
   useEffect(() => {
     if (isSideBarOpen) {
       setSideBarCollapsed(true);
@@ -62,12 +60,14 @@ function Sidebar({ reff }) {
                   to={to}
                   className={`${btnClass} ${active === to && "bg-red-300"} ${
                     sideBarCollapsed ? "w-[4rem]" : "w-[8rem]"
-                  }`}
+                  } flex items-center justify-center`}
                 >
                   <span className={`-mt-1 ${sideBarCollapsed ? "" : "mr-3"}`}>
                     {icon}
                   </span>
-                  {!sideBarCollapsed && <span>{title}</span>}
+                  <span className={`${sideBarCollapsed && "hidden"} `}>
+                    {title}
+                  </span>
                 </NavLink>
               </Tooltip>
             ))}
@@ -78,11 +78,10 @@ function Sidebar({ reff }) {
           className="flex items-center justify-center hover:bg-slate-300 cursor-pointer"
           onClick={() => setSideBarCollapsed(!sideBarCollapsed)}
         >
-          {sideBarCollapsed ? (
-            <KeyboardArrowRightIcon sx={{ fontSize: "2rem" }} />
-          ) : (
-            <KeyboardArrowLeftIcon sx={{ fontSize: "2rem" }} />
-          )}
+          <KeyboardArrowRightIcon
+            sx={{ fontSize: "2rem" }}
+            className={`${sideBarCollapsed ? "" : "rotate-180"}`}
+          />
         </div>
       </div>
     </div>
