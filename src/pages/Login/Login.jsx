@@ -1,13 +1,18 @@
-import { Navigate } from "react-router-dom";
-import login from "../../assests/bg.jpg";
-import { useLogin } from "../../store/login/useLogin";
-import Footer from "../Footer/Footer";
 import { useEffect } from "react";
 import { toast } from "react-hot-toast";
+import { Navigate, useLocation } from "react-router-dom";
+// img
+import login from "../../assests/bg.jpg";
+// comp
+import Footer from "../Footer/Footer";
+// store
+import { useLogin } from "../../store/login/useLogin";
 
 const Login = () => {
   const { isLoggined, loading } = useLogin();
+  const { state: fromLocation } = useLocation();
 
+  // * time-out for late api response
   useEffect(() => {
     let timer;
 
@@ -37,8 +42,14 @@ const Login = () => {
   }, [loading]);
 
   if (isLoggined) {
+    if (fromLocation) return <Navigate to={fromLocation} replace />;
+
     return <Navigate to="/" replace />;
   }
+
+  /**
+   * JSX
+   */
 
   return (
     <div className="w-full h-[calc(100vh-10rem)] bg-slate-300">

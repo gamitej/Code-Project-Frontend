@@ -13,6 +13,7 @@ import Sidebar from "./pages/Sidebar/Sidebar";
 
 function App() {
   const ref = useRef();
+
   const { darkMode, setDarkMode, isSideBarOpen, setIsSideBarOpen } =
     useGlobal();
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 // store
 import { useGlobal } from "../../store/global/useGlobal";
 // img
@@ -56,8 +56,11 @@ function Sidebar({ reff }) {
           <ul className="flex flex-col justify-around items-center h-[20%]">
             {linkList.map(({ to, title, icon }, idx) => (
               <Tooltip title={title} placement="right" key={idx} arrow>
-                <NavLink
-                  to={to}
+                <Link
+                  to={{
+                    pathname: to,
+                    state: { hi: "amitej" },
+                  }}
                   className={`${btnClass} ${active === to && "bg-red-300"} ${
                     sideBarCollapsed ? "w-[4rem]" : "w-[8rem]"
                   } flex items-center justify-center`}
@@ -68,7 +71,7 @@ function Sidebar({ reff }) {
                   <span className={`${sideBarCollapsed && "hidden"} `}>
                     {title}
                   </span>
-                </NavLink>
+                </Link>
               </Tooltip>
             ))}
           </ul>

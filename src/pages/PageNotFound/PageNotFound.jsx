@@ -1,10 +1,14 @@
 import React from "react";
-
+import notFound from "../../assests/not-found.png";
 const PageNotFound = () => {
   return (
-    <div className="flex flex-col h-[60vh] w-full justify-center items-center">
-      <h2 className="font-semibold text-slate-200 text-[8rem]">404</h2>
-      <h2 className="text-[3rem]">Page Not Found</h2>
+    <div className="flex flex-col h-[calc(100vh-5rem)] w-full justify-center items-center">
+      <img
+        alt=""
+        src={notFound}
+        style={{ height: "35%", weight: "35%" }}
+        className="-mt-[5rem]"
+      />
     </div>
   );
 };
