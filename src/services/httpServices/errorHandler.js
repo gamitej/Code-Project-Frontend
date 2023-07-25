@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 export function ErrorHandlerApi(error) {
   const status = error?.response?.status;
   if (status === undefined) {
-    return { message: "Login timeout. Please try later!", error: true };
+    return { message: "Timeout !!!", error: true };
   }
   // to many req
   if (status === 429) {

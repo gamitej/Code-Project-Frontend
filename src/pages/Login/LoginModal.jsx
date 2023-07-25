@@ -51,12 +51,12 @@ const LoginModal = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // axios cancel token
+    // * axios cancel token -> if login takes time
     const signal = axios.CancelToken.source();
     const signalCancel = setTimeout(() => {
       signal.cancel();
       console.log("login cancelled");
-    }, 40000);
+    }, 45000);
 
     if (buttonLabel === "login") {
       // LOGIN API CALL
