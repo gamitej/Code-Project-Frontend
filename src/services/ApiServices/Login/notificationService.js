@@ -12,8 +12,7 @@ export async function getNotification({ id, token }) {
     return data;
   } catch (error) {
     const data = ErrorHandlerApi(error);
-    console.log(data);
-    return { data: data };
+    return data;
   }
 }
 
@@ -29,7 +28,6 @@ export async function notificationMarked({ id, token, req }) {
     return data;
   } catch (error) {
     const data = ErrorHandlerApi(error);
-    console.log(data);
-    return { data: data };
+    return data;
   }
 }

@@ -10,7 +10,6 @@ import { Toaster } from "react-hot-toast";
 // store
 import { useGlobal } from "./store/global/useGlobal";
 import Sidebar from "./pages/Sidebar/Sidebar";
-import { useLocation } from "react-router-dom";
 
 function App() {
   const ref = useRef();
