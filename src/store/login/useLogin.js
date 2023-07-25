@@ -20,9 +20,9 @@ export const useLogin = create((set) => ({
     set((state) => ({ ...state, isLoggined: false }));
   },
   // login api call
-  callLoginApi: async (req) => {
+  callLoginApi: async (req, signal) => {
     set((state) => ({ ...state, loading: true }));
-    const data = await postLogin(req);
+    const data = await postLogin(req, signal);
     if (!data.error) {
       setUserInfo(data.data);
       set((state) => ({

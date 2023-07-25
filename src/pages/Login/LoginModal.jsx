@@ -12,6 +12,7 @@ import {
 } from "../../components";
 // store
 import { useLogin } from "../../store/login/useLogin";
+import axios from "axios";
 
 const LoginModal = ({
   open,
@@ -49,9 +50,18 @@ const LoginModal = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // * axios cancel token -> if login takes time
+    const signal = axios.CancelToken.source();
+    const signalCancel = setTimeout(() => {
+      signal.cancel();
+      console.log("login cancelled");
+    }, 45000);
+
     if (buttonLabel === "login") {
       // LOGIN API CALL
-      const isLogin = await callLoginApi(form);
+      const isLogin = await callLoginApi(form, signal);
+      clearTimeout(signalCancel);
       if (isLoggined) {
         reset();
       }
@@ -63,7 +73,7 @@ const LoginModal = ({
       }
     } else {
       // SIGNUP API CALL
-      const isSignUp = await callSignupApi(form);
+      const isSignUp = await callSignupApi(form, signal);
       if (!isSignUp.error) {
         toast.success(isSignUp.message, { duration: 1200 });
         setTimeout(() => {

@@ -4,9 +4,11 @@ import { ErrorHandlerApi } from "../../httpServices/errorHandler";
 
 const endpoint = config.baseUrl;
 
-export async function postLogin(req) {
+export async function postLogin(req, signal) {
   try {
-    const { data } = await http.post(`${endpoint}/login`, req);
+    const { data } = await http.post(`${endpoint}/login`, req, {
+      cancelToken: signal.token,
+    });
     return data;
   } catch (error) {
     const data = ErrorHandlerApi(error);

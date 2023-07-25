@@ -1,7 +1,10 @@
 import { toast } from "react-hot-toast";
 
 export function ErrorHandlerApi(error) {
-  const status = error.response.status;
+  const status = error?.response?.status;
+  if (status === undefined) {
+    return { message: "Timeout !!!", error: true };
+  }
   // to many req
   if (status === 429) {
     const text = error.response.statusText;
