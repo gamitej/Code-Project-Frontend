@@ -52,19 +52,7 @@ const Login = () => {
    */
 
   return (
-    <div className="w-full h-[calc(100vh-10rem)] bg-slate-300">
-      <img
-        src={login}
-        alt=""
-        className="w-[100%]"
-        loading="lazy"
-        style={{
-          height: "100%",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
+    <div className="LOGIN--MAIN w-full h-[calc(100vh-10rem)] bg-slate-300 ">
       <Footer />
     </div>
   );

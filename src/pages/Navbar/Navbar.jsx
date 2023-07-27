@@ -49,7 +49,7 @@ export default function ButtonAppBar({ handleDarkMode }) {
   }, [isLoggined]);
 
   return (
-    <div>
+    <div className="top-0 sticky z-[100] bg-white dark:bg-slate-800">
       <div className="w-full flex justify-between items-center h-[5rem] shadow-md border-b dark:border-b-dimWhite">
         {/* Title */}
         <div className="flex justify-center items-center">

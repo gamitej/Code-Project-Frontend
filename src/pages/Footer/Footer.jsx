@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="bottom-footer h-[5rem]">
+    <div className="FOOTER h-[5rem] bottom-0 fixed w-full">
       <div className="flex flex-col justify-center items-center gap-y-2">
         <p className="underline hover:text-red-300 text-white">
           <a
