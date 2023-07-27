@@ -48,7 +48,7 @@ html {
     ============  FOOTER  ===========
 */
 
-.bottom-footer {
+.FOOTER {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,4 +59,19 @@ html {
   box-shadow:
     0 4px 8px 0 rgba(0, 0, 0, 0.2),
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.LOGIN--MAIN {
+  background-image: url("./assests/bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: calc(100vh - 10rem);
+}
+
+@media screen and (max-width: 768px) {
+  .LOGIN--MAIN {
+    background-size: contain;
+    height: calc(100vh - 5rem);
+  }
 }
