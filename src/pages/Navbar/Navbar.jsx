@@ -13,6 +13,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import DehazeIcon from "@mui/icons-material/Dehaze";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import { Link } from "react-router-dom";
 
 export default function ButtonAppBar({ handleDarkMode }) {
   // =========== STATES===============
@@ -66,9 +67,9 @@ export default function ButtonAppBar({ handleDarkMode }) {
             )}
           </div>
           {!isSideBarOpen && (
-            <div className="">
+            <Link to="/">
               <img src={logo} alt="logo" className="w-[7rem] h-[4rem]" />
-            </div>
+            </Link>
           )}
         </div>
 
