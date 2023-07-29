@@ -9,5 +9,6 @@
   "heap": "Heap - Priority Queue",
   "binarySearch": "Binary Search",
   "dp-1": "Dynamic Programming - 1",
-  "dp-2": "Dynamic Programming - 2"
+  "dp-2": "Dynamic Programming - 2",
+  "slidingWindow": "Sliding Window"
 }

@@ -59,7 +59,7 @@ function Notification({ userInfo }) {
 
   useEffect(() => {
     document.title =
-      notificationCount > 0 ? `Code - (${notificationCount})` : "Code";
+      notificationCount > 0 ? `(${notificationCount}) Code` : "Code";
     return () => {
       document.title = "Code";
     };
