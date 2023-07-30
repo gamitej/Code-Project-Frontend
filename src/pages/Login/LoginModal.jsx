@@ -14,6 +14,9 @@ import {
 import { useLogin } from "../../store/login/useLogin";
 import axios from "axios";
 
+const usernameRegex = /^[a-zA-Z0-9]+$/;
+const paswdRegex = /^[a-zA-Z0-9@]+$/;
+
 const LoginModal = ({
   open,
   setOpen,
@@ -28,6 +31,7 @@ const LoginModal = ({
   // =========== EVENT HANDLERS ===============
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setForm((prevState) => ({ ...prevState, [name]: value }));
   };
 
@@ -46,10 +50,28 @@ const LoginModal = ({
     setName(name);
   };
 
-  // API CALL
+  // API CALL'S
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // * validation for username & password
+    const checkUsernameRegex = usernameRegex.test(form.username);
+    const checkPasswordRegex = paswdRegex.test(form.password);
+
+    if (checkUsernameRegex) {
+      toast.error("Invalid input. Only a-z, A-Z & 0-9 are allowed.", {
+        duration: 1000,
+      });
+      return;
+    }
+
+    if (checkPasswordRegex) {
+      toast.error("Invalid input. Only a-z, A-Z, 0-9, and @ are allowed.", {
+        duration: 1000,
+      });
+      return;
+    }
 
     // * axios cancel token -> if login takes time
     const signal = axios.CancelToken.source();
@@ -59,7 +81,7 @@ const LoginModal = ({
     }, 45000);
 
     if (buttonLabel === "login") {
-      // LOGIN API CALL
+      // * LOGIN API CALL
       const isLogin = await callLoginApi(form, signal);
       clearTimeout(signalCancel);
       if (isLoggined) {
@@ -72,7 +94,7 @@ const LoginModal = ({
         toast.error(isLogin.message, { duration: 1200 });
       }
     } else {
-      // SIGNUP API CALL
+      // * SIGNUP API CALL
       const isSignUp = await callSignupApi(form, signal);
       if (!isSignUp.error) {
         toast.success(isSignUp.message, { duration: 1200 });
@@ -116,7 +138,11 @@ const LoginModal = ({
             value={form.username}
             maxLength={8}
           />
-          <Password value={form.password} onChange={handleChange} />
+          <Password
+            maxLength={32}
+            value={form.password}
+            onChange={handleChange}
+          />
 
           <LoadingButton
             width="80%"
