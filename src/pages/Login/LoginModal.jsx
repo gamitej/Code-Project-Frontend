@@ -14,8 +14,7 @@ import {
 import { useLogin } from "../../store/login/useLogin";
 import axios from "axios";
 
-const usernameRegex = /^[a-zA-Z0-9]+$/;
-const paswdRegex = /^[a-zA-Z0-9@]+$/;
+const usernameRegex = /^([a-zA-Z])$/;
 
 const LoginModal = ({
   open,
@@ -55,19 +54,11 @@ const LoginModal = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // * validation for username & password
+    // * validation for username
     const checkUsernameRegex = usernameRegex.test(form.username);
-    const checkPasswordRegex = paswdRegex.test(form.password);
 
     if (checkUsernameRegex) {
-      toast.error("Invalid input. Only a-z, A-Z & 0-9 are allowed.", {
-        duration: 1000,
-      });
-      return;
-    }
-
-    if (checkPasswordRegex) {
-      toast.error("Invalid input. Only a-z, A-Z, 0-9, and @ are allowed.", {
+      toast.error("Invalid username. Only a-z, A-Z & 0-9 are allowed.", {
         duration: 1000,
       });
       return;
