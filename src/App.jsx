@@ -2,6 +2,7 @@ import { Suspense, useEffect, useRef } from "react";
 import "./App.css";
 // comp
 import Navbar from "./pages/Navbar/Navbar";
+import Sidebar from "./pages/Sidebar/Sidebar";
 // mui
 import BasicRouter from "./routes/BasicRouter";
 import { Backdrop, CircularProgress } from "@mui/material";
@@ -9,10 +10,11 @@ import { Backdrop, CircularProgress } from "@mui/material";
 import { Toaster } from "react-hot-toast";
 // store
 import { useGlobal } from "./store/global/useGlobal";
-import Sidebar from "./pages/Sidebar/Sidebar";
+import { useLogin } from "./store/login/useLogin";
 
 function App() {
   const ref = useRef();
+  const { isLoggined } = useLogin();
 
   const { darkMode, setDarkMode, isSideBarOpen, setIsSideBarOpen } =
     useGlobal();
@@ -30,7 +32,7 @@ function App() {
 
   useEffect(() => {
     const savedDarkMode = localStorage.getItem("darkMode");
-    if (savedDarkMode) {
+    if (savedDarkMode && isLoggined) {
       const parsedDarkMode = savedDarkMode === "true";
       setDarkMode(parsedDarkMode);
       document.documentElement.classList.toggle("dark", parsedDarkMode);
