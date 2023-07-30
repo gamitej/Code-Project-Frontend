@@ -14,7 +14,7 @@ function Notification({ userInfo }) {
 
   // ================= API-CALL ================
 
-  // mark notifications
+  // Mark notifications
   const callMarkNotifApi = async (updatedNotiData) => {
     const req = updatedNotiData;
     const data = await notificationMarked({ ...userInfo, req });
@@ -36,7 +36,7 @@ function Notification({ userInfo }) {
     callMarkNotifApi(updatedNotiData);
   };
 
-  // get notifications
+  // Get notifications
   const callGetNotifApi = async () => {
     const data = await getNotification(userInfo);
     if (!data.error) {
@@ -48,8 +48,7 @@ function Notification({ userInfo }) {
     callGetNotifApi();
   }, []);
 
-  // =================== USE-MEMO ==================
-
+  // To get not seen notification
   const unseenNotifications = useMemo(
     () => notiData?.filter((item) => item.seen === false),
     [notiData],
@@ -57,6 +56,7 @@ function Notification({ userInfo }) {
 
   const notificationCount = unseenNotifications?.length || 0;
 
+  //  To show the notification in the title
   useEffect(() => {
     document.title =
       notificationCount > 0 ? `(${notificationCount}) Code` : "Code";
