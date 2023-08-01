@@ -1,7 +1,7 @@
 import { create } from "zustand";
-// api call
+// services
 import { postLogin, postSignup } from "../../services";
-// session storage
+// session storage events
 import {
   setUserInfo,
   removeUserInfo,
