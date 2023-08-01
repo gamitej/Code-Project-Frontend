@@ -53,14 +53,14 @@ export default function ButtonAppBar({ handleDarkMode }) {
           <div className="ml-5">
             {isLoggined && !isSideBarOpen && (
               <DehazeIcon
-                className="cursor-pointer dark:text-white "
+                className="cursor-pointer dark:text-white text-blue-500"
                 sx={{ fontSize: "2.5rem" }}
                 onClick={() => setIsSideBarOpen(true)}
               />
             )}
             {isLoggined && isSideBarOpen && (
               <CloseIcon
-                className="cursor-pointer dark:text-white"
+                className="cursor-pointer dark:text-white text-blue-500"
                 sx={{ fontSize: "2.5rem" }}
                 onClick={() => setIsSideBarOpen(false)}
               />
