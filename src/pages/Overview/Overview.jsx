@@ -99,7 +99,7 @@ const Overview = () => {
    */
 
   return (
-    <div className="bg-slate-100 h-[150vh] lg:h-[calc(100vh-5rem)] dark:bg-slate-800">
+    <div className="bg-slate-100 lg:h-[calc(100vh-5rem)] dark:bg-slate-800">
       <div className="relative bg-blue-300 flex justify-center items-center h-[10rem] dark:bg-slate-700 border-b">
         <h2 className="text-4xl font-semibold text-white capitalize underline">
           {nameMapping[topic]}
@@ -110,7 +110,7 @@ const Overview = () => {
           className="absolute top-2 left-4 "
         />
       </div>
-      <div className="w-[95%] mt-10 m-auto grid grid-cols-3 lg:grid-cols-9 md:grid-cols-6 gap-4 ">
+      <div className="w-[95%] mt-10 m-auto grid grid-cols-3 lg:grid-cols-9 md:grid-cols-6 gap-4">
         {/* Card */}
         {/* Card loading skeleton */}
         {loading &&
@@ -150,6 +150,7 @@ const Overview = () => {
             </div>
           ))}
       </div>
+      <br />
     </div>
   );
 };
