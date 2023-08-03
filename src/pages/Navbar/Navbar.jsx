@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 // img
 import logo from "../../assests/logo-2.png";
 // comp
@@ -13,10 +14,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import DehazeIcon from "@mui/icons-material/Dehaze";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import { Link } from "react-router-dom";
 
 export default function ButtonAppBar({ handleDarkMode }) {
-  // =========== STATES===============
+  // =========== STATES ===============
   const { darkMode, setIsSideBarOpen, isSideBarOpen } = useGlobal();
   const { isLoggined, userInfo } = useLogin();
   const [open, setOpen] = useState(false);
@@ -53,14 +53,14 @@ export default function ButtonAppBar({ handleDarkMode }) {
           <div className="ml-5">
             {isLoggined && !isSideBarOpen && (
               <DehazeIcon
-                className="cursor-pointer dark:text-white "
+                className="cursor-pointer dark:text-white text-blue-500"
                 sx={{ fontSize: "2.5rem" }}
                 onClick={() => setIsSideBarOpen(true)}
               />
             )}
             {isLoggined && isSideBarOpen && (
               <CloseIcon
-                className="cursor-pointer dark:text-white"
+                className="cursor-pointer dark:text-white text-blue-500"
                 sx={{ fontSize: "2.5rem" }}
                 onClick={() => setIsSideBarOpen(false)}
               />

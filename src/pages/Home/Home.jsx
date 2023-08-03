@@ -131,8 +131,8 @@ const Home = () => {
         <div className="grid  grid-cols-1  md:grid-cols-4 lg:grid-cols-6  gap-10 w-[80%] ">
           {/* Card loading skeleton */}
           {loading &&
-            [1, 2, 3, 4, 5, 6].map((index) => (
-              <LoadingSkeleton key={index} className="col-span-2 mt-5 w-full" />
+            Array.from({ length: 6 }).map((_, i) => (
+              <LoadingSkeleton key={i} className="col-span-2 mt-5 w-full" />
             ))}
           {/* Card Comp */}
           {!loading &&
