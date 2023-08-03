@@ -114,11 +114,11 @@ const Overview = () => {
         {/* Card */}
         {/* Card loading skeleton */}
         {loading &&
-          [1, 2, 3].map((index) => (
+          Array.from({ length: 3 }).map((_, i) => (
             <LoadingSkeleton
               page="overview"
               className="col-span-3 min-w-[20rem]"
-              key={index}
+              key={i}
             />
           ))}
         {/* Card Comp */}
