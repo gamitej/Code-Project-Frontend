@@ -59,7 +59,6 @@ function App() {
 
   useEffect(() => {
     const data = import.meta.env.MODE;
-    console.log(data);
     if (data === "production") {
       checkServer();
       const intervalId = setInterval(checkServer, 5 * 60 * 1000);
