@@ -16,3 +16,14 @@ export async function getAllTopics({ id, token }) {
     return { data: data };
   }
 }
+
+// api for calling server in 5min interval
+export async function checkServer() {
+  try {
+    const { data } = await http.get(`${endpoint}/checkServer`);
+    return data;
+  } catch (error) {
+    const data = ErrorHandlerApi(error);
+    return { data: data };
+  }
+}
