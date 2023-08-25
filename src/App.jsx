@@ -59,12 +59,13 @@ function App() {
 
   useEffect(() => {
     const data = import.meta.env.MODE;
-    if (data === "prod") {
+    console.log(data);
+    if (data === "production") {
       checkServer();
       const intervalId = setInterval(checkServer, 5 * 60 * 1000);
     }
     return () => {
-      if (data === "prod") clearInterval(intervalId);
+      if (data === "production") clearInterval(intervalId);
     };
   }, []);
 
