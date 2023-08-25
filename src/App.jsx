@@ -11,6 +11,7 @@ import { Toaster } from "react-hot-toast";
 // store
 import { useGlobal } from "./store/global/useGlobal";
 import { useLogin } from "./store/login/useLogin";
+import { checkServer } from "./services";
 
 function App() {
   const ref = useRef();
@@ -53,6 +54,19 @@ function App() {
       document.removeEventListener("mousedown", checkIfClickedOutside);
     };
   }, [isSideBarOpen]);
+
+  // =================== CALL API EVERY 5 MINUTE ONLY IN PRODUCTION ================
+
+  useEffect(() => {
+    const data = import.meta.env.MODE;
+    if (data === "prod") {
+      checkServer();
+      const intervalId = setInterval(checkServer, 5 * 60 * 1000);
+    }
+    return () => {
+      if (data === "prod") clearInterval(intervalId);
+    };
+  }, []);
 
   /**
    * JSX

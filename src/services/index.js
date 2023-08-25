@@ -5,7 +5,7 @@ import {
   notificationMarked,
 } from "./ApiServices/Login/notificationService";
 // home
-import { getAllTopics } from "./ApiServices/Home/homeService";
+import { getAllTopics, checkServer } from "./ApiServices/Home/homeService";
 // overview
 import {
   getSelectedTopicData,
@@ -20,6 +20,7 @@ import {
 } from "./ApiServices/Profile/profileService";
 
 export {
+  checkServer,
   postLogin,
   postSignup,
   postQuestion,
