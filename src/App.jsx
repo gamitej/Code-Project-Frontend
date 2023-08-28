@@ -29,7 +29,7 @@ function App() {
     localStorage.setItem("darkMode", newDarkMode.toString());
   };
 
-  // ======================= USE-EFFECT ==============================
+  // ================== USE-EFFECT ====================
 
   useEffect(() => {
     const savedDarkMode = localStorage.getItem("darkMode");
@@ -77,7 +77,7 @@ function App() {
       <Toaster position="top-center" reverseOrder={false} limit={1} />
       {/* Navbar */}
       <Navbar handleDarkMode={handleDarkMode} />
-      <Sidebar reff={ref} />
+      <Sidebar ref={ref} />
       {/* Routes */}
       <Suspense fallback={<Loading />}>
         <BasicRouter />

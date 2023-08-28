@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, forwardRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 // store
 import { useGlobal } from "../../store/global/useGlobal";
@@ -19,7 +19,7 @@ const linkList = [
 const btnClass =
   "text-lg h-[2.5rem] hover:bg-slate-300 flex justify-center items-center rounded-md cursor-pointer duration-300 ease-in-out";
 
-function Sidebar({ reff }) {
+const Sidebar = forwardRef((props, ref) => {
   const { pathname: active } = useLocation();
   const { isSideBarOpen, setIsSideBarOpen } = useGlobal();
   const [sideBarCollapsed, setSideBarCollapsed] = useState(true);
@@ -36,7 +36,7 @@ function Sidebar({ reff }) {
    */
 
   return (
-    <div className="flex" ref={reff}>
+    <div className="flex" ref={ref}>
       <div
         className={`top-0 left-0 fixed ${
           sideBarCollapsed ? "w-[5rem]" : "w-[10rem]"
@@ -89,6 +89,6 @@ function Sidebar({ reff }) {
       </div>
     </div>
   );
-}
+});
 
 export default Sidebar;
